@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Core\src\CodeDesignPlus.Net.Core\CodeDesignPlus.Net.Core.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Event.Sourcing\src\CodeDesignPlus.Net.Event.Sourcing\CodeDesignPlus.Net.Event.Sourcing.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.EventStore.PubSub\src\CodeDesignPlus.Net.EventStore.PubSub\CodeDesignPlus.Net.EventStore.PubSub.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.EventStore\src\CodeDesignPlus.Net.EventStore\CodeDesignPlus.Net.EventStore.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Kafka\src\CodeDesignPlus.Net.Kafka\CodeDesignPlus.Net.Kafka.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Mongo\src\CodeDesignPlus.Net.Mongo\CodeDesignPlus.Net.Mongo.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.PubSub\src\CodeDesignPlus.Net.PubSub\CodeDesignPlus.Net.PubSub.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Redis.PubSub\src\CodeDesignPlus.Net.Redis.PubSub\CodeDesignPlus.Net.Redis.PubSub.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Redis\src\CodeDesignPlus.Net.Redis\CodeDesignPlus.Net.Redis.csproj" />
+    <ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
