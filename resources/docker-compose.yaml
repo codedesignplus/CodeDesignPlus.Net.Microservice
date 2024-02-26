@@ -9,6 +9,8 @@ services:
       - "1433:1433"
     volumes:
       - sqlserver-data:/var/opt/mssql
+    networks:
+      - backend
 
   eventstore:
     image: eventstore/eventstore:20.10.2-buster-slim
@@ -28,6 +30,8 @@ services:
       EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: true
       EVENTSTORE_ADMIN_ON_STARTUP: admin
       EVENTSTORE_ADMIN_PASSWORD: 12345678
+    networks:
+      - backend
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -42,7 +46,9 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_KAFKA:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,PLAINTEXT_HOST_KAFKA:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      
+    networks:
+      - backend
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -51,6 +57,8 @@ services:
       - "2181:2181"
     volumes:
       - zookeeper-data:/var/lib/zookeeper/data
+    networks:
+      - backend
 
   mongo:
     image: mongo:latest
@@ -58,6 +66,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - backend
 
   redis:
     image: redis:latest
@@ -65,6 +75,8 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
+    networks:
+      - backend
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -73,7 +85,53 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9093
-      
+    networks:
+      - backend
+
+
+  grafana:
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /etc/grafana/provisioning/datasources
+        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
+        apiVersion: 1
+        datasources:
+        - name: Loki
+          type: loki
+          access: proxy 
+          orgId: 1
+          url: http://loki:3100
+          basicAuth: false
+          isDefault: true
+          version: 1
+          editable: false
+        EOF
+        /run.sh
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki:/etc/loki
+    networks:
+      - backend
+
+networks:
+  backend:
+
 volumes:
   sqlserver-data:
   eventstore-data:

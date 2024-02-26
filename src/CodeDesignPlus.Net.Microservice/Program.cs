@@ -7,9 +7,15 @@ using CodeDesignPlus.Net.Redis.PubSub.Extensions;
 using CodeDesignPlus.Net.Event.Sourcing.Extensions;
 using CodeDesignPlus.Net.EventStore.Extensions;
 using CodeDesignPlus.Net.EventStore.PubSub.Extensions;
+using CodeDesignPlus.Net.Logger.Extensions;
 using Mapster;
+using Serilog.Debugging;
 
 var builder = WebApplication.CreateSlimBuilder(args);
+
+Serilog.Debugging.SelfLog.Enable(Console.Error);
+
+builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -47,5 +53,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

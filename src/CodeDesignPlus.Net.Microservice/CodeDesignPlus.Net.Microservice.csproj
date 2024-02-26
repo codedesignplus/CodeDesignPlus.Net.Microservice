@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,6 +21,7 @@
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.EventStore.PubSub\src\CodeDesignPlus.Net.EventStore.PubSub\CodeDesignPlus.Net.EventStore.PubSub.csproj" />
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.EventStore\src\CodeDesignPlus.Net.EventStore\CodeDesignPlus.Net.EventStore.csproj" />
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Kafka\src\CodeDesignPlus.Net.Kafka\CodeDesignPlus.Net.Kafka.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Logger\src\CodeDesignPlus.Net.Logger\CodeDesignPlus.Net.Logger.csproj" />
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Mongo\src\CodeDesignPlus.Net.Mongo\CodeDesignPlus.Net.Mongo.csproj" />
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.PubSub\src\CodeDesignPlus.Net.PubSub\CodeDesignPlus.Net.PubSub.csproj" />
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Redis.PubSub\src\CodeDesignPlus.Net.Redis.PubSub\CodeDesignPlus.Net.Redis.PubSub.csproj" />

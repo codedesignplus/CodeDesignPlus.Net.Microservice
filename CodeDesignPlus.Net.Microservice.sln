@@ -70,6 +70,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{
 		resources\docker-compose.yaml = resources\docker-compose.yaml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loki", "loki", "{7044D73D-4DA7-4810-9A16-7C65B655EE64}"
+	ProjectSection(SolutionItems) = preProject
+		resources\loki\local-config.yaml = resources\loki\local-config.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,6 +226,7 @@ Global
 		{CCD29960-6D5E-4618-AF8D-4338036E39F6} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
 		{0194D454-D457-429A-8704-55AFB2F14719} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
 		{470708A8-423B-488B-B788-57C9AB49C1A0} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
+		{7044D73D-4DA7-4810-9A16-7C65B655EE64} = {600D3DDD-0AB7-4C9D-815B-F3BCAE1350DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}

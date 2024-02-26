@@ -1,5 +1,6 @@
 ﻿using CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 using CodeDesignPlus.Net.PubSub.Abstractions;
+using Newtonsoft.Json;
 
 namespace CodeDesignPlus.Net.Microservice.Consumers
 {
@@ -14,7 +15,7 @@ namespace CodeDesignPlus.Net.Microservice.Consumers
 
         public Task HandleAsync(OrderCreatedDomainEvent data, CancellationToken token)
         {
-            this.logger.LogInformation("OrderCreatedDomainEvent Recived, {aggregateId}", data.AggregateId);
+            this.logger.LogInformation("OrderCreatedDomainEvent Recived, {aggregateId}, {json}", data.AggregateId, JsonConvert.SerializeObject(data));
 
             return Task.CompletedTask;
         }
