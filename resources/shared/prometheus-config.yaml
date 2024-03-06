@@ -7,7 +7,7 @@ scrape_configs:
       - targets: ["otel-collector-contrib:8889"]
       - targets: ["otel-collector-contrib:8888"]
     
-  - job_name: 'ms-archetype-pr'
-    scrape_interval: 5s # Poll every 5 seconds for a more responsive demo.
-    static_configs:
-    - targets: ["host.docker.internal:5175"] 
+  #- job_name: 'ms-archetype-pr'
+  #  scrape_interval: 5s # Poll every 5 seconds for a more responsive demo.
+  #  static_configs:
+  #  - targets: ["host.docker.internal:5175"] 

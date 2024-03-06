@@ -12,10 +12,10 @@ receivers:
         scrape_interval: 5s
         static_configs:
         - targets: [localhost:8888]
-      # - job_name: 'ms-archetype'
-      #   scrape_interval: 5s
-      #   static_configs:
-      #   - targets: ['host.docker.internal:5175']
+      - job_name: 'ms-archetype'
+        scrape_interval: 5s
+        static_configs:
+        - targets: ['host.docker.internal:5175']
 
 exporters:
   loki:
