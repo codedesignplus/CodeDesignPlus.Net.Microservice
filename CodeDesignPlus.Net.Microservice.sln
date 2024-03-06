@@ -70,9 +70,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{
 		resources\docker-compose.yaml = resources\docker-compose.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loki", "loki", "{7044D73D-4DA7-4810-9A16-7C65B655EE64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Observability", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Observability\src\CodeDesignPlus.Net.Observability\CodeDesignPlus.Net.Observability.csproj", "{E11F035C-BDE9-488B-8A87-ED43794264AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Observability.Abstractions", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Observability\src\CodeDesignPlus.Net.Observability.Abstractions\CodeDesignPlus.Net.Observability.Abstractions.csproj", "{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{7C446BF8-6C29-44EA-BF60-0F249269464C}"
 	ProjectSection(SolutionItems) = preProject
-		resources\loki\local-config.yaml = resources\loki\local-config.yaml
+		resources\shared\grafana-datasources.yaml = resources\shared\grafana-datasources.yaml
+		resources\shared\loki-config.yaml = resources\shared\loki-config.yaml
+		resources\shared\otel-config.yaml = resources\shared\otel-config.yaml
+		resources\shared\prometheus-config.yaml = resources\shared\prometheus-config.yaml
+		resources\shared\tempo-config.yaml = resources\shared\tempo-config.yaml
 	EndProjectSection
 EndProject
 Global
@@ -193,6 +201,14 @@ Global
 		{470708A8-423B-488B-B788-57C9AB49C1A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{470708A8-423B-488B-B788-57C9AB49C1A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{470708A8-423B-488B-B788-57C9AB49C1A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E11F035C-BDE9-488B-8A87-ED43794264AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E11F035C-BDE9-488B-8A87-ED43794264AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E11F035C-BDE9-488B-8A87-ED43794264AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E11F035C-BDE9-488B-8A87-ED43794264AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -226,7 +242,9 @@ Global
 		{CCD29960-6D5E-4618-AF8D-4338036E39F6} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
 		{0194D454-D457-429A-8704-55AFB2F14719} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
 		{470708A8-423B-488B-B788-57C9AB49C1A0} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
-		{7044D73D-4DA7-4810-9A16-7C65B655EE64} = {600D3DDD-0AB7-4C9D-815B-F3BCAE1350DA}
+		{E11F035C-BDE9-488B-8A87-ED43794264AC} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
+		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
+		{7C446BF8-6C29-44EA-BF60-0F249269464C} = {600D3DDD-0AB7-4C9D-815B-F3BCAE1350DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}

@@ -10,6 +10,7 @@ using CodeDesignPlus.Net.EventStore.PubSub.Extensions;
 using CodeDesignPlus.Net.Logger.Extensions;
 using Mapster;
 using Serilog.Debugging;
+using CodeDesignPlus.Net.Observability.Extensions;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -38,6 +39,9 @@ builder.Services.AddEventSourcing(builder.Configuration);
 builder.Services.AddEventStore(builder.Configuration);
 builder.Services.AddEventStorePubSub(builder.Configuration);
 builder.Services.AddMongo(builder.Configuration);
+builder.Services.AddObservability(builder.Configuration);
+builder.Services.AddLogger(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -47,6 +51,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseObservability();
 
 app.UseHttpsRedirection();
 
