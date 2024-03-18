@@ -42,7 +42,6 @@ builder.Services.AddMongo(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration);
 builder.Services.AddLogger(builder.Configuration);
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -83,6 +83,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{7C446B
 		resources\shared\tempo-config.yaml = resources\shared\tempo-config.yaml
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Mongo.Diagnostics", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Mongo.Diagnostics\src\CodeDesignPlus.Net.Mongo.Diagnostics\CodeDesignPlus.Net.Mongo.Diagnostics.csproj", "{7EFB5D00-28C7-49FD-8A84-975EE203DF97}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Mongo.Diagnostics.Abstractions", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Mongo.Diagnostics\src\CodeDesignPlus.Net.Mongo.Diagnostics.Abstractions\CodeDesignPlus.Net.Mongo.Diagnostics.Abstractions.csproj", "{622BBA58-6706-4FCC-AC8A-507B79A9502D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -209,6 +213,14 @@ Global
 		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EFB5D00-28C7-49FD-8A84-975EE203DF97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EFB5D00-28C7-49FD-8A84-975EE203DF97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EFB5D00-28C7-49FD-8A84-975EE203DF97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EFB5D00-28C7-49FD-8A84-975EE203DF97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622BBA58-6706-4FCC-AC8A-507B79A9502D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622BBA58-6706-4FCC-AC8A-507B79A9502D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622BBA58-6706-4FCC-AC8A-507B79A9502D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622BBA58-6706-4FCC-AC8A-507B79A9502D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -245,6 +257,8 @@ Global
 		{E11F035C-BDE9-488B-8A87-ED43794264AC} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
 		{DEC5FA88-9799-4AD9-A279-36CDC3F0B072} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
 		{7C446BF8-6C29-44EA-BF60-0F249269464C} = {600D3DDD-0AB7-4C9D-815B-F3BCAE1350DA}
+		{7EFB5D00-28C7-49FD-8A84-975EE203DF97} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
+		{622BBA58-6706-4FCC-AC8A-507B79A9502D} = {64F9AAB8-03F7-41D4-98EA-CF7CF4E712F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}
