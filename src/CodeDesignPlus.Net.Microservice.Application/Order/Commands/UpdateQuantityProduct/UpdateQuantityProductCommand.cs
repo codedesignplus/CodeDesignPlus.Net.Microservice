@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using CodeDesignPlus.Net.Generator;
+using MediatR;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityProduct
 {
+    [DtoGenerator]
     public class UpdateQuantityProductCommand : IRequest
     {
         public Guid Id { get; set; }

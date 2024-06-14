@@ -159,6 +159,18 @@ services:
     command: ["--config.file=/etc/prometheus/prometheus-config.yaml"]
     networks:
       - backend
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   # APP
+      - "15672:15672" # UI
+    environment:
+      RABBITMQ_DEFAULT_USER: usr_code
+      RABBITMQ_DEFAULT_PASS: Temporal1
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 networks:
   backend:
 
@@ -170,3 +182,4 @@ volumes:
   mongo-data:
   redis-data:
   redisinsight-data:
+  rabbitmq_data:

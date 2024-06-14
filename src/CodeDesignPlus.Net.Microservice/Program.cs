@@ -11,6 +11,12 @@ using CodeDesignPlus.Net.Logger.Extensions;
 using Mapster;
 using Serilog.Debugging;
 using CodeDesignPlus.Net.Observability.Extensions;
+using CodeDesignPlus.Net.RabitMQ.Extensions;
+using FluentValidation;
+using ProtoBuf.Meta;
+using CodeDesignPlus.Net.Microservice.Core.FluentValidation;
+using CodeDesignPlus.Net.Microservice.Core.MediatR;
+using CodeDesignPlus.Net.Microservice.Core.AutoMapper;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -41,6 +47,11 @@ builder.Services.AddEventStorePubSub(builder.Configuration);
 builder.Services.AddMongo(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration);
 builder.Services.AddLogger(builder.Configuration);
+builder.Services.AddRabitMQ(builder.Configuration);
+builder.Services.AddFluentValidation();
+builder.Services.AddMediatRR();
+builder.Services.AddAutoMapperr();
+
 
 var app = builder.Build();
 
