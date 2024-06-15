@@ -9,7 +9,7 @@ using CodeDesignPlus.Net.Microservice.Application.Order.Queries.GetAllOrders;
 using CodeDesignPlus.Microservice.Api.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
+using MapsterMapper;
 
 namespace CodeDesignPlus.Net.Microservice.Controllers
 {
