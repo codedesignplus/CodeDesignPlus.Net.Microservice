@@ -1,26 +1,41 @@
 ﻿using CodeDesignPlus.Net.Core.Abstractions;
+using CodeDesignPlus.Net.Exceptions;
 using CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 using CodeDesignPlus.Net.Microservice.Domain.Entities;
 using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
 namespace CodeDesignPlus.Net.Microservice.Domain
 {
-    public class OrderAggregate(Guid id) : AggregateRoot(id)
+    public class OrderAggregate(Guid id) : AggregateRoot(id), IAuditTrail
     {
-        public DateTime? CompletionDate { get; private set; }
-        public DateTime? CancellationDate { get; private set; }
+        public DateTime? CompletedOn { get; private set; }
+        public DateTime? CancelledOn { get; private set; }
         public ClientEntity Client { get; private set; } = default!;
         public List<ProductEntity> Products { get; private set; } = [];
         public OrderStatus Status { get; private set; }
-        public DateTime CreatedAt { get; private set; }
         public string? ReasonForCancellation { get; private set; }
-        public Guid Tenant { get; private set; }
+        
+        public Guid CreateBy { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public Guid? UpdateBy { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         // TODO: Change Setter to private set from interface IAuditTrail - Repply - Add Interface IAuditTrail
 
 
-        public static OrderAggregate Create(Guid id, ClientEntity client, Guid tenant)
+        public static OrderAggregate Create(Guid id, Guid idClient, string nameClient, Guid tenant)
         {
+            DomainGuard.GuidIsEmpty(id, Errors.IdOrderIsInvalid);
+            DomainGuard.GuidIsEmpty(idClient, Errors.IdClientIsInvalid);
+            DomainGuard.IsNullOrEmpty(nameClient, Errors.NameClientIsInvalid);
+            DomainGuard.GuidIsEmpty(tenant, Errors.TenantIsInvalid);
+
+            var client = new ClientEntity
+            {
+                Id = idClient,
+                Name = nameClient
+            };
+
             var @event = OrderCreatedDomainEvent.Create(id, client, tenant);
 
             var aggregate = new OrderAggregate(id)
@@ -36,9 +51,21 @@ namespace CodeDesignPlus.Net.Microservice.Domain
             return aggregate;
         }
 
-        public void AddProduct(ProductEntity product, int quantity)
+        public void AddProduct(Guid id, string name, string description, long price, int quantity)
         {
-            product.Quantity = quantity;
+            DomainGuard.GuidIsEmpty(id, Errors.IdProductIsInvalid);
+            DomainGuard.IsNullOrEmpty(name, Errors.NameProductIsInvalid);
+            DomainGuard.IsLessThan(price, 0, Errors.PriceProductIsInvalid);
+            DomainGuard.IsLessThan(quantity, 0, Errors.QuantityProductIsInvalid);
+
+            var product = new ProductEntity
+            {
+                Id = id,
+                Name = name,
+                Description = description,
+                Price = price,
+                Quantity = quantity
+            };
 
             Products.Add(product);
 
@@ -47,10 +74,11 @@ namespace CodeDesignPlus.Net.Microservice.Domain
 
         public void RemoveProduct(Guid productId)
         {
+            DomainGuard.GuidIsEmpty(productId, Errors.IdProductIsInvalid);
+
             var product = Products.SingleOrDefault(x => x.Id == productId);
 
-            if (product == null)
-                throw new InvalidOperationException("Producto no encontrado en la orden.");
+            DomainGuard.IsNull(product, Errors.ProductNotFound);
 
             Products.Remove(product);
 
@@ -59,10 +87,12 @@ namespace CodeDesignPlus.Net.Microservice.Domain
 
         public void UpdateProductQuantity(Guid productId, int newQuantity)
         {
+            DomainGuard.GuidIsEmpty(productId, Errors.IdProductIsInvalid);
+            DomainGuard.IsLessThan(newQuantity, 0, Errors.QuantityProductIsInvalid);
+
             var product = Products.SingleOrDefault(p => p.Id == productId);
 
-            if (product == null)
-                throw new InvalidOperationException("Producto no encontrado en la orden.");
+            DomainGuard.IsNull(product, Errors.ProductNotFound);
 
             product.Quantity = newQuantity;
 
@@ -71,12 +101,11 @@ namespace CodeDesignPlus.Net.Microservice.Domain
 
         public void CompleteOrder()
         {
-            if (Status == OrderStatus.Completed)
-                throw new InvalidOperationException("La orden ya está completada.");
+            DomainGuard.IsTrue(Status == OrderStatus.Completed, Errors.OrderAlreadyCompleted);
 
             var @event = OrderCompletedDomainEvent.Create(Id);
 
-            this.CompletionDate = @event.CompletionDate;
+            this.CompletedOn = @event.CompletionDate;
             this.Status = OrderStatus.Completed;
 
             AddEvent(OrderCompletedDomainEvent.Create(Id));
@@ -84,8 +113,7 @@ namespace CodeDesignPlus.Net.Microservice.Domain
 
         public void CancelOrder(string reason)
         {
-            if (Status == OrderStatus.Cancelled)
-                throw new InvalidOperationException("La orden ya está cancelada.");
+            DomainGuard.IsTrue(Status == OrderStatus.Cancelled, Errors.OrderAlreadyCancelled);
 
             this.ReasonForCancellation = reason;
             this.Status = OrderStatus.Cancelled;

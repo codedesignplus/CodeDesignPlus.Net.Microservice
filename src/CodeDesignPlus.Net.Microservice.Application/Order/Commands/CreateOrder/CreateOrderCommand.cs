@@ -4,13 +4,10 @@ using FluentValidation;
 using MediatR;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+
 [DtoGenerator]
-public class CreateOrderCommand : IRequest
-{
-    public Guid Id { get; set; }
-    public required ClientDto Client { get; set; }
-    public Guid Tenant { get; set; }
-}
+public record CreateOrderCommand(Guid Id, ClientDto Client, Guid Tenant) : IRequest;
+
 public class Validator : AbstractValidator<CreateOrderCommand>
 {
     public Validator()

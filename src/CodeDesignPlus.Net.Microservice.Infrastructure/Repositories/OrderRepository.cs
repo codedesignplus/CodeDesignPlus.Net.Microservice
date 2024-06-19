@@ -43,11 +43,11 @@ namespace CodeDesignPlus.Net.Microservice.Infrastructure.Repositories
             return base.GetCollection<OrderAggregate>().UpdateOneAsync(filterId, update, cancellationToken: cancellationToken);
         }
 
-        public Task CompleteOrderAsync(Guid idOrder, DateTime completionDate, CancellationToken cancellationToken = default)
+        public Task CompleteOrderAsync(Guid idOrder, DateTime? completionDate, CancellationToken cancellationToken = default)
         {
             var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, idOrder);
 
-            var update = Builders<OrderAggregate>.Update.Set(x => x.CompletionDate, completionDate);
+            var update = Builders<OrderAggregate>.Update.Set(x => x.CompleteAt, completionDate);
 
             return base.GetCollection<OrderAggregate>().UpdateOneAsync(filterId, update, cancellationToken: cancellationToken);
         }

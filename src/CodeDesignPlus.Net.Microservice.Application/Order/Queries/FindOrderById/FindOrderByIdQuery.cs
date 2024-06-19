@@ -3,8 +3,5 @@ using MediatR;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById
 {
-    public class FindOrderByIdQuery : IRequest<OrderDto>
-    {
-        public Guid Id { get; set; }
-    }
+    public record FindOrderByIdQuery(Guid Id) : IRequest<OrderDto>;
 }

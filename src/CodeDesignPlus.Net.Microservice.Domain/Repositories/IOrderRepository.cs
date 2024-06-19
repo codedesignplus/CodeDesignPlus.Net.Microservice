@@ -12,7 +12,7 @@ namespace CodeDesignPlus.Net.Microservice.Domain.Repositories
         Task AddProductToOrderAsync(Guid idOrder, ProductEntity product, int quantity, CancellationToken cancellationToken = default);
         Task RemoveProductFromOrderAsync(Guid idOrder, Guid idProduct, CancellationToken cancellationToken = default);
         Task UpdateQuantityProductAsync(Guid idOrder, Guid productId, int newQuantity, CancellationToken cancellationToken = default);
-        Task CompleteOrderAsync(Guid idOrder, DateTime completionDate, CancellationToken cancellationToken = default);
+        Task CompleteOrderAsync(Guid idOrder, DateTime? completionDate, CancellationToken cancellationToken = default);
         Task CancelOrderAsync(Guid idOrder, string reason, CancellationToken cancellationToken = default);
         Task UpdateOrderAsync(OrderAggregate order, CancellationToken cancellationToken = default);
     }

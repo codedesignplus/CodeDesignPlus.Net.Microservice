@@ -19,7 +19,7 @@ namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrd
 
             order.CompleteOrder();
 
-            await this.orderRepository.CompleteOrderAsync(request.Id, request.CompleteAt, cancellationToken);
+            await this.orderRepository.CompleteOrderAsync(request.Id, order.CompleteAt, cancellationToken);
 
             await this.message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
         }
