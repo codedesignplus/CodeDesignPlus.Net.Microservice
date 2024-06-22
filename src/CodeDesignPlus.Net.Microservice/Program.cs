@@ -8,13 +8,14 @@ using CodeDesignPlus.Net.Event.Sourcing.Extensions;
 using CodeDesignPlus.Net.EventStore.Extensions;
 using CodeDesignPlus.Net.EventStore.PubSub.Extensions;
 using CodeDesignPlus.Net.Logger.Extensions;
-using Mapster;
 using CodeDesignPlus.Net.Observability.Extensions;
 using CodeDesignPlus.Net.RabitMQ.Extensions;
-using CodeDesignPlus.Net.Microservice.Core.FluentValidation;
-using CodeDesignPlus.Net.Microservice.Core.MediatR;
+using CodeDesignPlus.Net.Security.Extensions;
+using CodeDesignPlus.Net.Exceptions.Extensions;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using CodeDesignPlus.Net.Microservice.Rest.Core.FluentValidation;
+using CodeDesignPlus.Net.Microservice.Rest.Core.MediatR;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -48,12 +49,6 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
-builder.Services.AddMapster();
-builder.Services.AddMediatR(x =>
-{
-    x.RegisterServicesFromAssembly(typeof(CodeDesignPlus.Net.Microservice.Application.Startup).Assembly);
-});
-
 builder.Services.AddCore(builder.Configuration);
 builder.Services.AddRepositories<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>();
 builder.Services.AddPubSub(builder.Configuration);
@@ -67,8 +62,10 @@ builder.Services.AddMongo(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration);
 builder.Services.AddLogger(builder.Configuration);
 builder.Services.AddRabitMQ(builder.Configuration);
+builder.Services.AddMapster();
 builder.Services.AddFluentValidation();
 builder.Services.AddMediatRR();
+builder.Services.AddSecurity(builder.Configuration);
 
 
 var app = builder.Build();
@@ -76,18 +73,17 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-
-
-
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseErrorHandler();
 
 app.UseObservability();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseAuth();
 
 app.MapControllers();
 

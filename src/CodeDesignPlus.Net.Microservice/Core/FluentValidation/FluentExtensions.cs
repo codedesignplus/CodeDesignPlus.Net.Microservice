@@ -1,23 +1,19 @@
-﻿using FluentValidation;
+﻿namespace CodeDesignPlus.Net.Microservice.Rest.Core.FluentValidation;
 
-namespace CodeDesignPlus.Net.Microservice.Core.FluentValidation
+public static class FluentExtensions
 {
-    public static class FluentExtensions
+    public static IServiceCollection AddFluentValidation(this IServiceCollection services)
     {
-        public static IServiceCollection AddFluentValidation(this IServiceCollection services)
-        {
-            // Add Fluent Validation
-            var validator = AppDomain.CurrentDomain
-                       .GetAssemblies()
-                       .SelectMany(x => x.GetTypes())
-                       .Where(type => type.BaseType?.IsGenericType == true && type.BaseType.GetGenericTypeDefinition() == typeof(AbstractValidator<>))
-                       .FirstOrDefault();
+        var validator = AppDomain.CurrentDomain
+                   .GetAssemblies()
+                   .SelectMany(x => x.GetTypes())
+                   .Where(type => type.BaseType?.IsGenericType == true && type.BaseType.GetGenericTypeDefinition() == typeof(AbstractValidator<>))
+                   .FirstOrDefault();
 
-            ArgumentNullException.ThrowIfNull(validator, nameof(validator));
+        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
 
-            services.AddValidatorsFromAssembly(validator.Assembly);
+        services.AddValidatorsFromAssembly(validator.Assembly);
 
-            return services;
-        }
+        return services;
     }
 }

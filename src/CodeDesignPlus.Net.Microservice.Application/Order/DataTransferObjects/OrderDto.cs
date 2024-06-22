@@ -1,16 +1,19 @@
-﻿using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+﻿using CodeDesignPlus.Net.Microservice.Domain.Enums;
 
-namespace CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects
+namespace CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
+
+public class OrderDto
 {
-    public class OrderDto
-    {
-        public Guid Id { get; set; }
-        public DateTime? CompletionDate { get; set; }
-        public DateTime? CancellationDate { get; set; }
-        public ClientDto Client { get; set; } = default!;
-        public List<ProductDto> Products { get; set; } = [];
-        public OrderStatus Status { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string? ReasonForCancellation { get; set; }
-    }
+    public Guid Id { get; set; }
+    public long? CompletedAt { get; set; }
+    public long? CancelledAt { get; set; }
+    public ClientDto Client { get; set; } = default!;
+    public List<ProductDto> Products { get; set; } = [];
+    public OrderStatus Status { get; set; }
+    public string? ReasonForCancellation { get; set; }
+    public long CreatedAt { get; set; }
+    public Guid CreateBy { get; set; }
+    public long UpdatedAt { get; set; }
+    public Guid UpdatedBy { get; set; }
+    public bool IsActive { get; set; }
 }

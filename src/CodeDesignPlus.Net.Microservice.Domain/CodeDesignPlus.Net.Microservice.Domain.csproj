@@ -16,5 +16,9 @@
 	  <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Exceptions\src\CodeDesignPlus.Net.Exceptions\CodeDesignPlus.Net.Exceptions.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="ValueObjects\" />
+	</ItemGroup>
+
 
 </Project>

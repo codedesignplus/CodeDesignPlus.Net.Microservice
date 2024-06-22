@@ -7,7 +7,8 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- <NoWarn>$(NoWarn);1591</NoWarn> -->
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +33,7 @@
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Redis.PubSub\src\CodeDesignPlus.Net.Redis.PubSub\CodeDesignPlus.Net.Redis.PubSub.csproj" />
     <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Redis\src\CodeDesignPlus.Net.Redis\CodeDesignPlus.Net.Redis.csproj" />
     <ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Security\src\CodeDesignPlus.Net.Security\CodeDesignPlus.Net.Security.csproj" />
   </ItemGroup>
 
 </Project>

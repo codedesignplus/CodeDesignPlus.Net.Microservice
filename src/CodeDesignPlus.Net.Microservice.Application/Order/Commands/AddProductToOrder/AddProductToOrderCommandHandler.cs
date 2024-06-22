@@ -1,31 +1,17 @@
-﻿using CodeDesignPlus.Net.Microservice.Domain.Entities;
-using CodeDesignPlus.Net.Microservice.Domain.Repositories;
-using CodeDesignPlus.Net.PubSub.Abstractions;
-using MapsterMapper;
-using MediatR;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
 
-namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder
+public class AddProductToOrderCommandHandler(IOrderRepository orderRepository, IMessage message) : IRequestHandler<AddProductToOrderCommand>
 {
-    public class AddProductToOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, IMessage message) : IRequestHandler<AddProductToOrderCommand>
+    public async Task Handle(AddProductToOrderCommand request, CancellationToken cancellationToken)
     {
-        private readonly IOrderRepository orderRepository = orderRepository;
-        private readonly IMapper mapper = mapper;
-        private readonly IMessage message = message;
+        var order = await orderRepository.FindAsync(request.Id, cancellationToken);
 
-        public async Task Handle(AddProductToOrderCommand request, CancellationToken cancellationToken)
-        {
-            var order = await this.orderRepository.FindAsync(request.Id, cancellationToken);
+        ApplicationGuard.IsNull(order, Errors.OrderNotFound);
 
-            if (order is null)
-                throw new InvalidOperationException("The order was not found.");
+        order.AddProduct(request.IdProduct, request.Name, request.Description, request.Price, request.Quantity);
 
-            var product = this.mapper.Map<ProductEntity>(request.Product);
+        await orderRepository.AddProductToOrderAsync(request.Id, request.IdProduct, request.Name, request.Description, request.Price, request.Quantity, cancellationToken);
 
-            order.AddProduct(product, request.Quantity);
-
-            await this.orderRepository.AddProductToOrderAsync(request.Id, product, request.Quantity, cancellationToken);
-
-            await this.message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
-        }
+        await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
 }

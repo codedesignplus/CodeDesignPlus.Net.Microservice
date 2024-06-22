@@ -1,12 +1,13 @@
-﻿using CodeDesignPlus.Net.Generator;
-using MediatR;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder;
 
-namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder
+[DtoGenerator]
+public record CancelOrderCommand(Guid Id, string Reason) : IRequest;
+
+public class Validator : AbstractValidator<CancelOrderCommand>
 {
-    [DtoGenerator]
-    public class CancelOrderCommand : IRequest
+    public Validator()
     {
-        public Guid Id { get; set; }
-        public required string Reason { get; set; }
+        RuleFor(x => x.Id).NotEmpty().NotNull();
+        RuleFor(x => x.Reason).NotEmpty().NotNull();
     }
 }

@@ -1,13 +1,14 @@
-﻿using CodeDesignPlus.Net.Generator;
-using MediatR;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityProduct;
 
-namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityProduct
+[DtoGenerator]
+public record UpdateQuantityProductCommand(Guid Id, Guid ProductId, int Quantity) : IRequest;
+
+public class Validator : AbstractValidator<UpdateQuantityProductCommand>
 {
-    [DtoGenerator]
-    public class UpdateQuantityProductCommand : IRequest
+    public Validator()
     {
-        public Guid Id { get; set; }
-        public Guid ProductId { get; set; }
-        public int Quantity { get; set; }
+        RuleFor(x => x.Id).NotEmpty().NotNull();
+        RuleFor(x => x.ProductId).NotEmpty().NotNull();
+        RuleFor(x => x.Quantity).GreaterThan(0);
     }
 }

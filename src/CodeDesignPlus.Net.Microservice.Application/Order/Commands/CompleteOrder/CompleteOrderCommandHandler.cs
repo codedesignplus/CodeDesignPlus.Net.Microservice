@@ -1,27 +1,18 @@
-﻿using CodeDesignPlus.Net.Microservice.Domain.Repositories;
-using CodeDesignPlus.Net.PubSub.Abstractions;
-using MediatR;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder;
 
-namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder
+public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IPubSub message) : IRequestHandler<CompleteOrderCommand>
 {
-    public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IPubSub message) : IRequestHandler<CompleteOrderCommand>
+    public async Task Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
     {
-        private readonly IOrderRepository orderRepository = orderRepository;
-        private readonly IPubSub message = message;
+        var order = await orderRepository.FindAsync(request.Id, cancellationToken);
 
-        public async Task Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
-        {
+        ApplicationGuard.IsNull(order, Errors.OrderNotFound);
 
-            var order = await this.orderRepository.FindAsync(request.Id, cancellationToken);
+        order.CompleteOrder();
 
-            if (order is null)
-                throw new InvalidOperationException("The order was not found.");
+        await orderRepository.CompleteOrderAsync(request.Id, order.CompletedAt, cancellationToken);
 
-            order.CompleteOrder();
-
-            await this.orderRepository.CompleteOrderAsync(request.Id, order.CompleteAt, cancellationToken);
-
-            await this.message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
-        }
+        await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
 }
+

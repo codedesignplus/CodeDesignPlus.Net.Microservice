@@ -1,0 +1,17 @@
+﻿global using CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
+global using CodeDesignPlus.Net.PubSub.Abstractions;
+global using Newtonsoft.Json;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.RemoveProduct;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityProduct;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
+global using CodeDesignPlus.Net.Microservice.Application.Order.Queries.GetAllOrders;
+global using CodeDesignPlus.Microservice.Api.Dtos;
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using MapsterMapper;
+global using FluentValidation;
+global using Mapster;
