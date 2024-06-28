@@ -16,6 +16,8 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using CodeDesignPlus.Net.Microservice.Rest.Core.FluentValidation;
 using CodeDesignPlus.Net.Microservice.Rest.Core.MediatR;
+using CodeDesignPlus.Net.Microservice.Rest.Core.Middlewares;
+using CodeDesignPlus.Net.Microservice.Rest.Core.Swagger;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -23,31 +25,10 @@ Serilog.Debugging.SelfLog.Enable(Console.Error);
 
 builder.Host.UseSerilog();
 
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-var info = new OpenApiInfo()
-{
-    Title = "Orders",
-    Version = "v1",
-    Description = "Microservice Template",
-    Contact = new OpenApiContact()
-    {
-        Name = "CodeDesignPlus",
-        Email = "codedesignplus@outlook.com",
-    }
-};
 
 builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", info);
-
-    // Set the comments path for the Swagger JSON and UI.
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
-});
 
 builder.Services.AddCore(builder.Configuration);
 builder.Services.AddRepositories<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>();
@@ -66,20 +47,18 @@ builder.Services.AddMapster();
 builder.Services.AddFluentValidation();
 builder.Services.AddMediatRR();
 builder.Services.AddSecurity(builder.Configuration);
+builder.Services.AddCoreSwagger(builder.Configuration);
 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseCoreSwagger();
 
-app.UseErrorHandler();
+app.UseMiddleware<ExceptionMiddlware>();
 
-app.UseObservability();
+
+//app.UseObservability();
 
 app.UseHttpsRedirection();
 

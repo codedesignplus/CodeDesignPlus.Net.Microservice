@@ -19,14 +19,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.PubSub\src\CodeDesignPlus.Net.PubSub.Abstractions\CodeDesignPlus.Net.PubSub.Abstractions.csproj" />
-		<ProjectReference Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Redis\src\CodeDesignPlus.Net.Redis.Abstractions\CodeDesignPlus.Net.Redis.Abstractions.csproj" />
+		<ProjectReference Include="..\..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.PubSub\src\CodeDesignPlus.Net.PubSub.Abstractions\CodeDesignPlus.Net.PubSub.Abstractions.csproj" />
+		<ProjectReference Include="..\..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Redis\src\CodeDesignPlus.Net.Redis.Abstractions\CodeDesignPlus.Net.Redis.Abstractions.csproj" />
 		<ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj" />
 	</ItemGroup>
 
 
 	<ItemGroup>
-		<Compile Include="..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Generator\src\CodeDesignPlus.Net.Generator\Attributes\DtoGeneratorAttribute.cs" Link="DtoGeneratorAttribute.cs" />
+		<Compile Include="..\..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Generator\src\CodeDesignPlus.Net.Generator\Attributes\DtoGeneratorAttribute.cs" Link="DtoGeneratorAttribute.cs" />
 	</ItemGroup>
 
 </Project>
