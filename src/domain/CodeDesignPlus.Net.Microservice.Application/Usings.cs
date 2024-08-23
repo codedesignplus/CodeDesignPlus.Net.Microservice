@@ -3,6 +3,7 @@ global using CodeDesignPlus.Net.PubSub.Abstractions;
 global using MediatR;
 global using MapsterMapper;
 global using CodeDesignPlus.Net.Exceptions;
+global using CodeDesignPlus.Net.Exceptions.Guards;
 global using CodeDesignPlus.Net.Microservice.Domain;
 global using CodeDesignPlus.Net.Generator.Attributes;
 global using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;

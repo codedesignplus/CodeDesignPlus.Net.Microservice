@@ -2,7 +2,7 @@
 
 namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
-[Key("dtop.ms-archetype.v1.domain_event.product.added_to_order")]
+[EventKey<ProductEntity>(1, "ProductAddedToOrder")]
 public class ProductAddedToOrderDomainEvent(
     Guid aggregateId,
     int quantity,

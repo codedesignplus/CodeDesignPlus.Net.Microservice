@@ -2,7 +2,7 @@
 
 namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
-[Key("dtop.ms-archetype.v1.domain_event.order.name_updated")]
+[EventKey<OrderAggregate>(1, "OrderCompleted")]
 public class OrderCompletedDomainEvent(
      Guid aggregateId,
      long completedAt,

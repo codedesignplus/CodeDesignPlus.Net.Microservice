@@ -2,7 +2,7 @@
 
 namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
-[Key("dtop.ms-archetype.v1.domain_event.order.cancelled")]
+[EventKey<OrderAggregate>(1, "OrderCancelled")]
 public class OrderCancelledDomainEvent(
     Guid aggregateId,
     long cancelledAt,

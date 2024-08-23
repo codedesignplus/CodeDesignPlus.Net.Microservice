@@ -1,7 +1,7 @@
 ﻿
 namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
-[Key("dtop.ms-archetype.v1.domain_event.order.created")]
+[EventKey<OrderAggregate>(1, "OrderCreated")]
 public class OrderCreatedDomainEvent(
    Guid aggregateId,
    OrderStatus orderStatus,
