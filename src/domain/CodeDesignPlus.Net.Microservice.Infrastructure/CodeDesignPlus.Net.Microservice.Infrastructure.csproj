@@ -11,7 +11,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj" />
+		<ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj" />
 	</ItemGroup>
+
+	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
+		<ItemGroup>
+			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'CodeDesignPlus.Net.Generator'"/>
+		</ItemGroup>
+	</Target>
 
 </Project>
