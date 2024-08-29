@@ -29,6 +29,8 @@
 
 		<ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
 
+		<ProjectReference Include="..\..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Logger\src\CodeDesignPlus.Net.Logger\CodeDesignPlus.Net.Logger.csproj" />
+
 	</ItemGroup>
 
 </Project>

@@ -25,75 +25,17 @@ enum OrderStatus
 
 // The orders service definition.
 service Orders {
-  rpc GetOrders (GetOrdersRequest) returns (GetOrdersResponse);
-  rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
-  rpc CreateOrder (CreateOrderRequest) returns (google.protobuf.Empty);
-  rpc CancelOrder (CancelOrderRequest) returns (google.protobuf.Empty);
-  rpc CompleteOrder (CompleteOrderRequest) returns (google.protobuf.Empty);
-  rpc AddProductToOrder (AddProductToOrderRequest) returns (google.protobuf.Empty);
-  rpc UpdateQuantityProductToOrder (UpdateQuantityProductToOrderRequest) returns (google.protobuf.Empty);
-  rpc RemoveProductFromOrder (RemoveProductFromOrderRequest) returns (google.protobuf.Empty);
-}
-
-// Types to request
-message GetOrdersRequest {
-  Criteria Criteria = 1;
+  rpc GetOrder (stream GetOrderRequest) returns (stream GetOrderResponse);
 }
 
 message GetOrderRequest {
   string Id = 1;
 }
 
-message CreateOrderRequest {
-  string Id = 1;
-  Client client = 2;
-}
-
-message CancelOrderRequest {
-  string Id = 1;
-  string Reason = 2;
-}
-
-message CompleteOrderRequest {
-  string Id = 1;
-}
-
-message AddProductToOrderRequest {
-  string Id = 1;
-  string IdProduct = 2;
-  string Name = 3;
-  string Description = 4;
-  int64 Price = 5;
-  int32 Quantity = 6;
-}
-
-message UpdateQuantityProductToOrderRequest {
-  string Id = 1;
-  string IdProduct = 2;
-  int32 Quantity = 3;
-}
-
-message RemoveProductFromOrderRequest {
-  string Id = 1;
-  string IdProduct = 2;
-}
-
 // Types to response
-message GetOrdersResponse {
-  repeated Order Orders = 1;
-}
-
 message GetOrderResponse {
   Order Order = 1;
 }
-
-// Default Types
-message Criteria {
-  google.protobuf.StringValue filters = 1;
-  google.protobuf.StringValue orderBy = 2;
-  OrderType orderType = 3;
-}
-
 
 message Order {
   string id = 1;

@@ -1,67 +1,17 @@
 version: '3.8'
 services:
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    environment:
-      SA_PASSWORD: "FhU8nz771q6D"
-      ACCEPT_EULA: "Y"
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
     ports:
-      - "1433:1433"
-    volumes:
-      - sqlserver-data:/var/opt/mssql
-    networks:
-      - backend
-
-  eventstore:
-    image: eventstore/eventstore:20.10.2-buster-slim
-    ports:
-      - "2113:2113"
-      - "1113:1113"
-    volumes:
-      - eventstore-data:/var/lib/eventstore   
+      - "5672:5672"   # APP
+      - "15672:15672" # UI
     environment:
-      EVENTSTORE_CLUSTER_SIZE: 1
-      EVENTSTORE_RUN_PROJECTIONS: All
-      EVENTSTORE_START_STANDARD_PROJECTIONS: true
-      EVENTSTORE_EXT_TCP_PORT: 1113
-      EVENTSTORE_HTTP_PORT: 2113
-      EVENTSTORE_INSECURE: true
-      EVENTSTORE_ENABLE_EXTERNAL_TCP: true
-      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: true
-      EVENTSTORE_ADMIN_ON_STARTUP: admin
-      EVENTSTORE_ADMIN_PASSWORD: 12345678
-    networks:
-      - backend
-
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    ports:
-      - "9092:9092"
+      RABBITMQ_DEFAULT_USER: usr_code
+      RABBITMQ_DEFAULT_PASS: Temporal1
     volumes:
-      - kafka-data:/var/lib/kafka/data
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_KAFKA://kafka:9093,PLAINTEXT_HOST://localhost:29092,PLAINTEXT_HOST_KAFKA://kafka:29093
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_KAFKA:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,PLAINTEXT_HOST_KAFKA:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    networks:
-      - backend
-    depends_on:
-      - zookeeper
-
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-    ports:
-      - "2181:2181"
-    volumes:
-      - zookeeper-data:/var/lib/zookeeper/data
-    networks:
-      - backend
-
+      - rabbitmq_data:/var/lib/rabbitmq
+      
   mongo:
     image: mongo:latest
     ports:
@@ -80,20 +30,12 @@ services:
     networks:
       - backend
 
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    ports:
-      - "8080:8080"
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9093
-    networks:
-      - backend
-
   grafana:
     image: grafana/grafana:latest
     volumes:
       - ./shared/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./shared/grafana-dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./shared/dashboards:/var/lib/grafana/dashboards
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -109,9 +51,9 @@ services:
     ports:
       - "4317:4317" # OTLP gRPC port
       - "4318:4318" # OTLP http port
-      - "55680:55680" # Prometheus metrics port
     volumes:
       - ./shared/otel-config.yaml:/etc/otel/config.yaml
+      - ./prom_rw:/etc/prom_rw
     command: ["--config", "/etc/otel/config.yaml"]
     depends_on:
       - prometheus
@@ -119,7 +61,6 @@ services:
       - tempo
     networks:
       - backend
-    
 
   loki:
     image: grafana/loki:latest
@@ -134,22 +75,15 @@ services:
   tempo:
     image: grafana/tempo:latest
     ports:
-      - "14268:14268"  # jaeger ingest
-      - "3200:3200"   # tempo
-      - "9095:9095" # tempo grpc
       - "4320:4317"  # otlp grpc
       - "4321:4318"  # otlp http
-      - "9411:9411"   # zipkin
-      - "8888:8888" # Prometheus metrics exposed by the collector
-      - "8889:8889" # Prometheus exporter metrics
-      - "13133:13133" # health_check extension
+      - "3200:3200"  # metrics
     volumes:
       - ./shared/tempo-config.yaml:/etc/tempo-config.yaml
     command: ["-config.file=/etc/tempo-config.yaml"]
     networks:
       - backend
 
-  # include prometheus a this docker compose file
   prometheus:
     image: prom/prometheus:latest
     ports:
@@ -160,26 +94,10 @@ services:
     networks:
       - backend
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"   # APP
-      - "15672:15672" # UI
-    environment:
-      RABBITMQ_DEFAULT_USER: usr_code
-      RABBITMQ_DEFAULT_PASS: Temporal1
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
 networks:
   backend:
 
 volumes:
-  sqlserver-data:
-  eventstore-data:
-  kafka-data:
-  zookeeper-data:
   mongo-data:
   redis-data:
-  redisinsight-data:
   rabbitmq_data:

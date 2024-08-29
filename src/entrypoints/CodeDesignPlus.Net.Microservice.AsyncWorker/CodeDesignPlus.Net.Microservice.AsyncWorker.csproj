@@ -10,8 +10,6 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
-
 		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.1.1" />
 		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.1.1" />
 		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.1.1" />

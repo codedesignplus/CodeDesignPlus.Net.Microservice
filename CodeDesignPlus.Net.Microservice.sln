@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{7C446B
 		resources\shared\otel-config.yaml = resources\shared\otel-config.yaml
 		resources\shared\prometheus-config.yaml = resources\shared\prometheus-config.yaml
 		resources\shared\tempo-config.yaml = resources\shared\tempo-config.yaml
+		resources\shared\grafana-dashboards.yaml = resources\shared\grafana-dashboards.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "entrypoints", "entrypoints", "{EBFDC2CC-2318-45BC-B619-8754439D2541}"
@@ -36,6 +37,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest", "src\entrypoints\CodeDesignPlus.Net.Microservice.Rest\CodeDesignPlus.Net.Microservice.Rest.csproj", "{4971758B-7FA0-489F-A5EF-5913385BB672}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8CA2014D-1EBA-4CC8-B303-13289F7F279C}"
+	ProjectSection(SolutionItems) = preProject
+		load-rest.js = load-rest.js
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{37EF7822-C019-4075-98FE-08E61627C707}"
 EndProject

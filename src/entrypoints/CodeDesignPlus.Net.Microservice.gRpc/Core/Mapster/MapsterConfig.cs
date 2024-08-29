@@ -9,11 +9,5 @@ public static class MapsterConfig
 
         TypeAdapterConfig<ClientDto, Client>.NewConfig().TwoWays();
         TypeAdapterConfig<ProductDto, Product>.NewConfig().TwoWays();
-
-        TypeAdapterConfig<AddProductToOrderRequest, AddProductToOrderCommand>.NewConfig().TwoWays();
-        TypeAdapterConfig<CancelOrderRequest, CancelOrderCommand>.NewConfig().TwoWays();
-        TypeAdapterConfig<CreateOrderRequest, CreateOrderCommand>.NewConfig().TwoWays();
-        TypeAdapterConfig<UpdateQuantityProductToOrderRequest, UpdateQuantityProductCommand>.NewConfig().TwoWays();
-        TypeAdapterConfig<RemoveProductFromOrderRequest, RemoveProductCommand>.NewConfig().TwoWays();
     }
 }
