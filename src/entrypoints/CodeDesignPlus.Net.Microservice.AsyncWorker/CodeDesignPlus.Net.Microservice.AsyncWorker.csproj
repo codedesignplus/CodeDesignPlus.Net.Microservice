@@ -12,10 +12,16 @@
 	<ItemGroup>
 		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.1.1" />
 		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.1.1" />
+		<!-- <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.1.1" /> -->
 		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.1.1" />
 		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.1.1" />
 		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.1.1" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj" />
+	  <ProjectReference Include="..\..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.RabbitMQ\src\CodeDesignPlus.Net.RabbitMQ\CodeDesignPlus.Net.RabbitMQ.csproj" />
 	</ItemGroup>
 
 </Project>

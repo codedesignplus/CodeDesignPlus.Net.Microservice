@@ -44,14 +44,10 @@ app.UseCoreSwagger();
 
 app.UseMiddleware<ExceptionMiddlware>();
 
-
-//app.UseObservability();
-
 app.UseHttpsRedirection();
 
 app.UseAuth();
 
 app.MapControllers();
 
-
-app.Run();
+await app.RunAsync();

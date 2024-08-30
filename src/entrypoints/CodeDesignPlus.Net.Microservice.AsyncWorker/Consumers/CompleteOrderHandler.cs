@@ -1,13 +1,9 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.AsyncWorker.Consumers;
 
-public class CompleteOrderHandler : IEventHandler<OrderCompletedDomainEvent>
+[QueueName("orderaggregate", "write_logger")]
+public class CompleteOrderHandler(ILogger<CompleteOrderHandler> logger) : IEventHandler<OrderCompletedDomainEvent>
 {
-    private readonly ILogger<CompleteOrderHandler> logger;
-
-    public CompleteOrderHandler(ILogger<CompleteOrderHandler> logger)
-    {
-        this.logger = logger;
-    }
+    private readonly ILogger<CompleteOrderHandler> logger = logger;
 
     public Task HandleAsync(OrderCompletedDomainEvent data, CancellationToken token)
     {

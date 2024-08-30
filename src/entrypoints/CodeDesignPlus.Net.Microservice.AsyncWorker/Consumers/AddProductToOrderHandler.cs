@@ -1,13 +1,9 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.AsyncWorker.Consumers;
 
-public class AddProductToOrderHandler : IEventHandler<ProductAddedToOrderDomainEvent>
+[QueueName("productentity", "write_logger")]
+public class AddProductToOrderHandler(ILogger<AddProductToOrderHandler> logger) : IEventHandler<ProductAddedToOrderDomainEvent>
 {
-    private readonly ILogger<AddProductToOrderHandler> logger;
-
-    public AddProductToOrderHandler(ILogger<AddProductToOrderHandler> logger)
-    {
-        this.logger = logger;
-    }
+    private readonly ILogger<AddProductToOrderHandler> logger = logger;
 
     public Task HandleAsync(ProductAddedToOrderDomainEvent data, CancellationToken token)
     {

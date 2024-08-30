@@ -15,24 +15,15 @@ Serilog.Debugging.SelfLog.Enable(Console.Error);
 
 builder.Host.UseSerilog();
 
-builder.Services.ConfigureHttpJsonOptions(options =>
-{
-    //options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
-});
-
-
 builder.Services.AddMongo<StartupServices>(builder.Configuration);
-builder.Services.AddCore(builder.Configuration);
-builder.Services.AddRepositories<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>();
-builder.Services.AddPubSub(builder.Configuration);
 builder.Services.AddRedis(builder.Configuration);
 builder.Services.AddRabbitMQ(builder.Configuration);
 builder.Services.AddSecurity(builder.Configuration);
 
 var app = builder.Build();
 
-var todosApi = app.MapGroup("/home");
+var home = app.MapGroup("/home");
 
-todosApi.MapGet("/", () => "Ready");
+home.MapGet("/", () => "Ready");
 
-app.Run();
+await app.RunAsync();

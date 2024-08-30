@@ -1,13 +1,9 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.AsyncWorker.Consumers;
 
-public class ProductRemovedFromOrderHandler : IEventHandler<ProductRemovedFromOrderDomainEvent>
+[QueueName("orderaggregate", "write_logger")]
+public class ProductRemovedFromOrderHandler(ILogger<ProductRemovedFromOrderHandler> logger) : IEventHandler<ProductRemovedFromOrderDomainEvent>
 {
-    private readonly ILogger<ProductRemovedFromOrderHandler> logger;
-
-    public ProductRemovedFromOrderHandler(ILogger<ProductRemovedFromOrderHandler> logger)
-    {
-        this.logger = logger;
-    }
+    private readonly ILogger<ProductRemovedFromOrderHandler> logger = logger;
 
     public Task HandleAsync(ProductRemovedFromOrderDomainEvent data, CancellationToken token)
     {
