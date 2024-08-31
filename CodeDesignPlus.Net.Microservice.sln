@@ -59,6 +59,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "tests\Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.RabbitMQ", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.RabbitMQ\src\CodeDesignPlus.Net.RabbitMQ\CodeDesignPlus.Net.RabbitMQ.csproj", "{3F270385-69CD-4222-B4EC-45C7081D124F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Core", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Core\src\CodeDesignPlus.Net.Core\CodeDesignPlus.Net.Core.csproj", "{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.PubSub", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.PubSub\src\CodeDesignPlus.Net.PubSub\CodeDesignPlus.Net.PubSub.csproj", "{5689BC80-9345-4FFC-BDD7-67ECD75A6935}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.RabbitMQ.Abstractions", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.RabbitMQ\src\CodeDesignPlus.Net.RabbitMQ.Abstractions\CodeDesignPlus.Net.RabbitMQ.Abstractions.csproj", "{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +127,18 @@ Global
 		{3F270385-69CD-4222-B4EC-45C7081D124F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F270385-69CD-4222-B4EC-45C7081D124F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F270385-69CD-4222-B4EC-45C7081D124F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
