@@ -6,7 +6,7 @@ public class OrderCreatedDomainEvent(
    Guid aggregateId,
    OrderStatus orderStatus,
    ClientEntity client,
-   long createAt,
+   long createdAt,
    Guid tenant,
    Guid? eventId = null,
    DateTime? occurredAt = null,
@@ -15,7 +15,7 @@ public class OrderCreatedDomainEvent(
 {
     public ClientEntity Client { get; } = client;
     public OrderStatus OrderStatus { get; } = orderStatus;
-    public long CreatedAt { get; } = createAt;
+    public long CreatedAt { get; } = createdAt;
     public Guid Tenant { get; private set; } = tenant;
 
     public static OrderCreatedDomainEvent Create(Guid id, ClientEntity client, Guid tenant)

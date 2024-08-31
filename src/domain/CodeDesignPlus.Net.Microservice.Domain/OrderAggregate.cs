@@ -103,6 +103,7 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
         DomainGuard.IsTrue(Status == OrderStatus.Cancelled, Errors.OrderAlreadyCancelled);
 
         this.ReasonForCancellation = reason;
+        this.CancelledAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         this.Status = OrderStatus.Cancelled;
 
         AddEvent(OrderCancelledDomainEvent.Create(Id, reason));

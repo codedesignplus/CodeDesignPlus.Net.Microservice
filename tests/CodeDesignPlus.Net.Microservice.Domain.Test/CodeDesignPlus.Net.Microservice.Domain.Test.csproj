@@ -20,4 +20,13 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories/" />
+    <Folder Include="ValueObjects/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\domain\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
