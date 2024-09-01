@@ -12,8 +12,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="CodeDesignPlus.Net.Generator" Version="0.1.2-alpha.1" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="0.1.1" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="0.2.0-alpha.3" />
+		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="0.2.0-alpha.3" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
 		<PackageReference Include="MediatR" Version="12.2.0" />

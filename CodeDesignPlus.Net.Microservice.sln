@@ -55,16 +55,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microser
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CE331B2A-8735-469E-80AC-B2994AD8BBFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "tests\ConsoleApp1\ConsoleApp1.csproj", "{FB1EC7C4-0D7B-46F5-900D-C1385C412A57}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.RabbitMQ", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.RabbitMQ\src\CodeDesignPlus.Net.RabbitMQ\CodeDesignPlus.Net.RabbitMQ.csproj", "{3F270385-69CD-4222-B4EC-45C7081D124F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Core", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.Core\src\CodeDesignPlus.Net.Core\CodeDesignPlus.Net.Core.csproj", "{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.PubSub", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.PubSub\src\CodeDesignPlus.Net.PubSub\CodeDesignPlus.Net.PubSub.csproj", "{5689BC80-9345-4FFC-BDD7-67ECD75A6935}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.RabbitMQ.Abstractions", "..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.RabbitMQ\src\CodeDesignPlus.Net.RabbitMQ.Abstractions\CodeDesignPlus.Net.RabbitMQ.Abstractions.csproj", "{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,26 +109,6 @@ Global
 		{6A2BE50F-AF85-450B-A96C-9215B835F66A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A2BE50F-AF85-450B-A96C-9215B835F66A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A2BE50F-AF85-450B-A96C-9215B835F66A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB1EC7C4-0D7B-46F5-900D-C1385C412A57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB1EC7C4-0D7B-46F5-900D-C1385C412A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB1EC7C4-0D7B-46F5-900D-C1385C412A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB1EC7C4-0D7B-46F5-900D-C1385C412A57}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F270385-69CD-4222-B4EC-45C7081D124F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F270385-69CD-4222-B4EC-45C7081D124F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F270385-69CD-4222-B4EC-45C7081D124F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F270385-69CD-4222-B4EC-45C7081D124F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5689BC80-9345-4FFC-BDD7-67ECD75A6935}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B1350D1-89C2-4541-8F1C-8D0ED85048F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,7 +129,6 @@ Global
 		{81072338-3624-4DF7-9772-D3921FE3A02C} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
 		{D0F99E3F-CCF7-479A-B471-3979563E3130} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
 		{6A2BE50F-AF85-450B-A96C-9215B835F66A} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{FB1EC7C4-0D7B-46F5-900D-C1385C412A57} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}

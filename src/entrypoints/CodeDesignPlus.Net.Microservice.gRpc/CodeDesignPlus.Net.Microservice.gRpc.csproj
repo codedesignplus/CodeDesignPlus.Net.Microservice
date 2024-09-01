@@ -22,13 +22,13 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
 
-		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.1.1" />
-		<PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="0.1.1" />
+		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.2.0-alpha.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.2.0-alpha.3" />
+		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.2.0-alpha.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.2.0-alpha.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.2.0-alpha.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.2.0-alpha.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="0.2.0-alpha.3" />
 	</ItemGroup>
 
 </Project>

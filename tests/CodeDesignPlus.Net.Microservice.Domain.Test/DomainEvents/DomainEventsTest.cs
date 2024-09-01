@@ -46,4 +46,39 @@ public class DomainEvents
 
         }
     }
+
+
+    [Fact]
+    public void NameConstructor_CreateInstance_CustomValues()
+    {
+        var domainEvents = typeof(OrderCancelledDomainEvent).Assembly
+            .GetTypes()
+            .Where(x => typeof(IDomainEvent).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+            .ToList();
+
+        foreach (var domainEvent in domainEvents)
+        {
+            var nameConstructor = domainEvent.GetMethod("Create", BindingFlags.Static | BindingFlags.Public);
+
+            Assert.NotNull(nameConstructor);
+
+            var parameters = nameConstructor.GetParameters();
+
+            Assert.NotEmpty(parameters);
+
+            var values = parameters.GetValues();
+
+            var instance = nameConstructor.Invoke(null, [.. values.Values]);
+
+            Assert.NotNull(instance);
+
+            var property = domainEvent.GetProperty(nameof(DomainEvent.AggregateId)); 
+
+            var value = property!.GetValue(instance, null);
+
+            var valueExpected = property.PropertyType.GetDefaultValue();
+
+            Assert.NotEqual(valueExpected, value);
+        }
+    }
 }
