@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
 
-public class CreateOrderCommandHandler(IOrderRepository orderRepository, IPubSub message) : IRequestHandler<CreateOrderCommand>
+public class CreateOrderCommandHandler(IOrderRepository orderRepository, IMessage message) : IRequestHandler<CreateOrderCommand>
 {
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {

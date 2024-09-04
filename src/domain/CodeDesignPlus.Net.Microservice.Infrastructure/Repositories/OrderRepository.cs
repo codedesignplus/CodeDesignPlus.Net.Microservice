@@ -1,12 +1,7 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Infrastructure.Repositories;
 
-public class OrderRepository : RepositoryBase, IOrderRepository
+public class OrderRepository(IServiceProvider serviceProvider, IOptions<MongoOptions> mongoOptions, ILogger<RepositoryBase> logger) : RepositoryBase(serviceProvider, mongoOptions, logger), IOrderRepository
 {
-    public OrderRepository(IServiceProvider serviceProvider, IOptions<MongoOptions> mongoOptions, ILogger<RepositoryBase> logger)
-        : base(serviceProvider, mongoOptions, logger)
-    {
-    }
-
     public Task AddProductToOrderAsync(Guid idOrder, Guid idProduct, string name, string description, long price, int quantity, CancellationToken cancellationToken)
     {
         var product = new ProductEntity
@@ -21,12 +16,13 @@ public class OrderRepository : RepositoryBase, IOrderRepository
         var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, idOrder);
         var update = Builders<OrderAggregate>.Update.Push(x => x.Products, product);
 
-        return base.GetCollection<OrderAggregate>()
-            .UpdateOneAsync(
-                filterId,
-                update,
-                cancellationToken: cancellationToken
-             );
+        var collection = base.GetCollection<OrderAggregate>();
+
+        return collection.UpdateOneAsync(
+            filterId,
+            update,
+            cancellationToken: cancellationToken
+         );
     }
 
     public Task CancelOrderAsync(Guid idOrder, string reason, CancellationToken cancellationToken)

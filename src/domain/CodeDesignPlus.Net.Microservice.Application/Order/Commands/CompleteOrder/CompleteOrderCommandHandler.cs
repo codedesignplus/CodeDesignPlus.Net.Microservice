@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder;
 
-public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IPubSub message) : IRequestHandler<CompleteOrderCommand>
+public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IMessage message) : IRequestHandler<CompleteOrderCommand>
 {
     public async Task Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
     {
