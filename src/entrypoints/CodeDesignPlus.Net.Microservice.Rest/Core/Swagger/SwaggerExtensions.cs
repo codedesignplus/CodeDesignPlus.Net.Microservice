@@ -10,8 +10,8 @@ public static class SwaggerExtensions
 {
     public static IServiceCollection AddCoreSwagger(this IServiceCollection services, IConfiguration configuration)
     {
-        ArgumentNullException.ThrowIfNull(services, nameof(services));
-        ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configuration);
 
         var section = configuration.GetSection(CoreOptions.Section);
 
@@ -65,7 +65,7 @@ public static class SwaggerExtensions
                             Id="Bearer"
                         }
                     },
-                    new string[]{}
+                    Array.Empty<string>()
                 }
             });
         });
@@ -76,7 +76,7 @@ public static class SwaggerExtensions
 
     public static IApplicationBuilder UseCoreSwagger(this IApplicationBuilder app)
     {
-        ArgumentNullException.ThrowIfNull(app, nameof(app));
+        ArgumentNullException.ThrowIfNull(app);
 
         var options = app.ApplicationServices.GetRequiredService<IOptions<CoreOptions>>().Value;
 
@@ -86,8 +86,6 @@ public static class SwaggerExtensions
         {
             c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{options.AppName} {options.Version}");
         });
-
-        //app.UseSwaggerUI();
 
         return app;
     }

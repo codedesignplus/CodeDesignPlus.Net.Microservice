@@ -26,6 +26,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<SonarQubeSetting Include="sonar.coverage.exclusions">
+		<Value>**/Swagger.cs, **/Program.cs</Value>
+		</SonarQubeSetting>
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
 	</ItemGroup>
 
