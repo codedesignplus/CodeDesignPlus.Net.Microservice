@@ -15,3 +15,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using MapsterMapper;
 global using FluentValidation;
 global using Mapster;
+global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
+global using Microsoft.AspNetCore.Authorization;

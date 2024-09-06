@@ -1,7 +1,4 @@
-﻿global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
-using Microsoft.AspNetCore.Authorization;
-
-namespace CodeDesignPlus.Net.Microservice.Rest.Controllers;
+﻿namespace CodeDesignPlus.Net.Microservice.Rest.Controllers;
 
 /// <summary>
 /// Controller class responsible for handling HTTP requests related to orders.

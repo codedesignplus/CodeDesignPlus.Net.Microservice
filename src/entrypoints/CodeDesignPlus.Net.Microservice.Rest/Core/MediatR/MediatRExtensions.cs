@@ -10,7 +10,6 @@ public static class MediatRExtensions
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipeline<,>));
 
-
         return services;
     }
 }

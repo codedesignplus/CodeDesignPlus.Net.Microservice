@@ -7,10 +7,9 @@ public static class FluentExtensions
         var validator = AppDomain.CurrentDomain
                    .GetAssemblies()
                    .SelectMany(x => x.GetTypes())
-                   .Where(type => type.BaseType?.IsGenericType == true && type.BaseType.GetGenericTypeDefinition() == typeof(AbstractValidator<>))
-                   .FirstOrDefault();
+                   .FirstOrDefault(type => type.BaseType?.IsGenericType == true && type.BaseType.GetGenericTypeDefinition() == typeof(AbstractValidator<>));
 
-        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
+        ArgumentNullException.ThrowIfNull(validator);
 
         services.AddValidatorsFromAssembly(validator.Assembly);
 

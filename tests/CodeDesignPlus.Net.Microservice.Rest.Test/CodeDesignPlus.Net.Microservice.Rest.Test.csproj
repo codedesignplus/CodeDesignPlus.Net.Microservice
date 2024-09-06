@@ -11,6 +11,12 @@
     <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
 
+	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
+		<ItemGroup>
+			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'CodeDesignPlus.Net.Generator'" />
+		</ItemGroup>
+	</Target>
+
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild" Version="6.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,12 +24,21 @@
     </PackageReference>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Moq" Version="4.20.71" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\entrypoints\CodeDesignPlus.Net.Microservice.Rest\CodeDesignPlus.Net.Microservice.Rest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core/Mapster/" />
   </ItemGroup>
 
 </Project>

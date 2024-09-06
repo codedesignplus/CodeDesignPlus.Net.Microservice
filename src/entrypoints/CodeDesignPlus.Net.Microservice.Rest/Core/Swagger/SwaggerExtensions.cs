@@ -21,7 +21,6 @@ public static class SwaggerExtensions
         var coreOptions = section.Get<CoreOptions>();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
         var info = new OpenApiInfo()
         {
             Title = coreOptions!.AppName,
