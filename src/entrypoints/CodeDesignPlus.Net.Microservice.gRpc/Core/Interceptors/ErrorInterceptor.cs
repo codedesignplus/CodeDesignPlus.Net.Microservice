@@ -1,5 +1,4 @@
-﻿using CodeDesignPlus.Net.Exceptions;
-using CodeDesignPlus.Net.Exceptions.Models;
+﻿using CodeDesignPlus.Net.Exceptions.Models;
 using Grpc.Core.Interceptors;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Core.Interceptors;
@@ -17,7 +16,7 @@ public class ErrorInterceptor : Interceptor
         }
         catch (Exception ex)
         {
-            return HandleException<TResponse>(context, ex);
+            throw HandleException(ex);
         }
     }
 
@@ -26,13 +25,14 @@ public class ErrorInterceptor : Interceptor
         ServerCallContext context,
         ClientStreamingServerMethod<TRequest, TResponse> continuation)
     {
+
         try
         {
             return await continuation(requestStream, context);
         }
         catch (Exception ex)
         {
-            return HandleException<TResponse>(context, ex);
+            throw HandleException(ex);
         }
     }
 
@@ -42,13 +42,14 @@ public class ErrorInterceptor : Interceptor
         ServerCallContext context,
         ServerStreamingServerMethod<TRequest, TResponse> continuation)
     {
+        
         try
         {
             await continuation(request, responseStream, context);
         }
         catch (Exception ex)
         {
-            HandleException<TResponse>(context, ex);
+            throw HandleException(ex);
         }
     }
 
@@ -64,21 +65,21 @@ public class ErrorInterceptor : Interceptor
         }
         catch (Exception ex)
         {
-            HandleException<TResponse>(context, ex);
+            throw HandleException(ex);
         }
     }
 
-    private TResponse HandleException<TResponse>(ServerCallContext context, Exception exception)
+    private static RpcException HandleException(Exception exception)
     {
         return exception switch
         {
-            ValidationException ex => HandleValidationException<TResponse>(context, ex),
-            CodeDesignPlusException ex => HandleCodeDesignPlusException<TResponse>(context, ex),
-            _ => HandleGeneralException<TResponse>(context, exception),
+            ValidationException ex => HandleValidationException(ex),
+            CodeDesignPlusException ex => HandleCodeDesignPlusException(ex),
+            _ => HandleGeneralException(exception),
         };
     }
 
-    private static TResponse HandleValidationException<TResponse>(ServerCallContext context, ValidationException exception)
+    private static RpcException HandleValidationException(ValidationException exception)
     {
         var errors = exception.Errors.Select(e => new ErrorDetail
         (
@@ -102,10 +103,11 @@ public class ErrorInterceptor : Interceptor
         }
 
         var status = new Status(StatusCode.InvalidArgument, "Validation failed");
-        throw new RpcException(status, metadata, response.ToString());
+
+        return new RpcException(status, metadata, response.ToString());
     }
 
-    private static TResponse HandleCodeDesignPlusException<TResponse>(ServerCallContext context, CodeDesignPlusException exception)
+    private static RpcException HandleCodeDesignPlusException(CodeDesignPlusException exception)
     {
         var response = new ErrorResponse(null, exception.Layer);
 
@@ -119,10 +121,11 @@ public class ErrorInterceptor : Interceptor
         };
 
         var status = new Status(StatusCode.FailedPrecondition, exception.Message);
-        throw new RpcException(status, metadata, response.ToString());
+
+        return new RpcException(status, metadata, response.ToString());
     }
 
-    private static TResponse HandleGeneralException<TResponse>(ServerCallContext context, Exception exception)
+    private static RpcException HandleGeneralException(Exception exception)
     {
         var response = new ErrorResponse(null, Layer.None);
 
@@ -137,6 +140,6 @@ public class ErrorInterceptor : Interceptor
 
         var status = new Status(StatusCode.Internal, "Internal server error");
 
-        throw new RpcException(status, metadata, response.ToString());
+        return new RpcException(status, metadata, response.ToString());
     }
 }

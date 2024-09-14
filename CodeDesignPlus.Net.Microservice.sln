@@ -37,23 +37,37 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest", "src\entrypoints\CodeDesignPlus.Net.Microservice.Rest\CodeDesignPlus.Net.Microservice.Rest.csproj", "{4971758B-7FA0-489F-A5EF-5913385BB672}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8CA2014D-1EBA-4CC8-B303-13289F7F279C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "load", "load", "{454F7422-1558-4ECB-9BA6-9C4BF69CF8C6}"
 	ProjectSection(SolutionItems) = preProject
-		load-rest.js = load-rest.js
+		tests\load\load-rest.js = tests\load\load-rest.js
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{37EF7822-C019-4075-98FE-08E61627C707}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{C19E3964-BDFB-41E0-B86C-CA90E3E5F335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{7E36DB27-CCC9-4289-B7FF-A645A64B0CF8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "entrypoints", "entrypoints", "{32897FF5-A392-4179-B598-57CDFC2D1A87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{25C99D9E-8203-4DC9-9C54-64C06277F4D6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{A41D5F48-9046-403A-8560-068354ED74A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Domain.Test", "tests\CodeDesignPlus.Net.Microservice.Domain.Test\CodeDesignPlus.Net.Microservice.Domain.Test.csproj", "{81072338-3624-4DF7-9772-D3921FE3A02C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Infrastructure.Test", "tests\CodeDesignPlus.Net.Microservice.Infrastructure.Test\CodeDesignPlus.Net.Microservice.Infrastructure.Test.csproj", "{D0F99E3F-CCF7-479A-B471-3979563E3130}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Application.Test", "tests\CodeDesignPlus.Net.Microservice.Application.Test\CodeDesignPlus.Net.Microservice.Application.Test.csproj", "{6A2BE50F-AF85-450B-A96C-9215B835F66A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{5769C6DB-68E8-4A8C-B43A-243401CDB4A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CE331B2A-8735-469E-80AC-B2994AD8BBFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Application.Test", "tests\unit\domain\CodeDesignPlus.Net.Microservice.Application.Test\CodeDesignPlus.Net.Microservice.Application.Test.csproj", "{76EABAE3-8F75-41E0-81CB-6B8B5A692973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Domain.Test", "tests\unit\domain\CodeDesignPlus.Net.Microservice.Domain.Test\CodeDesignPlus.Net.Microservice.Domain.Test.csproj", "{55496196-F18D-444E-88AE-170C6F0D23E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Infrastructure.Test", "tests\unit\domain\CodeDesignPlus.Net.Microservice.Infrastructure.Test\CodeDesignPlus.Net.Microservice.Infrastructure.Test.csproj", "{E1B5FDA0-37E7-4467-A2F8-C5655875121A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\unit\entrypoints\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{89C9CAD5-BA8E-4BF5-BBA4-076353588982}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\unit\entrypoints\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{E1701916-4F93-4A6D-8395-BB890821625A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\unit\entrypoints\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{1171DD25-3941-4CFB-9E16-148A8974482D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\integration\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\integration\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{0C61268F-92C9-4A73-ACC7-398E70081AC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,30 +99,38 @@ Global
 		{4971758B-7FA0-489F-A5EF-5913385BB672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4971758B-7FA0-489F-A5EF-5913385BB672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4971758B-7FA0-489F-A5EF-5913385BB672}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37EF7822-C019-4075-98FE-08E61627C707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37EF7822-C019-4075-98FE-08E61627C707}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37EF7822-C019-4075-98FE-08E61627C707}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37EF7822-C019-4075-98FE-08E61627C707}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E36DB27-CCC9-4289-B7FF-A645A64B0CF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E36DB27-CCC9-4289-B7FF-A645A64B0CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E36DB27-CCC9-4289-B7FF-A645A64B0CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E36DB27-CCC9-4289-B7FF-A645A64B0CF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25C99D9E-8203-4DC9-9C54-64C06277F4D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25C99D9E-8203-4DC9-9C54-64C06277F4D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25C99D9E-8203-4DC9-9C54-64C06277F4D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25C99D9E-8203-4DC9-9C54-64C06277F4D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81072338-3624-4DF7-9772-D3921FE3A02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81072338-3624-4DF7-9772-D3921FE3A02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81072338-3624-4DF7-9772-D3921FE3A02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81072338-3624-4DF7-9772-D3921FE3A02C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0F99E3F-CCF7-479A-B471-3979563E3130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0F99E3F-CCF7-479A-B471-3979563E3130}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0F99E3F-CCF7-479A-B471-3979563E3130}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0F99E3F-CCF7-479A-B471-3979563E3130}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A2BE50F-AF85-450B-A96C-9215B835F66A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A2BE50F-AF85-450B-A96C-9215B835F66A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A2BE50F-AF85-450B-A96C-9215B835F66A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A2BE50F-AF85-450B-A96C-9215B835F66A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55496196-F18D-444E-88AE-170C6F0D23E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55496196-F18D-444E-88AE-170C6F0D23E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55496196-F18D-444E-88AE-170C6F0D23E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55496196-F18D-444E-88AE-170C6F0D23E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1701916-4F93-4A6D-8395-BB890821625A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1701916-4F93-4A6D-8395-BB890821625A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1701916-4F93-4A6D-8395-BB890821625A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1701916-4F93-4A6D-8395-BB890821625A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1171DD25-3941-4CFB-9E16-148A8974482D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1171DD25-3941-4CFB-9E16-148A8974482D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1171DD25-3941-4CFB-9E16-148A8974482D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1171DD25-3941-4CFB-9E16-148A8974482D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C61268F-92C9-4A73-ACC7-398E70081AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C61268F-92C9-4A73-ACC7-398E70081AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C61268F-92C9-4A73-ACC7-398E70081AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C61268F-92C9-4A73-ACC7-398E70081AC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,12 +145,19 @@ Global
 		{97F34780-1E43-49AA-9FCA-798815A69E77} = {EBFDC2CC-2318-45BC-B619-8754439D2541}
 		{25D85FA0-461E-4BB1-A956-55DA4835122A} = {EBFDC2CC-2318-45BC-B619-8754439D2541}
 		{4971758B-7FA0-489F-A5EF-5913385BB672} = {EBFDC2CC-2318-45BC-B619-8754439D2541}
-		{37EF7822-C019-4075-98FE-08E61627C707} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{7E36DB27-CCC9-4289-B7FF-A645A64B0CF8} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{25C99D9E-8203-4DC9-9C54-64C06277F4D6} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{81072338-3624-4DF7-9772-D3921FE3A02C} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{D0F99E3F-CCF7-479A-B471-3979563E3130} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{6A2BE50F-AF85-450B-A96C-9215B835F66A} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
+		{454F7422-1558-4ECB-9BA6-9C4BF69CF8C6} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
+		{C19E3964-BDFB-41E0-B86C-CA90E3E5F335} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
+		{32897FF5-A392-4179-B598-57CDFC2D1A87} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{A41D5F48-9046-403A-8560-068354ED74A9} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{5769C6DB-68E8-4A8C-B43A-243401CDB4A2} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
+		{76EABAE3-8F75-41E0-81CB-6B8B5A692973} = {A41D5F48-9046-403A-8560-068354ED74A9}
+		{55496196-F18D-444E-88AE-170C6F0D23E9} = {A41D5F48-9046-403A-8560-068354ED74A9}
+		{E1B5FDA0-37E7-4467-A2F8-C5655875121A} = {A41D5F48-9046-403A-8560-068354ED74A9}
+		{89C9CAD5-BA8E-4BF5-BBA4-076353588982} = {32897FF5-A392-4179-B598-57CDFC2D1A87}
+		{E1701916-4F93-4A6D-8395-BB890821625A} = {32897FF5-A392-4179-B598-57CDFC2D1A87}
+		{1171DD25-3941-4CFB-9E16-148A8974482D} = {32897FF5-A392-4179-B598-57CDFC2D1A87}
+		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
+		{0C61268F-92C9-4A73-ACC7-398E70081AC7} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}
