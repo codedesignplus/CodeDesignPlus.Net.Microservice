@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\integration\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{0C61268F-92C9-4A73-ACC7-398E70081AC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\integration\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{0C61268F-92C9-4A73-ACC7-398E70081AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C61268F-92C9-4A73-ACC7-398E70081AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C61268F-92C9-4A73-ACC7-398E70081AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +164,7 @@ Global
 		{1171DD25-3941-4CFB-9E16-148A8974482D} = {32897FF5-A392-4179-B598-57CDFC2D1A87}
 		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
 		{0C61268F-92C9-4A73-ACC7-398E70081AC7} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
+		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}
