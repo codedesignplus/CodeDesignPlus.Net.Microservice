@@ -8,6 +8,7 @@ public class OrderCreatedDomainEvent(
    ClientEntity client,
    long createdAt,
    Guid tenant,
+   Guid createBy,
    Guid? eventId = null,
    DateTime? occurredAt = null,
    Dictionary<string, object>? metadata = null
@@ -17,10 +18,11 @@ public class OrderCreatedDomainEvent(
     public OrderStatus OrderStatus { get; } = orderStatus;
     public long CreatedAt { get; } = createdAt;
     public Guid Tenant { get; private set; } = tenant;
+    public Guid CreateBy { get; private set; } = createBy;
 
-    public static OrderCreatedDomainEvent Create(Guid id, ClientEntity client, Guid tenant)
+    public static OrderCreatedDomainEvent Create(Guid id, ClientEntity client, Guid tenant, Guid creaateBy)
     {
-        return new OrderCreatedDomainEvent(id, OrderStatus.Created, client, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), tenant);
+        return new OrderCreatedDomainEvent(id, OrderStatus.Created, client, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), tenant, creaateBy);
     }
 }
 

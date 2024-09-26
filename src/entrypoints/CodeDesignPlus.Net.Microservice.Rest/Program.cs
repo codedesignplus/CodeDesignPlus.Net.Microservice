@@ -32,6 +32,8 @@ app.UseHttpsRedirection();
 
 app.UseAuth();
 
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 
 await app.RunAsync();
+
+public partial class Program { }

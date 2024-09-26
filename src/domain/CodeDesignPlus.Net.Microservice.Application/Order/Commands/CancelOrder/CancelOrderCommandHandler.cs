@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder;
 
-public class CancelOrderCommandHandler(IOrderRepository orderRepository, IMessage message) : IRequestHandler<CancelOrderCommand>
+public class CancelOrderCommandHandler(IOrderRepository orderRepository,IUserContext user,  IMessage message) : IRequestHandler<CancelOrderCommand>
 {
     public async Task Handle(CancelOrderCommand request, CancellationToken cancellationToken)
     {
@@ -8,9 +8,9 @@ public class CancelOrderCommandHandler(IOrderRepository orderRepository, IMessag
 
         ApplicationGuard.IsNull(order, Errors.OrderNotFound);
 
-        order.CancelOrder(request.Reason);
+        order.CancelOrder(request.Reason, user.IdUser);
 
-        await orderRepository.CancelOrderAsync(request.Id, request.Reason, cancellationToken);
+        await orderRepository.CancelOrderAsync(order.Id, order.Status, order.ReasonForCancellation, order.CancelledAt, order.UpdatedAt, order.UpdatedBy, cancellationToken);
 
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

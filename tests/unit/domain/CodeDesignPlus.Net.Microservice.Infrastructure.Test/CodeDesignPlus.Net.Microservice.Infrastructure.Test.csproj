@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\src\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

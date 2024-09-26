@@ -10,3 +10,4 @@ global using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjec
 global using FluentValidation;
 global using CodeDesignPlus.Net.Microservice.Domain.Entities;
 global using Mapster;
+global using CodeDesignPlus.Net.Security.Abstractions;

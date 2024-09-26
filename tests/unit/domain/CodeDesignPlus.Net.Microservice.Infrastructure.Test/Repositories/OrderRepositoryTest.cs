@@ -1,6 +1,7 @@
 using System;
 using CodeDesignPlus.Net.Microservice.Domain;
 using CodeDesignPlus.Net.Microservice.Domain.Entities;
+using CodeDesignPlus.Net.Microservice.Domain.Enums;
 using CodeDesignPlus.Net.Microservice.Infrastructure.Repositories;
 using CodeDesignPlus.Net.Mongo.Abstractions.Options;
 using CodeDesignPlus.Net.Mongo.Repository;
@@ -39,7 +40,7 @@ public class OrderRepositoryTest
             .Returns(mongoDatabaseMock.Object);
 
         var serviceCollection = new ServiceCollection();
-        
+
         serviceCollection.AddSingleton(mongoClientMock.Object);
         serviceCollection.AddSingleton(this.mongoOptions);
         serviceCollection.AddSingleton(loggerMock.Object);
@@ -73,7 +74,7 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.AddProductToOrderAsync(idOrder, idProduct, name, description, price, quantity, cancellationToken);
+        await orderRepository.AddProductToOrderAsync(idOrder, idProduct, name, description, price, quantity, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -86,13 +87,14 @@ public class OrderRepositoryTest
         var idOrder = Guid.NewGuid();
         var reason = "Reason for cancellation";
         var cancellationToken = CancellationToken.None;
+        var cancelledAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
         collectionMock
             .Setup(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken))
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.CancelOrderAsync(idOrder, reason, cancellationToken);
+        await orderRepository.CancelOrderAsync(idOrder, OrderStatus.Cancelled, reason, cancelledAt, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -103,15 +105,15 @@ public class OrderRepositoryTest
     {
         // Arrange
         var idOrder = Guid.NewGuid();
-        var completedAt = 100;
         var cancellationToken = CancellationToken.None;
+        var completedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
         collectionMock
             .Setup(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken))
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.CompleteOrderAsync(idOrder, completedAt, cancellationToken);
+        await orderRepository.CompleteOrderAsync(idOrder, completedAt, OrderStatus.Completed, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -121,7 +123,7 @@ public class OrderRepositoryTest
     public async Task CreateOrderAsync_Should_Create_Order()
     {
         // Arrange
-        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Order Name", Guid.NewGuid());
+        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Order Name", Guid.NewGuid(), Guid.NewGuid());
         var cancellationToken = CancellationToken.None;
 
         collectionMock
@@ -182,7 +184,7 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.RemoveProductFromOrderAsync(idOrder, idProduct, cancellationToken);
+        await orderRepository.RemoveProductFromOrderAsync(idOrder, idProduct, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -192,7 +194,7 @@ public class OrderRepositoryTest
     public async Task UpdateOrderAsync_Should_Update_Order()
     {
         // Arrange
-        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Order Name", Guid.NewGuid());
+        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Order Name", Guid.NewGuid(), Guid.NewGuid());
         var cancellationToken = CancellationToken.None;
 
         collectionMock
@@ -220,7 +222,7 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.UpdateQuantityProductAsync(idOrder, productId, newQuantity, cancellationToken);
+        await orderRepository.UpdateQuantityProductAsync(idOrder, productId, newQuantity, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);

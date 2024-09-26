@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.RemoveProduct;
 
-public class RemoveProductCommandHandler(IOrderRepository orderRepository, IMessage message) : IRequestHandler<RemoveProductCommand>
+public class RemoveProductCommandHandler(IOrderRepository orderRepository, IUserContext user, IMessage message) : IRequestHandler<RemoveProductCommand>
 {
     public async Task Handle(RemoveProductCommand request, CancellationToken cancellationToken)
     {
@@ -8,9 +8,9 @@ public class RemoveProductCommandHandler(IOrderRepository orderRepository, IMess
 
         ApplicationGuard.IsNull(order, Errors.OrderNotFound);
 
-        order.RemoveProduct(request.ProductId);
+        order.RemoveProduct(request.ProductId, user.IdUser);
 
-        await orderRepository.RemoveProductFromOrderAsync(request.Id, request.ProductId, cancellationToken);
+        await orderRepository.RemoveProductFromOrderAsync(request.Id, request.ProductId, order.UpdatedAt, order.UpdatedBy, cancellationToken);
 
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

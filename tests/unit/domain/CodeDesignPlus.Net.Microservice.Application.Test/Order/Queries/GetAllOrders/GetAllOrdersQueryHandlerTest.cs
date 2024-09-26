@@ -27,7 +27,7 @@ public class GetAllOrdersQueryHandlerTest
                     Name = "Client 1",
                 },
                 CompletedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-                CreateBy = Guid.NewGuid(),
+                CreatedBy = Guid.NewGuid(),
                 CreatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 IsActive = true,
                 Products = [
@@ -46,7 +46,7 @@ public class GetAllOrdersQueryHandlerTest
                     Name = "Client 2",
                 },
                 CompletedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-                CreateBy = Guid.NewGuid(),
+                CreatedBy = Guid.NewGuid(),
                 CreatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 IsActive = true,
                 Products = [

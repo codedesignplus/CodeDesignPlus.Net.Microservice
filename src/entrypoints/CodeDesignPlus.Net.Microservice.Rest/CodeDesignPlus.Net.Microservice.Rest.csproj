@@ -26,6 +26,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="CodeDesignPlus.Net.Microservice.Rest.Test" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<SonarQubeSetting Include="sonar.coverage.exclusions">
 		<Value>**/SwaggerExtensions.cs, **/Program.cs</Value>
 		</SonarQubeSetting>

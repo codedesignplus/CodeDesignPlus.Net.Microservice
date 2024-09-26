@@ -15,7 +15,7 @@ public class OrderCreatedHandlerTest
         {
             Id = Guid.NewGuid(),
             Name = "Client Name"
-        }, Guid.NewGuid());
+        }, Guid.NewGuid(), Guid.NewGuid());
 
         var json = JsonConvert.SerializeObject(domainEvent);
 

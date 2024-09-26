@@ -12,7 +12,7 @@ public class OrderDto
     public OrderStatus Status { get; set; }
     public string? ReasonForCancellation { get; set; }
     public long CreatedAt { get; set; }
-    public Guid CreateBy { get; set; }
+    public Guid CreatedBy { get; set; }
     public long UpdatedAt { get; set; }
     public Guid UpdatedBy { get; set; }
     public bool IsActive { get; set; }

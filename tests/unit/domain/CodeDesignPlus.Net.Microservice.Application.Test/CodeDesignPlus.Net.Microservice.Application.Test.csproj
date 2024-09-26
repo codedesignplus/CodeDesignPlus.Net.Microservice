@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\domain\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\src\domain\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj" />
   </ItemGroup>
 
 </Project>

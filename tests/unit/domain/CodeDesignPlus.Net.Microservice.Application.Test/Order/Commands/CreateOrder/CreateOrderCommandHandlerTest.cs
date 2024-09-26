@@ -1,9 +1,20 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+using CodeDesignPlus.Net.Security.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.CreateOrder;
 
 public class CreateOrderCommandHandlerTest
 {
+    private Mock<IUserContext> userMock;
+
+    public CreateOrderCommandHandlerTest()
+    {
+        this.userMock = new Mock<IUserContext>();
+
+        userMock.Setup(x => x.IdUser).Returns(Guid.NewGuid());
+        userMock.Setup(x => x.Tenant).Returns(Guid.NewGuid());
+    }
+    
     [Fact]
     public async Task Handle_OrderAlreadyExists_ThrowApplicaionException()
     {
@@ -19,9 +30,9 @@ public class CreateOrderCommandHandlerTest
 
         orderRepository
             .Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!
-            .ReturnsAsync(OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Client", Guid.NewGuid()));
+            .ReturnsAsync(OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Client", this.userMock.Object.Tenant, this.userMock.Object.IdUser));
 
-        var handler = new CreateOrderCommandHandler(orderRepository.Object, message.Object);
+        var handler = new CreateOrderCommandHandler(orderRepository.Object, this.userMock.Object, message.Object);
 
         // Act
         var exception = await Assert.ThrowsAsync<Exceptions.CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
@@ -48,7 +59,7 @@ public class CreateOrderCommandHandlerTest
             Name = "Client"
         });
 
-        var handler = new CreateOrderCommandHandler(orderRepository.Object, message.Object);
+        var handler = new CreateOrderCommandHandler(orderRepository.Object, this.userMock.Object, message.Object);
 
         // Act
         await handler.Handle(command, CancellationToken.None);
@@ -56,6 +67,8 @@ public class CreateOrderCommandHandlerTest
         // Assert
         orderRepository.Verify(x => x.CreateOrderAsync(It.IsAny<OrderAggregate>(), It.IsAny<CancellationToken>()), Times.Once);
         message.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
+        userMock.Verify(x => x.Tenant, Times.Once);
+        userMock.Verify(x => x.IdUser, Times.Once);
     }
 
 }

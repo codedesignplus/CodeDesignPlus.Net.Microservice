@@ -13,9 +13,10 @@ public class OrderAggregateTest
         var idClient = Guid.NewGuid();
         var nameClient = "John Doe";
         var tenant = Guid.NewGuid();
+        var createdBy = Guid.NewGuid();
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
 
         // Assert
         Assert.Equal(Errors.IdOrderIsInvalid.GetCode(), exception.Code);
@@ -30,9 +31,10 @@ public class OrderAggregateTest
         var idClient = Guid.Empty;
         var nameClient = "John Doe";
         var tenant = Guid.NewGuid();
+        var createdBy = Guid.NewGuid();
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
 
         // Assert
         Assert.Equal(Errors.IdClientIsInvalid.GetCode(), exception.Code);
@@ -46,10 +48,11 @@ public class OrderAggregateTest
         var id = Guid.NewGuid();
         var idClient = Guid.NewGuid();
         var nameClient = "John Doe";
-        var tenant = Guid.Empty;
+        var tenant = Guid.Empty;        
+        var createdBy = Guid.NewGuid();
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
 
         // Assert
         Assert.Equal(Errors.TenantIsInvalid.GetCode(), exception.Code);
@@ -64,9 +67,10 @@ public class OrderAggregateTest
         var idClient = Guid.NewGuid();
         var nameClient = string.Empty;
         var tenant = Guid.NewGuid();
+        var createdBy = Guid.NewGuid();
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
 
         // Assert
         Assert.Equal(Errors.NameClientIsInvalid.GetCode(), exception.Code);
@@ -81,9 +85,10 @@ public class OrderAggregateTest
         var idClient = Guid.NewGuid();
         var nameClient = "John Doe";
         var tenant = Guid.NewGuid();
+        var createdBy = Guid.NewGuid();
 
         // Act
-        var orderAggregate = OrderAggregate.Create(id, idClient, nameClient, tenant);
+        var orderAggregate = OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy);
         var @event = orderAggregate.GetAndClearEvents()[0] as OrderCreatedDomainEvent;
 
         // Assert
@@ -92,6 +97,7 @@ public class OrderAggregateTest
         Assert.Equal(idClient, orderAggregate.Client.Id);
         Assert.Equal(nameClient, orderAggregate.Client.Name);
         Assert.Equal(tenant, orderAggregate.Tenant);
+        Assert.Equal(createdBy, orderAggregate.CreatedBy);
         Assert.Equal(OrderStatus.Created, orderAggregate.Status);
 
         Assert.NotNull(@event);
@@ -107,7 +113,9 @@ public class OrderAggregateTest
     public void AddProduct_IdIsEmpty_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var id = Guid.Empty;
         var name = "Product 1";
         var description = "Product 1 description";
@@ -115,7 +123,7 @@ public class OrderAggregateTest
         var quantity = 2;
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity, updatedBy));
 
         // Assert
         Assert.Equal(Errors.IdProductIsInvalid.GetCode(), exception.Code);
@@ -126,7 +134,9 @@ public class OrderAggregateTest
     public void AddProduct_NameIsEmpty_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var id = Guid.NewGuid();
         var name = string.Empty;
         var description = "Product 1 description";
@@ -134,7 +144,7 @@ public class OrderAggregateTest
         var quantity = 2;
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity, updatedBy));
 
         // Assert
         Assert.Equal(Errors.NameProductIsInvalid.GetCode(), exception.Code);
@@ -145,7 +155,9 @@ public class OrderAggregateTest
     public void AddProduct_PriceIsLessThanZero_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var id = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -153,7 +165,7 @@ public class OrderAggregateTest
         var quantity = 2;
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity, updatedBy));
 
         // Assert
         Assert.Equal(Errors.PriceProductIsInvalid.GetCode(), exception.Code);
@@ -164,7 +176,9 @@ public class OrderAggregateTest
     public void AddProduct_QuantityIsLessThanZero_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var id = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -172,7 +186,7 @@ public class OrderAggregateTest
         var quantity = -1;
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.AddProduct(id, name, description, price, quantity, updatedBy));
 
         // Assert
         Assert.Equal(Errors.QuantityProductIsInvalid.GetCode(), exception.Code);
@@ -183,7 +197,9 @@ public class OrderAggregateTest
     public void AddProduct_Should_Add_Product_To_OrderAggregate()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -191,7 +207,7 @@ public class OrderAggregateTest
         var quantity = 2;
 
         // Act
-        orderAggregate.AddProduct(productId, name, description, price, quantity);
+        orderAggregate.AddProduct(productId, name, description, price, quantity, updatedBy);
         var @event = orderAggregate.GetAndClearEvents().FirstOrDefault(x => x is ProductAddedToOrderDomainEvent) as ProductAddedToOrderDomainEvent;
 
         // Assert
@@ -209,17 +225,23 @@ public class OrderAggregateTest
         Assert.Equal(name, @event.Product.Name);
         Assert.Equal(description, @event.Product.Description);
         Assert.Equal(price, @event.Product.Price);
+
+        Assert.NotNull(orderAggregate.UpdatedAt);
+        Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
+        Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);
     }
 
     [Fact]
     public void RemoveProduct_IdIsEmpty_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var id = Guid.Empty;
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.RemoveProduct(id));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.RemoveProduct(id, updatedBy));
 
         // Assert
         Assert.Equal(Errors.IdProductIsInvalid.GetCode(), exception.Code);
@@ -230,11 +252,13 @@ public class OrderAggregateTest
     public void RemoveProduct_ProductNotFound_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.RemoveProduct(productId));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.RemoveProduct(productId, updatedBy));
 
         // Assert
         Assert.Equal(Errors.ProductNotFound.GetCode(), exception.Code);
@@ -245,16 +269,18 @@ public class OrderAggregateTest
     public void RemoveProduct_Should_Remove_Product_From_OrderAggregate()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
         var price = 10L;
         var quantity = 2;
-        orderAggregate.AddProduct(productId, name, description, price, quantity);
+        orderAggregate.AddProduct(productId, name, description, price, quantity, Guid.NewGuid());
 
         // Act
-        orderAggregate.RemoveProduct(productId);
+        orderAggregate.RemoveProduct(productId, updatedBy);
         var @event = orderAggregate.GetAndClearEvents().FirstOrDefault(x => x is ProductRemovedFromOrderDomainEvent) as ProductRemovedFromOrderDomainEvent;
 
         // Assert
@@ -263,18 +289,24 @@ public class OrderAggregateTest
         Assert.NotNull(@event);
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
         Assert.Equal(productId, @event.ProductId);
+        
+        Assert.NotNull(orderAggregate.UpdatedAt);
+        Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
+        Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);
     }
 
     [Fact]
     public void UpdateProductQuantity_IdIsEmpty_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var id = Guid.Empty;
         var newQuantity = 5;
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.UpdateProductQuantity(id, newQuantity));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.UpdateProductQuantity(id, newQuantity, updatedBy));
 
         // Assert
         Assert.Equal(Errors.IdProductIsInvalid.GetCode(), exception.Code);
@@ -285,12 +317,14 @@ public class OrderAggregateTest
     public void UpdateProductQuantity_QuantityIsLessThanZero_Should_Throw_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var newQuantity = -1;
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.UpdateProductQuantity(productId, newQuantity));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.UpdateProductQuantity(productId, newQuantity, updatedBy));
 
         // Assert
         Assert.Equal(Errors.QuantityProductIsInvalid.GetCode(), exception.Code);
@@ -301,17 +335,19 @@ public class OrderAggregateTest
     public void UpdateProductQuantity_Should_Update_Product_Quantity_In_OrderAggregate()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
         var price = 10L;
         var quantity = 2;
-        orderAggregate.AddProduct(productId, name, description, price, quantity);
+        orderAggregate.AddProduct(productId, name, description, price, quantity, Guid.NewGuid());
         var newQuantity = 5;
 
         // Act
-        orderAggregate.UpdateProductQuantity(productId, newQuantity);
+        orderAggregate.UpdateProductQuantity(productId, newQuantity, updatedBy);
         var @event = orderAggregate.GetAndClearEvents().FirstOrDefault(x => x is ProductQuantityUpdatedDomainEvent) as ProductQuantityUpdatedDomainEvent;
 
         // Assert
@@ -323,17 +359,23 @@ public class OrderAggregateTest
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
         Assert.Equal(productId, @event.ProductId);
         Assert.Equal(newQuantity, @event.NewQuantity);
+
+        Assert.NotNull(orderAggregate.UpdatedAt);
+        Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
+        Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);
     }
 
     [Fact]
     public void CompleteOrder_StatusIsCancelled_ShouldThrow_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
-        orderAggregate.CancelOrder("Out of stock");
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        orderAggregate.CancelOrder("Out of stock", Guid.NewGuid());
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.CompleteOrder());
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.CompleteOrder(updatedBy));
 
         // Assert
         Assert.Equal(Errors.OrderAlreadyCancelled.GetCode(), exception.Code);
@@ -344,11 +386,13 @@ public class OrderAggregateTest
     public void CompleteOrder_StatusIsCompleted_ShouldThrow_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
-        orderAggregate.CompleteOrder();
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        orderAggregate.CompleteOrder(Guid.NewGuid());
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.CompleteOrder());
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.CompleteOrder(updatedBy));
 
         // Assert
         Assert.Equal(Errors.OrderAlreadyCompleted.GetCode(), exception.Code);
@@ -359,10 +403,12 @@ public class OrderAggregateTest
     public void CompleteOrder_Should_Complete_OrderAggregate()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
 
         // Act
-        orderAggregate.CompleteOrder();
+        orderAggregate.CompleteOrder(updatedBy);
         var @event = orderAggregate.GetAndClearEvents().FirstOrDefault(x => x is OrderCompletedDomainEvent) as OrderCompletedDomainEvent;
 
         // Assert
@@ -372,17 +418,23 @@ public class OrderAggregateTest
         Assert.NotNull(@event);
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
         Assert.NotEqual(0, @event.CompletedAt);
+        
+        Assert.NotNull(orderAggregate.UpdatedAt);
+        Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
+        Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);
     }
 
     [Fact]
     public void CancelOrder_StatusIsCancelled_ShouldThrow_DomainException()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
-        orderAggregate.CancelOrder("Out of stock");
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        orderAggregate.CancelOrder("Out of stock", Guid.NewGuid());
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.CancelOrder("Out of stock"));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => orderAggregate.CancelOrder("Out of stock", updatedBy));
 
         // Assert
         Assert.Equal(Errors.OrderAlreadyCancelled.GetCode(), exception.Code);
@@ -393,11 +445,13 @@ public class OrderAggregateTest
     public void CancelOrder_Should_Cancel_OrderAggregate()
     {
         // Arrange
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid());
+        var createdBy = Guid.NewGuid();
+        var updatedBy = Guid.NewGuid();
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
         var reason = "Out of stock";
 
         // Act
-        orderAggregate.CancelOrder(reason);
+        orderAggregate.CancelOrder(reason, updatedBy);
         var @event = orderAggregate.GetAndClearEvents().FirstOrDefault(x => x is OrderCancelledDomainEvent) as OrderCancelledDomainEvent;
 
         // Assert
@@ -408,5 +462,9 @@ public class OrderAggregateTest
         Assert.NotNull(@event);
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
         Assert.Equal(reason, @event.Reason);
+        
+        Assert.NotNull(orderAggregate.UpdatedAt);
+        Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
+        Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);
     }
 }

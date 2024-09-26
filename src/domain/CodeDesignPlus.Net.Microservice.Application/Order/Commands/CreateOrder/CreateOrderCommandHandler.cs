@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
 
-public class CreateOrderCommandHandler(IOrderRepository orderRepository, IMessage message) : IRequestHandler<CreateOrderCommand>
+public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IMessage message) : IRequestHandler<CreateOrderCommand>
 {
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
@@ -8,7 +8,7 @@ public class CreateOrderCommandHandler(IOrderRepository orderRepository, IMessag
 
         ApplicationGuard.IsNotNull(order, Errors.OrderAlreadyExists);
 
-        order = OrderAggregate.Create(request.Id, request.Client.Id, request.Client.Name, Guid.NewGuid());
+        order = OrderAggregate.Create(request.Id, request.Client.Id, request.Client.Name, user.Tenant, user.IdUser);
 
         await orderRepository.CreateOrderAsync(order, cancellationToken);
 

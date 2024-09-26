@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\entrypoints\CodeDesignPlus.Net.Microservice.Rest\CodeDesignPlus.Net.Microservice.Rest.csproj" />
+    <ProjectReference Include="..\..\..\..\src\entrypoints\CodeDesignPlus.Net.Microservice.Rest\CodeDesignPlus.Net.Microservice.Rest.csproj" />
   </ItemGroup>
 
 </Project>

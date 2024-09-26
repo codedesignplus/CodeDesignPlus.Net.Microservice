@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\domain\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\src\domain\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj" />
   </ItemGroup>
 
 </Project>

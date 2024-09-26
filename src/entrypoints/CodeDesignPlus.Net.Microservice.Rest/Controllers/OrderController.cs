@@ -19,7 +19,6 @@ public class OrdersController(IMediator mediator, IMapper mapper) : ControllerBa
     /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <returns>An `OkObjectResult` containing the list of orders if successful, otherwise an appropriate error response.</returns>
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetOrders([FromQuery] C.Criteria criteria, CancellationToken cancellationToken)
     {
         var result = await mediator.Send(new GetAllOrdersQuery(criteria), cancellationToken);
