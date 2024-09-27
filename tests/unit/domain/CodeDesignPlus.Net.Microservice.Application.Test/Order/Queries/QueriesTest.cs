@@ -1,9 +1,7 @@
-using System;
-using System.Reflection;
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
 using CodeDesignPlus.Net.Microservice.Application.Test.Helpers;
 using MediatR;
-using System.Linq;
+using System.Reflection;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Queries;
 
@@ -14,9 +12,9 @@ public class QueriesTest
     public void Queries_GetAndSet_Success()
     {
         // Arrange
-         var queries = typeof(FindOrderByIdQuery).Assembly.GetTypes()
-            .Where(x => x.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequest<>)))
-            .ToList();
+        var queries = typeof(FindOrderByIdQuery).Assembly.GetTypes()
+           .Where(x => x.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequest<>)))
+           .ToList();
 
         // Act
         foreach (var query in queries)

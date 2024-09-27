@@ -42,7 +42,7 @@ public class ErrorInterceptor : Interceptor
         ServerCallContext context,
         ServerStreamingServerMethod<TRequest, TResponse> continuation)
     {
-        
+
         try
         {
             await continuation(request, responseStream, context);

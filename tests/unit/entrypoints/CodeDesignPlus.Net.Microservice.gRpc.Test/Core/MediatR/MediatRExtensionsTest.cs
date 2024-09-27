@@ -1,5 +1,3 @@
-using System;
-using CodeDesignPlus.Net.Microservice.gRpc.Core.MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Core.MediatR;

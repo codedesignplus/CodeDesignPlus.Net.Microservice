@@ -19,7 +19,7 @@ public class OrderControllerTest
 
     public OrderControllerTest()
     {
-        this.mediator = new Mock<IMediator>();    
+        this.mediator = new Mock<IMediator>();
         this.mapper = new Mock<IMapper>();
     }
 

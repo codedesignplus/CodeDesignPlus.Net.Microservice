@@ -1,8 +1,5 @@
-using System;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using Xunit;
 
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.Server;
 

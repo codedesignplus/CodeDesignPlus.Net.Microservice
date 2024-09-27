@@ -1,4 +1,3 @@
-using System;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.CancelOrder;
@@ -40,5 +39,5 @@ public class CancelOrderCommandTest
 
         Assert.Empty(result.Errors);
     }
-    
+
 }

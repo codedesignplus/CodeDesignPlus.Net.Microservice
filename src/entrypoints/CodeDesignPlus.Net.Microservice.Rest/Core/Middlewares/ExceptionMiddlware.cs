@@ -1,6 +1,6 @@
-﻿using System.Net;
-using CodeDesignPlus.Net.Exceptions;
+﻿using CodeDesignPlus.Net.Exceptions;
 using CodeDesignPlus.Net.Exceptions.Models;
+using System.Net;
 
 namespace CodeDesignPlus.Net.Microservice.Rest.Core.Middlewares;
 

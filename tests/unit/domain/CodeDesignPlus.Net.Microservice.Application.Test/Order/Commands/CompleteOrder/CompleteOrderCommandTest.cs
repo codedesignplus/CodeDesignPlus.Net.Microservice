@@ -1,4 +1,3 @@
-using System;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.CompleteOrder;

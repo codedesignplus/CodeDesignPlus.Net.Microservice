@@ -1,15 +1,13 @@
+using CodeDesignPlus.Net.Logger.Extensions;
 using CodeDesignPlus.Net.Microservice.gRpc.Core.FluentValidation;
+using CodeDesignPlus.Net.Microservice.gRpc.Core.Interceptors;
 using CodeDesignPlus.Net.Microservice.gRpc.Core.MediatR;
 using CodeDesignPlus.Net.Microservice.gRpc.Services;
 using CodeDesignPlus.Net.Mongo.Extensions;
-using CodeDesignPlus.Net.Core.Extensions;
-using CodeDesignPlus.Net.Redis.Extensions;
-using CodeDesignPlus.Net.RabbitMQ.Extensions;
-using CodeDesignPlus.Net.PubSub.Extensions;
 using CodeDesignPlus.Net.Observability.Extensions;
-using CodeDesignPlus.Net.Logger.Extensions;
+using CodeDesignPlus.Net.RabbitMQ.Extensions;
+using CodeDesignPlus.Net.Redis.Extensions;
 using CodeDesignPlus.Net.Security.Extensions;
-using CodeDesignPlus.Net.Microservice.gRpc.Core.Interceptors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +38,7 @@ var app = builder.Build();
 app.UseAuth();
 
 // Configure the HTTP request pipeline.
-app.MapGrpcService<OrdersService>().RequireAuthorization();
+app.MapGrpcService<OrdersService>();//.RequireAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -50,3 +48,5 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 await app.RunAsync();
+
+public partial class Program { }

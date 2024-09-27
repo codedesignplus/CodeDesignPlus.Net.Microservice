@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ductus.FluentDocker.Services;
+﻿using Ductus.FluentDocker.Services;
 
 namespace CodeDesignPlus.Net.Microservice.AsyncWorker.Test.Helpers.Server;
 
@@ -43,7 +38,7 @@ public abstract class DockerCompose
         this.OnContainerInitialized();
     }
 
-    
+
     /// <summary>
     /// Builds the Docker Compose service configuration.
     /// </summary>

@@ -48,7 +48,7 @@ public class OrderAggregateTest
         var id = Guid.NewGuid();
         var idClient = Guid.NewGuid();
         var nameClient = "John Doe";
-        var tenant = Guid.Empty;        
+        var tenant = Guid.Empty;
         var createdBy = Guid.NewGuid();
 
         // Act
@@ -289,7 +289,7 @@ public class OrderAggregateTest
         Assert.NotNull(@event);
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
         Assert.Equal(productId, @event.ProductId);
-        
+
         Assert.NotNull(orderAggregate.UpdatedAt);
         Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
         Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);
@@ -418,7 +418,7 @@ public class OrderAggregateTest
         Assert.NotNull(@event);
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
         Assert.NotEqual(0, @event.CompletedAt);
-        
+
         Assert.NotNull(orderAggregate.UpdatedAt);
         Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
         Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);
@@ -462,7 +462,7 @@ public class OrderAggregateTest
         Assert.NotNull(@event);
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
         Assert.Equal(reason, @event.Reason);
-        
+
         Assert.NotNull(orderAggregate.UpdatedAt);
         Assert.Equal(updatedBy, orderAggregate.UpdatedBy);
         Assert.NotEqual(orderAggregate.CreatedBy, orderAggregate.UpdatedBy);

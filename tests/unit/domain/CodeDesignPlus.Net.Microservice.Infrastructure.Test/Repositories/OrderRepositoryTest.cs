@@ -1,17 +1,13 @@
-using System;
 using CodeDesignPlus.Net.Microservice.Domain;
-using CodeDesignPlus.Net.Microservice.Domain.Entities;
 using CodeDesignPlus.Net.Microservice.Domain.Enums;
 using CodeDesignPlus.Net.Microservice.Infrastructure.Repositories;
 using CodeDesignPlus.Net.Mongo.Abstractions.Options;
 using CodeDesignPlus.Net.Mongo.Repository;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Moq;
-using StackExchange.Redis;
 
 namespace CodeDesignPlus.Net.Microservice.Infrastructure.Test.Repositories;
 

@@ -1,12 +1,4 @@
-
-using CodeDesignPlus.Net.Core.Abstractions;
-using CodeDesignPlus.Net.Exceptions.Extensions;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
-using CodeDesignPlus.Net.Microservice.Domain;
-using CodeDesignPlus.Net.Microservice.Domain.Repositories;
-using CodeDesignPlus.Net.PubSub.Abstractions;
-using FluentValidation.TestHelper;
-using Moq;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.AddProductToOrder;
 

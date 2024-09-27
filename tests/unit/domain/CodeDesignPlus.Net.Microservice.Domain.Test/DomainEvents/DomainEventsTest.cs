@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 
 namespace CodeDesignPlus.Net.Microservice.Domain.Test.DomainEvents;
@@ -72,7 +71,7 @@ public class DomainEvents
 
             Assert.NotNull(instance);
 
-            var property = domainEvent.GetProperty(nameof(DomainEvent.AggregateId)); 
+            var property = domainEvent.GetProperty(nameof(DomainEvent.AggregateId));
 
             var value = property!.GetValue(instance, null);
 

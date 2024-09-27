@@ -1,18 +1,8 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Mapster;
+using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
+using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
 using CodeDesignPlus.Net.Microservice.gRpc.Services;
 using Grpc.Core;
 using Grpc.Core.Testing;
-using MediatR;
-using Moq;
-using Xunit;
-using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
-using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Services;
 
@@ -83,4 +73,6 @@ public class OrderServiceTest
         await Assert.ThrowsAsync<RpcException>(() => _ordersService.GetOrder(requestStream.Object, responseStream.Object, serverCallContext));
     }
 }
+
+
 

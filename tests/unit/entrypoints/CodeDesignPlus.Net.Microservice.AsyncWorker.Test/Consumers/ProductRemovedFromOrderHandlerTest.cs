@@ -1,5 +1,3 @@
-using System;
-
 namespace CodeDesignPlus.Net.Microservice.AsyncWorker.Test.Consumers;
 
 public class ProductRemovedFromOrderHandlerTest

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,7 +6,7 @@ namespace CodeDesignPlus.Net.Microservice.Infrastructure.Test;
 public class StartupTest
 {
     [Fact]
-    
+
     public void Initialize_ShouldConfigureServices_Success()
     {
         // Arrange

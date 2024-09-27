@@ -32,7 +32,7 @@ public class OrderCancelledDomainEventTest
         var metadata = new Dictionary<string, object>();
 
         // Act
-        var domainEvent = new OrderCancelledDomainEvent(aggregateId, cancelledAt, reason, eventId, occurredAt, metadata  );
+        var domainEvent = new OrderCancelledDomainEvent(aggregateId, cancelledAt, reason, eventId, occurredAt, metadata);
 
         // Assert
         Assert.NotNull(domainEvent);

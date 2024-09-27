@@ -1,7 +1,5 @@
-using System;
 using CodeDesignPlus.Net.Microservice.gRpc.Core.FluentValidation;
 using CodeDesignPlus.Net.Microservice.gRpc.Test.Helpers.Models;
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Core.FluentValidation;

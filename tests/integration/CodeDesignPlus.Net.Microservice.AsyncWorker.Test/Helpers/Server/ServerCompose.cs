@@ -1,4 +1,3 @@
-using System;
 using Ductus.FluentDocker.Model.Compose;
 using Ductus.FluentDocker.Services;
 using Ductus.FluentDocker.Services.Extensions;

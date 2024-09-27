@@ -11,14 +11,43 @@
 
 	<ItemGroup>
 		<PackageReference Include="coverlet.collector" Version="6.0.0" />
+		<PackageReference Include="Google.Protobuf" Version="3.28.2" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.66.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.66.0">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.8" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
 		<PackageReference Include="xunit" Version="2.5.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+		<PackageReference Include="Ductus.FluentDocker.XUnit" Version="2.10.59" />
+	</ItemGroup>
+
+	<Target Name="DisableAnalyzers" BeforeTargets="CoreCompile">
+		<ItemGroup>
+			<Analyzer Remove="@(Analyzer)" Condition="'%(Filename)' == 'CodeDesignPlus.Net.Generator'" />
+		</ItemGroup>
+	</Target>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\src\entrypoints\CodeDesignPlus.Net.Microservice.gRpc\CodeDesignPlus.Net.Microservice.gRpc.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="Protos\orders.proto" GrpcServices="Client" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="Xunit" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+		<None Update="Helpers\Server\*.yml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 </Project>

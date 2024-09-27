@@ -1,12 +1,4 @@
-using System;
-using System.Threading.Tasks;
-using CodeDesignPlus.Net.Exceptions;
-using CodeDesignPlus.Net.Exceptions.Models;
-using CodeDesignPlus.Net.Microservice.gRpc.Core.Interceptors;
 using Grpc.Core;
-using Grpc.Core.Interceptors;
-using Moq;
-using Xunit;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Core.Interceptors;
 

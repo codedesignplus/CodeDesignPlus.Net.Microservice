@@ -1,10 +1,8 @@
-using System;
 using CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.Models;
-using FluentValidation;
 
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.FluentValidation;
 
-public class UserValidation: AbstractValidator<UserModel>
+public class UserValidation : AbstractValidator<UserModel>
 {
     public UserValidation()
     {

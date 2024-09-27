@@ -1,7 +1,5 @@
-using System;
-using System.Reflection;
-using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 using CodeDesignPlus.Net.Microservice.Application.Test.Helpers;
+using System.Reflection;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.DataTransferObjects;
 

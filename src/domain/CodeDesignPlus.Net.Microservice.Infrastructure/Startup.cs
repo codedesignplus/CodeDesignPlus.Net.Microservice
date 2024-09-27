@@ -4,7 +4,7 @@
     {
         public void Initialize(IServiceCollection services, IConfiguration configuration)
         {
-            
+
         }
     }
 }

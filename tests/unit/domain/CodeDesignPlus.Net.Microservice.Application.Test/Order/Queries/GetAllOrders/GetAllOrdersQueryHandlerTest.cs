@@ -1,11 +1,5 @@
-using System;
-using System.Linq.Expressions;
-using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.GetAllOrders;
-using CodeDesignPlus.Net.Microservice.Domain;
-using CodeDesignPlus.Net.Microservice.Domain.Repositories;
 using MapsterMapper;
-using Moq;
 using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Queries.GetAllOrders;

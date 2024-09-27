@@ -35,8 +35,8 @@ public class ValidationPipelineTest
     {
         // Arrange
         var request = new TestRequest();
-        var failures = new List<ValidationFailure> { 
-            new("Property", "Error") 
+        var failures = new List<ValidationFailure> {
+            new("Property", "Error")
         }
         ;
         _validatorMock.Setup(v => v.Validate(It.IsAny<ValidationContext<TestRequest>>()))

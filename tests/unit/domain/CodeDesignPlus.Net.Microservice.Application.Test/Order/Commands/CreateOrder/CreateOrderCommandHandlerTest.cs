@@ -14,7 +14,7 @@ public class CreateOrderCommandHandlerTest
         userMock.Setup(x => x.IdUser).Returns(Guid.NewGuid());
         userMock.Setup(x => x.Tenant).Returns(Guid.NewGuid());
     }
-    
+
     [Fact]
     public async Task Handle_OrderAlreadyExists_ThrowApplicaionException()
     {
@@ -45,7 +45,7 @@ public class CreateOrderCommandHandlerTest
         Assert.Equal(Errors.OrderAlreadyExists.GetCode(), exception.Code);
         Assert.Equal(Errors.OrderAlreadyExists.GetMessage(), exception.Message);
     }
-    
+
     [Fact]
     public async Task Handle_Success()
     {

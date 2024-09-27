@@ -8,7 +8,7 @@ public class TestServer<TProgram> : WebApplicationFactory<TProgram> where TProgr
     public ServerCompose Compose { get; }
 
     public TestServer()
-    {        
+    {
         this.Compose = new ServerCompose();
     }
 

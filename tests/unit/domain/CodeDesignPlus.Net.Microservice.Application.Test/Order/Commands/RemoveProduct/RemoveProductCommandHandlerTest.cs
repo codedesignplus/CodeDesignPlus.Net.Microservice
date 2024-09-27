@@ -1,4 +1,3 @@
-using System;
 using CodeDesignPlus.Net.Exceptions;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.RemoveProduct;
 using CodeDesignPlus.Net.Microservice.Domain.Entities;

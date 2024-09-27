@@ -1,9 +1,5 @@
-using System;
-using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
-using CodeDesignPlus.Net.Microservice.Domain.Repositories;
 using MapsterMapper;
-using Moq;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Queries.FindOrderById;
 

@@ -1,5 +1,3 @@
-using System;
-
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.Models;
 
 public class UserModel

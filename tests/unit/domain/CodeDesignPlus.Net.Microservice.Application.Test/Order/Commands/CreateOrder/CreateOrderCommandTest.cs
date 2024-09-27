@@ -1,7 +1,4 @@
-using System;
-using CodeDesignPlus.Net.Criteria.Models;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
-using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.CreateOrder;
 

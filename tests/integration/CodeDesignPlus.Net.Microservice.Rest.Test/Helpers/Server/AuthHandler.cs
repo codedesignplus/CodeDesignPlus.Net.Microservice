@@ -1,10 +1,9 @@
-using System;
-using System.Text.Encodings.Web;
-using Claims = CodeDesignPlus.Net.Security.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
+using System.Text.Encodings.Web;
+using Claims = CodeDesignPlus.Net.Security.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.Server;
 
@@ -19,7 +18,7 @@ public class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions
     {
         var claims = new[] {
             new Claim(Claims.ClaimTypes.ObjectIdentifier, Guid.NewGuid().ToString()),
-            new Claim(Claims.ClaimTypes.Audience, "TestAudience"),            
+            new Claim(Claims.ClaimTypes.Audience, "TestAudience"),
             new Claim(Claims.ClaimTypes.Name, "CodeDesignPlus"),
             new Claim(Claims.ClaimTypes.Emails, "codedesignplus@codedesignplus.com"),
             new Claim(Claims.ClaimTypes.FirstName, "Code"),

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "CodeDesignPlus.Net.Microservice.gRpc.Test";
+
+package orders;
+
+enum OrderType {
+  NoneOrder = 0;
+  Asc = 1;
+  Desc = 2;
+}
+
+enum OrderStatus
+{
+    NoneStatus = 0;
+    Created = 1;
+    Pending = 2;
+    Completed = 3;
+    Cancelled= 4;
+}
+
+// The orders service definition.
+service Orders {
+  rpc GetOrder (stream GetOrderRequest) returns (stream GetOrderResponse);
+}
+
+message GetOrderRequest {
+  string Id = 1;
+}
+
+// Types to response
+message GetOrderResponse {
+  Order Order = 1;
+}
+
+message Order {
+  string id = 1;
+  google.protobuf.Int64Value completed_at = 2;
+  google.protobuf.Int64Value cancelled_at = 3;
+  Client client = 4;
+  repeated Product products = 5;
+  OrderStatus status = 6;
+  google.protobuf.StringValue reason_for_cancellation = 7;
+  int64 created_at = 8;
+  string created_by = 9;
+  int64 updated_at = 10;
+  string updated_by = 11;
+  bool is_active = 12;
+}
+
+message Client {
+  string id = 1;
+  string name = 2;
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  google.protobuf.StringValue description = 3;
+  double price = 4;
+  int32 quantity = 5;
+}

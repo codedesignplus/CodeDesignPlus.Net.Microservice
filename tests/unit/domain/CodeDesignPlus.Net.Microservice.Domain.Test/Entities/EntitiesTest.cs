@@ -1,7 +1,3 @@
-
-
-using System.Reflection;
-
 namespace CodeDesignPlus.Net.Microservice.Domain.Test.Entities;
 
 public class EntitiesTest
@@ -15,7 +11,7 @@ public class EntitiesTest
 
         var entities = assembly
             .GetTypes()
-            .Where(x => typeof(IEntityBase).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract && !x.IsSubclassOf(typeof(AggregateRoot))); 
+            .Where(x => typeof(IEntityBase).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract && !x.IsSubclassOf(typeof(AggregateRoot)));
 
         // Act
         foreach (var entity in entities)

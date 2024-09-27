@@ -46,7 +46,7 @@ message Order {
   OrderStatus status = 6;
   google.protobuf.StringValue reason_for_cancellation = 7;
   int64 created_at = 8;
-  string create_by = 9;
+  string created_by = 9;
   int64 updated_at = 10;
   string updated_by = 11;
   bool is_active = 12;

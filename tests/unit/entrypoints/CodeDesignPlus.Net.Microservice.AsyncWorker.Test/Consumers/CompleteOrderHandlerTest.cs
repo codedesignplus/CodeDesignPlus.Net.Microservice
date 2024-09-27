@@ -1,5 +1,3 @@
-using System;
-
 namespace CodeDesignPlus.Net.Microservice.AsyncWorker.Test.Consumers;
 
 public class CompleteOrderHandlerTest
@@ -8,7 +6,7 @@ public class CompleteOrderHandlerTest
     [Fact]
     public async Task HandleAsync_LogsInformation()
     {
-         // Arrange
+        // Arrange
         var loggerMock = new Mock<ILogger<CompleteOrderHandler>>();
         var handler = new CompleteOrderHandler(loggerMock.Object);
         var domainEvent = OrderCompletedDomainEvent.Create(Guid.NewGuid());
