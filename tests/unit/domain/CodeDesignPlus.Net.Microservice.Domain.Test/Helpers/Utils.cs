@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace CodeDesignPlus.Net.Microservice.Domain.Test.Helpers;
 
 public static class Utils

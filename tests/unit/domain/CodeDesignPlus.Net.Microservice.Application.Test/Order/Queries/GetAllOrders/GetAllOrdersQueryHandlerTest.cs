@@ -1,6 +1,4 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.GetAllOrders;
-using MapsterMapper;
-using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Queries.GetAllOrders;
 

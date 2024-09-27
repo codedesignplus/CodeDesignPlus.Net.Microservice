@@ -1,6 +1,5 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.gRpc.Core.MediatR;
 
-
 public class ValidationPipeline<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse> where TRequest : IBaseRequest
 {

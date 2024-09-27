@@ -1,9 +1,3 @@
-using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
-using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
-using CodeDesignPlus.Net.Microservice.gRpc.Services;
-using Grpc.Core;
-using Grpc.Core.Testing;
-
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Services;
 
 public class OrderServiceTest

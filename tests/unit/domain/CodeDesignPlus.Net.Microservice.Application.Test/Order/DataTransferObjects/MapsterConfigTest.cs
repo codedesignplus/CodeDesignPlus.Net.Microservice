@@ -1,6 +1,3 @@
-using Mapster;
-using MapsterMapper;
-
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.DataTransferObjects;
 
 public class MapsterConfigTest

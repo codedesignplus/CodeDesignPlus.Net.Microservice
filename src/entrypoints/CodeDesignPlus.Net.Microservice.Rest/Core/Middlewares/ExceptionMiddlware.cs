@@ -1,8 +1,4 @@
-﻿using CodeDesignPlus.Net.Exceptions;
-using CodeDesignPlus.Net.Exceptions.Models;
-using System.Net;
-
-namespace CodeDesignPlus.Net.Microservice.Rest.Core.Middlewares;
+﻿namespace CodeDesignPlus.Net.Microservice.Rest.Core.Middlewares;
 
 public class ExceptionMiddlware(RequestDelegate next)
 {

@@ -20,22 +20,22 @@ public abstract class DockerCompose
     /// </summary>
     protected DockerCompose()
     {
-        this.EnsureDockerHost();
+        EnsureDockerHost();
 
-        this.CompositeService = this.Build();
+        CompositeService = Build();
 
         try
         {
-            this.CompositeService.Start();
+            CompositeService.Start();
         }
         catch
         {
-            this.CompositeService.Dispose();
+            CompositeService.Dispose();
 
             throw;
         }
 
-        this.OnContainerInitialized();
+        OnContainerInitialized();
     }
 
 
@@ -65,25 +65,25 @@ public abstract class DockerCompose
     /// </summary>
     private void EnsureDockerHost()
     {
-        if (this.DockerHost?.State == ServiceRunningState.Running)
+        if (DockerHost?.State == ServiceRunningState.Running)
             return;
 
         var hosts = new Hosts().Discover();
-        this.DockerHost = hosts.FirstOrDefault(x => x.IsNative) ?? hosts.FirstOrDefault(x => x.Name == "default");
+        DockerHost = hosts.FirstOrDefault(x => x.IsNative) ?? hosts.FirstOrDefault(x => x.Name == "default");
 
-        if (this.DockerHost != null)
+        if (DockerHost != null)
         {
-            if (this.DockerHost.State != ServiceRunningState.Running)
-                this.DockerHost.Start();
+            if (DockerHost.State != ServiceRunningState.Running)
+                DockerHost.Start();
 
             return;
         }
 
         if (hosts.Count > 0)
-            this.DockerHost = hosts[0];
+            DockerHost = hosts[0];
 
-        if (this.DockerHost == null)
-            this.EnsureDockerHost();
+        if (DockerHost == null)
+            EnsureDockerHost();
     }
 
     /// <summary>
@@ -91,9 +91,9 @@ public abstract class DockerCompose
     /// </summary>
     public void StopInstance()
     {
-        this.OnContainerTearDown();
-        var compositeService = this.CompositeService;
-        this.CompositeService = null!;
+        OnContainerTearDown();
+        var compositeService = CompositeService;
+        CompositeService = null!;
         try
         {
             compositeService?.Dispose();

@@ -1,11 +1,4 @@
-﻿using CodeDesignPlus.Microservice.Api.Dtos;
-using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
-using CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.Server;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Text;
-
-namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
+﻿namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
 
 [Collection("Server Collection")]
 public class OrderControllerTest(TestServer<Program> server) : TestBase(server)

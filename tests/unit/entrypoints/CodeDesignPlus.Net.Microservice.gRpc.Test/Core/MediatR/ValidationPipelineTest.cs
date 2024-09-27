@@ -1,5 +1,3 @@
-using CodeDesignPlus.Net.Microservice.gRpc.Test.Helpers.FluentValidation;
-
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Core.MediatR;
 
 public class ValidationPipelineTest

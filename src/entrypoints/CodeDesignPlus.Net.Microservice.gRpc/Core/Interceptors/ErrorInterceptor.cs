@@ -1,7 +1,4 @@
-﻿using CodeDesignPlus.Net.Exceptions.Models;
-using Grpc.Core.Interceptors;
-
-namespace CodeDesignPlus.Net.Microservice.gRpc.Core.Interceptors;
+﻿namespace CodeDesignPlus.Net.Microservice.gRpc.Core.Interceptors;
 
 public class ErrorInterceptor : Interceptor
 {

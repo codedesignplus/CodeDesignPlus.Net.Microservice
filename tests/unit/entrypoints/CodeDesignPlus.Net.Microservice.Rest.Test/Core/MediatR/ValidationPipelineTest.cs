@@ -1,5 +1,3 @@
-using CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.FluentValidation;
-
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Core.MediatR;
 
 public class ValidationPipelineTest

@@ -1,6 +1,4 @@
-﻿
-
-namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
+﻿namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
 [EventKey<ProductEntity>(1, "ProductAddedToOrder")]
 public class ProductAddedToOrderDomainEvent(

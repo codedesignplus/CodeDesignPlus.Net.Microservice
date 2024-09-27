@@ -6,3 +6,5 @@ global using Grpc.Core;
 global using Mapster;
 global using MapsterMapper;
 global using MediatR;
+global using CodeDesignPlus.Net.Exceptions.Models;
+global using Grpc.Core.Interceptors;

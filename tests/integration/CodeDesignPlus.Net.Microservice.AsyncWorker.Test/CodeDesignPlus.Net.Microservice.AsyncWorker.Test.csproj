@@ -30,4 +30,8 @@
     	</None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\src\entrypoints\CodeDesignPlus.Net.Microservice.AsyncWorker\CodeDesignPlus.Net.Microservice.AsyncWorker.csproj" />
+	</ItemGroup>
+
 </Project>

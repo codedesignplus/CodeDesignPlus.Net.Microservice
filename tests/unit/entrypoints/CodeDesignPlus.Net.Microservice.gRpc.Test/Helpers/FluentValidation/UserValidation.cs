@@ -1,6 +1,4 @@
-using CodeDesignPlus.Net.Microservice.gRpc.Test.Helpers.Models;
-
-namespace CodeDesignPlus.Net.Microservice.Rest.Test.Helpers.FluentValidation;
+namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Helpers.FluentValidation;
 
 public class UserValidation : AbstractValidator<UserModel>
 {

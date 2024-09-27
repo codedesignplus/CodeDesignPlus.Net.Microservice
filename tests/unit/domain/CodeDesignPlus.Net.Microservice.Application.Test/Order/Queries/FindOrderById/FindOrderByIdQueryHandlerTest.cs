@@ -1,5 +1,4 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
-using MapsterMapper;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Queries.FindOrderById;
 

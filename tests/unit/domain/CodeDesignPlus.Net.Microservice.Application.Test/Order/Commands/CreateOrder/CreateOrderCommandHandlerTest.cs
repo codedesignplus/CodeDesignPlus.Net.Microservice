@@ -1,5 +1,4 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
-using CodeDesignPlus.Net.Security.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.CreateOrder;
 

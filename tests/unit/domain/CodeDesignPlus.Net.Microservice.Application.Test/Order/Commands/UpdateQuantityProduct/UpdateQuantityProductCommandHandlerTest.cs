@@ -1,6 +1,4 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityProduct;
-using CodeDesignPlus.Net.Microservice.Domain.Entities;
-using CodeDesignPlus.Net.Security.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.UpdateQuantityProduct;
 

@@ -7,8 +7,6 @@ using CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityP
 using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.FindOrderById;
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.GetAllOrders;
-using CodeDesignPlus.Net.Microservice.Rest.Controllers;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
 

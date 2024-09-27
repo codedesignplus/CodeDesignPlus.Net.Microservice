@@ -1,5 +1,3 @@
-using Grpc.Core;
-
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Core.Interceptors;
 
 public class ErrorInterceptorTest

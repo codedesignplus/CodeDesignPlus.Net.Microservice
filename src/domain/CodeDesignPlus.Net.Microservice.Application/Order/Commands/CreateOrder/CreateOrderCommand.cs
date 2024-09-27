@@ -1,5 +1,4 @@
-﻿
-namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
 
 [DtoGenerator]
 public record CreateOrderCommand(Guid Id, ClientDto Client) : IRequest;

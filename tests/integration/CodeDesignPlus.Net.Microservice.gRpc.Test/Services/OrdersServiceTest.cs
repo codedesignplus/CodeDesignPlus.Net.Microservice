@@ -1,9 +1,3 @@
-using CodeDesignPlus.Net.Microservice.Domain;
-using CodeDesignPlus.Net.Microservice.Domain.Repositories;
-using CodeDesignPlus.Net.Microservice.gRpc.Test.Helpers.Server;
-using Grpc.Core;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Services;
 
 [Collection("Server Collection")]

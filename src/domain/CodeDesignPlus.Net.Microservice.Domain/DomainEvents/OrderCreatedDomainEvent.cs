@@ -1,5 +1,4 @@
-﻿
-namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
+﻿namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
 [EventKey<OrderAggregate>(1, "OrderCreated")]
 public class OrderCreatedDomainEvent(

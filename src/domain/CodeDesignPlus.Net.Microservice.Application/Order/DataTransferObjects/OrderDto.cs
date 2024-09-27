@@ -1,6 +1,4 @@
-﻿using CodeDesignPlus.Net.Microservice.Domain.Enums;
-
-namespace CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 
 public class OrderDto
 {

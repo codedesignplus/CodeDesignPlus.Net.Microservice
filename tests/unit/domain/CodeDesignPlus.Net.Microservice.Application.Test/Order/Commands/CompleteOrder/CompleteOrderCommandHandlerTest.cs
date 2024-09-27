@@ -1,6 +1,4 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder;
-using CodeDesignPlus.Net.Microservice.Domain.Enums;
-using CodeDesignPlus.Net.Security.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.CompleteOrder;
 

@@ -1,6 +1,3 @@
-using CodeDesignPlus.Net.Exceptions;
-using CodeDesignPlus.Net.Exceptions.Extensions;
-
 namespace CodeDesignPlus.Net.Microservice.Domain.Test;
 
 public class OrderAggregateTest

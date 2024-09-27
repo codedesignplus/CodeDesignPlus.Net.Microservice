@@ -1,7 +1,4 @@
-using CodeDesignPlus.Net.Exceptions;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.RemoveProduct;
-using CodeDesignPlus.Net.Microservice.Domain.Entities;
-using CodeDesignPlus.Net.Security.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.RemoveProduct;
 

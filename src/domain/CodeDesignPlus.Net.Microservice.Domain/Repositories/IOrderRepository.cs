@@ -1,6 +1,4 @@
-﻿using CodeDesignPlus.Net.Mongo.Abstractions;
-
-namespace CodeDesignPlus.Net.Microservice.Domain.Repositories;
+﻿namespace CodeDesignPlus.Net.Microservice.Domain.Repositories;
 
 public interface IOrderRepository : IRepositoryBase
 {

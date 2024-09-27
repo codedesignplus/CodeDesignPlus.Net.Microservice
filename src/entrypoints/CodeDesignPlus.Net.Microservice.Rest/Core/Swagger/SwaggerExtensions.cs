@@ -1,10 +1,4 @@
-﻿using CodeDesignPlus.Net.Core.Abstractions.Options;
-using CodeDesignPlus.Net.Core.Exceptions;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-
-namespace CodeDesignPlus.Net.Microservice.Rest.Core.Swagger;
+﻿namespace CodeDesignPlus.Net.Microservice.Rest.Core.Swagger;
 
 public static class SwaggerExtensions
 {

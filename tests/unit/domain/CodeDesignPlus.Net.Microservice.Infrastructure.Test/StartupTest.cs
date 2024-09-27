@@ -1,6 +1,3 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace CodeDesignPlus.Net.Microservice.Infrastructure.Test;
 
 public class StartupTest

@@ -1,7 +1,4 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
-using CodeDesignPlus.Net.Microservice.Application.Test.Helpers;
-using MediatR;
-using System.Reflection;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands;
 

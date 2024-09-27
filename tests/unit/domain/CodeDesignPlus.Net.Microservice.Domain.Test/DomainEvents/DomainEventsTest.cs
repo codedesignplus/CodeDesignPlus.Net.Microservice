@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace CodeDesignPlus.Net.Microservice.Domain.Test.DomainEvents;
 
 public class DomainEvents

@@ -3,3 +3,6 @@ global using CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 global using CodeDesignPlus.Net.Microservice.Domain.Enums;
 global using CodeDesignPlus.Net.Microservice.Domain.Test.Helpers;
 global using System;
+global using System.Reflection;
+global using CodeDesignPlus.Net.Exceptions;
+global using CodeDesignPlus.Net.Exceptions.Extensions;
