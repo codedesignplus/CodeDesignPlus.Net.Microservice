@@ -12,17 +12,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.2.0-alpha.10" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
-		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.8.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.8.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.8.0" />
 
-		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.2.0-alpha.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.2.0-alpha.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.2.0-alpha.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.2.0-alpha.3" />
-		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.2.0-alpha.3" />
-
+		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.2.0-alpha.10" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.2.0-alpha.10" />
+		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.2.0-alpha.10" />
+		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.2.0-alpha.10" />
+		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.2.0-alpha.10" />
 	</ItemGroup>
 
 	<ItemGroup>

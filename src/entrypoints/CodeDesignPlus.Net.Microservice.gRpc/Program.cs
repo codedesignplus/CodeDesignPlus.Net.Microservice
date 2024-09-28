@@ -1,7 +1,7 @@
 using CodeDesignPlus.Net.Logger.Extensions;
-using CodeDesignPlus.Net.Microservice.gRpc.Core.FluentValidation;
-using CodeDesignPlus.Net.Microservice.gRpc.Core.Interceptors;
-using CodeDesignPlus.Net.Microservice.gRpc.Core.MediatR;
+using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.gRpc.Interceptors;
+using CodeDesignPlus.Net.Microservice.Commons.FluentValidation;
+using CodeDesignPlus.Net.Microservice.Commons.MediatR;
 using CodeDesignPlus.Net.Microservice.gRpc.Services;
 using CodeDesignPlus.Net.Mongo.Extensions;
 using CodeDesignPlus.Net.Observability.Extensions;
@@ -23,7 +23,7 @@ builder.Services.AddGrpc(options =>
 builder.Services.AddGrpcReflection();
 
 builder.Services.AddMapster();
-builder.Services.AddMediatRR();
+builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
 builder.Services.AddFluentValidation();
 
 builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>(builder.Configuration);

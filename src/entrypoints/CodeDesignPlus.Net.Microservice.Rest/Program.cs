@@ -1,3 +1,8 @@
+using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Middlewares;
+using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Swagger;
+using CodeDesignPlus.Net.Microservice.Commons.FluentValidation;
+using CodeDesignPlus.Net.Microservice.Commons.MediatR;
+
 var builder = WebApplication.CreateSlimBuilder(args);
 
 Serilog.Debugging.SelfLog.Enable(Console.Error);
@@ -16,7 +21,7 @@ builder.Services.AddLogger(builder.Configuration);
 builder.Services.AddRabbitMQ(builder.Configuration);
 builder.Services.AddMapster();
 builder.Services.AddFluentValidation();
-builder.Services.AddMediatRR();
+builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddCoreSwagger(builder.Configuration);
 
@@ -26,7 +31,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseCoreSwagger();
 
-app.UseMiddleware<ExceptionMiddlware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

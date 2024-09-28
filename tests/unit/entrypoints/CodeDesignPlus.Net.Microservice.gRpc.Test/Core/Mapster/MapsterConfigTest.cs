@@ -6,7 +6,7 @@ public class MapsterConfigTest
     public void Configure_ShouldMapProperties_Success()
     {
         // Arrange
-        MapsterConfig.Configure();
+        CodeDesignPlus.Net.Microservice.gRpc.Core.Mapster.MapsterConfig.Configure();
         var config = TypeAdapterConfig.GlobalSettings;
 
         // Act

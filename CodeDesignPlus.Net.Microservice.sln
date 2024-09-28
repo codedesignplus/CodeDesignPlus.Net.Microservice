@@ -71,6 +71,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\integration\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Default.Test", "tests\unit\CodeDesignPlus.Net.Microservice.Default.Test\CodeDesignPlus.Net.Microservice.Default.Test.csproj", "{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +171,7 @@ Global
 		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
 		{0C61268F-92C9-4A73-ACC7-398E70081AC7} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
+		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}

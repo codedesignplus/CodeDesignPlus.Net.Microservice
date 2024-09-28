@@ -1,14 +1,15 @@
 namespace CodeDesignPlus.Net.Microservice.AsyncWorker.Test.Consumers;
 
-[Collection("Server Collection")]
-public class ProductRemovedFromOrderHandlerTest(TestServer<Program> server) : TestBase(server)
+public class ProductRemovedFromOrderHandlerTest(Server<Program> server) : ServerBase<Program>(server), IClassFixture<Server<Program>>
 {
 
     [Fact]
     public async Task HandleAsync_Success()
     {
+        await Task.Delay(5000);
+        
         // Arrange
-        var messageService = this._services.GetRequiredService<IMessage>();
+        var messageService = Services.GetRequiredService<IMessage>();
 
         var domainEvent = ProductRemovedFromOrderDomainEvent.Create(Guid.NewGuid(), Guid.NewGuid());
 
@@ -17,7 +18,7 @@ public class ProductRemovedFromOrderHandlerTest(TestServer<Program> server) : Te
         await Task.Delay(1000);
 
         // Act
-        var logs = _loggerProvider.Loggers.SelectMany(x => x.Value.Logs).ToList();
+        var logs = LoggerProvider.Loggers.SelectMany(x => x.Value.Logs).ToList();
 
         Assert.Contains(logs, log => log.Contains("ProductRemovedFromOrderDomainEvent Recived"));
         Assert.Contains(logs, log => log.Contains(domainEvent.AggregateId.ToString()));

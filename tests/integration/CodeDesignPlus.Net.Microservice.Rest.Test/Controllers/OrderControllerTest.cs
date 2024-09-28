@@ -1,7 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
 
-[Collection("Server Collection")]
-public class OrderControllerTest(TestServer<Program> server) : TestBase(server)
+public class OrderControllerTest(Server<Program> server) : ServerBase<Program>(server), IClassFixture<Server<Program>>
 {
     [Fact]
     public async Task GetOrders_ReturnOk()
@@ -295,7 +294,7 @@ public class OrderControllerTest(TestServer<Program> server) : TestBase(server)
         httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("TestAuth");
         httpRequestMessage.Headers.Add("X-Tenant", tenant.ToString());
 
-        var response = await _client.SendAsync(httpRequestMessage);
+        var response = await Client.SendAsync(httpRequestMessage);
 
         return response;
     }

@@ -1,18 +1,17 @@
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Services;
 
-[Collection("Server Collection")]
-public class OrdersServiceTest(TestServer<Program> server) : TestBase(server)
+public class OrdersServiceTest(Server<Program> server) : ServerBase<Program>(server), IClassFixture<Server<Program>>
 {
 
     [Fact]
     public async Task GetOrder_BidirectionalStreaming_ValidId_ReturnsOrder()
     {
         bool isInvoked = false;
-        var orderClient = new Orders.OrdersClient(_channel);
+        var orderClient = new Orders.OrdersClient(Channel);
 
         var orderExpected = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "CodeDesignPlus", Guid.NewGuid(), Guid.NewGuid());
 
-        var repository = _services.GetRequiredService<IOrderRepository>();
+        var repository = Services.GetRequiredService<IOrderRepository>();
 
         await repository.CreateAsync(orderExpected, CancellationToken.None);
 
