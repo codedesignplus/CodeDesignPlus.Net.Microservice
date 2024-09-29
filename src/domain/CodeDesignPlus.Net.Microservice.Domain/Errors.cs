@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Domain;
 
-public static class Errors
+public class Errors: IErrorCodes
 {
     public const string IdOrderIsInvalid = "100 : Id is invalid.";
     public const string TenantIsInvalid = "101 : Tenant is invalid.";

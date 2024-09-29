@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 
-public class OrderDto
+public class OrderDto: IDtoBase
 {
     public Guid Id { get; set; }
     public long? CompletedAt { get; set; }

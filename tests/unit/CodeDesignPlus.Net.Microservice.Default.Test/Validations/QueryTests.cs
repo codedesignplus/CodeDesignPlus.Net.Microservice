@@ -1,4 +1,4 @@
-namespace CodeDesignPlus.Net.Microservice.Default.Test;
+namespace CodeDesignPlus.Net.Microservice.Default.Test.Validations;
 
 /// <summary>
 /// A class for validating queries.
@@ -9,7 +9,7 @@ public class QueriesTests
     /// Validates that queries can be created and their properties can be set and retrieved correctly.
     /// </summary>
     [Theory]
-    [Query]
+    [Query<Application.Errors>]
     public void Queries_GetAndSet_Success(Type query, object instance, Dictionary<ParameterInfo, object> values)
     {
         // Assert

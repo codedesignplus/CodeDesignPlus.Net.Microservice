@@ -21,7 +21,7 @@
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		
-		<PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.2.0-alpha.10" />
+		<PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.2.0-alpha.11" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.8" />

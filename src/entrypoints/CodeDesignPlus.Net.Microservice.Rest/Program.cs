@@ -23,7 +23,7 @@ builder.Services.AddMapster();
 builder.Services.AddFluentValidation();
 builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
 builder.Services.AddSecurity(builder.Configuration);
-builder.Services.AddCoreSwagger(builder.Configuration);
+builder.Services.AddCoreSwagger<Program>(builder.Configuration);
 
 
 var app = builder.Build();

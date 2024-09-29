@@ -2,6 +2,8 @@
 #echo "Install dotnet-sonarscanner ----------------------------------------------------------------------------------------------------------------------"
 #dotnet tool install --global dotnet-sonarscanner 
 
+$env:SONAR_TOKEN="82588378259add8808c44526a291124d47ab2a74"
+
 Write-Host "Start Sonarscanner -------------------------------------------------------------------------------------------------------------------------------"
 
 $org = "codedesignplus"

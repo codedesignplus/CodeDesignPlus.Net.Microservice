@@ -1,4 +1,4 @@
-namespace CodeDesignPlus.Net.Microservice.Default.Test;
+namespace CodeDesignPlus.Net.Microservice.Default.Test.Validations;
 
 /// <summary>
 /// A class for validating data transfer objects (DTOs).
@@ -9,7 +9,7 @@ public class DataTransferObjectTests
     /// Validates that DTOs can be created and their properties can be set and retrieved correctly.
     /// </summary>
     [Theory]
-    [DataTransferObject]
+    [DataTransferObject<Application.Errors>]
     public void Dtos_GetAndSet_Success(Type dto, object instance)
     {
         // Assert
