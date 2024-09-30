@@ -13,3 +13,4 @@ global using MediatR;
 global using CodeDesignPlus.Net.Microservice.Domain.Enums;
 global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
 global using CodeDesignPlus.Net.Core.Abstractions;
+global using CodeDesignPlus.Net.Microservice.Domain.DataTransferObjects;

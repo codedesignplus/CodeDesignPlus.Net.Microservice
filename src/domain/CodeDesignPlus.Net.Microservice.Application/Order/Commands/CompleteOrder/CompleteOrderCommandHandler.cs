@@ -10,7 +10,14 @@ public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IUser
 
         order.CompleteOrder(user.IdUser);
 
-        await orderRepository.CompleteOrderAsync(order.Id, order.CompletedAt, order.Status, order.UpdatedAt, order.UpdatedBy, cancellationToken);
+        await orderRepository.CompleteOrderAsync(new CompleteOrderParams()
+        {
+            Id = order.Id,
+            CompletedAt = order.CompletedAt,
+            OrderStatus = order.Status,
+            UpdatedAt = order.UpdatedAt,
+            UpdateBy = order.UpdatedBy
+        }, cancellationToken);
 
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

@@ -38,11 +38,11 @@ public class AddProductToOrderCommandHandlerTest
         var handler = new AddProductToOrderCommandHandler(orderRepository.Object, this.user, message.Object);
 
         // Act
-        var exception = await Assert.ThrowsAsync<Exceptions.CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
+        var exception = await Assert.ThrowsAsync<CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
 
         // Assert
         orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<int>(), It.IsAny<long?>(), It.IsAny<Guid?>(), It.IsAny<CancellationToken>()), Times.Never);
+        orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Never);
         message.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Equal(Errors.OrderNotFound.GetCode(), exception.Code);
@@ -77,7 +77,7 @@ public class AddProductToOrderCommandHandlerTest
 
         // Assert
         orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<long>(), It.IsAny<int>(), It.IsAny<long?>(), It.IsAny<Guid?>(), It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
         message.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
 
         Assert.NotEmpty(order.Products);

@@ -60,7 +60,7 @@ public class RemoveProductCommandHandlerTest
         // Assert        
         Assert.NotNull(order.UpdatedAt);
         Assert.Equal(this.user.IdUser, order.UpdatedBy);
-        orderRepository.Verify(x => x.RemoveProductFromOrderAsync(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<long?>(), It.IsAny<Guid?>(), It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.RemoveProductFromOrderAsync(It.IsAny<RemoveProductFromOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
         message.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 

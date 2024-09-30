@@ -10,7 +10,12 @@ public class RemoveProductCommandHandler(IOrderRepository orderRepository, IUser
 
         order.RemoveProduct(request.ProductId, user.IdUser);
 
-        await orderRepository.RemoveProductFromOrderAsync(request.Id, request.ProductId, order.UpdatedAt, order.UpdatedBy, cancellationToken);
+        await orderRepository.RemoveProductFromOrderAsync(new RemoveProductFromOrderParams() {
+            Id = order.Id,
+            IdProduct = request.ProductId,
+            UpdatedAt = order.UpdatedAt,
+            UpdateBy = user.IdUser
+        }, cancellationToken);
 
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

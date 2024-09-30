@@ -10,7 +10,17 @@ public class AddProductToOrderCommandHandler(IOrderRepository orderRepository, I
 
         order.AddProduct(request.IdProduct, request.Name, request.Description, request.Price, request.Quantity, user.IdUser);
 
-        await orderRepository.AddProductToOrderAsync(request.Id, request.IdProduct, request.Name, request.Description, request.Price, request.Quantity, order.UpdatedAt, order.UpdatedBy, cancellationToken);
+        await orderRepository.AddProductToOrderAsync(new AddProductToOrderParams()
+        {
+            Id = order.Id,
+            IdProduct = request.IdProduct,
+            Name = request.Name,
+            Description = request.Description,
+            Price = request.Price,
+            Quantity = request.Quantity,
+            UpdatedAt = order.UpdatedAt,
+            UpdateBy = user.IdUser
+        }, cancellationToken);
 
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

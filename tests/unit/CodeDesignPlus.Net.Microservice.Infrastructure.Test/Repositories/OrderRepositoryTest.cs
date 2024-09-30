@@ -59,7 +59,17 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.AddProductToOrderAsync(idOrder, idProduct, name, description, price, quantity, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
+        await orderRepository.AddProductToOrderAsync(new AddProductToOrderParams()
+        {
+            Id = idOrder,
+            IdProduct = idProduct,
+            Name = name,
+            Description = description,
+            Price = price,
+            Quantity = quantity,
+            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdateBy = Guid.NewGuid()
+        }, cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -79,7 +89,15 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.CancelOrderAsync(idOrder, OrderStatus.Cancelled, reason, cancelledAt, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
+        await orderRepository.CancelOrderAsync(new CancelOrderParams()
+        {
+            Id = idOrder,
+            OrderStatus = OrderStatus.Cancelled,
+            Reason = reason,
+            CancelledAt = cancelledAt,
+            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdateBy = Guid.NewGuid()
+        }, cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -98,7 +116,14 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.CompleteOrderAsync(idOrder, completedAt, OrderStatus.Completed, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
+        await orderRepository.CompleteOrderAsync(new CompleteOrderParams()
+        {
+            Id = idOrder,
+            CompletedAt = completedAt,
+            OrderStatus = OrderStatus.Completed,
+            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdateBy = Guid.NewGuid()
+        }, cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -169,7 +194,13 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.RemoveProductFromOrderAsync(idOrder, idProduct, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
+        await orderRepository.RemoveProductFromOrderAsync( new RemoveProductFromOrderParams()
+        {
+            Id = idOrder,
+            IdProduct = idProduct,
+            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdateBy = Guid.NewGuid()
+        }, cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);
@@ -207,7 +238,14 @@ public class OrderRepositoryTest
             .ReturnsAsync(It.IsAny<UpdateResult>());
 
         // Act
-        await orderRepository.UpdateQuantityProductAsync(idOrder, productId, newQuantity, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), Guid.NewGuid(), cancellationToken);
+        await orderRepository.UpdateQuantityProductAsync(new UpdateQuantityProductParams()
+        {
+            Id = idOrder,
+            ProductId = productId,
+            NewQuantity = newQuantity,
+            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdateBy = Guid.NewGuid()
+        }, cancellationToken);
 
         // Assert
         collectionMock.Verify(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken), Times.Once);

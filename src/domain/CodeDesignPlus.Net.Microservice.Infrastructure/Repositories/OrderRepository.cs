@@ -1,23 +1,24 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Infrastructure.Repositories;
 
-public class OrderRepository(IServiceProvider serviceProvider, IOptions<MongoOptions> mongoOptions, ILogger<RepositoryBase> logger) : RepositoryBase(serviceProvider, mongoOptions, logger), IOrderRepository
+public class OrderRepository(IServiceProvider serviceProvider, IOptions<MongoOptions> mongoOptions, ILogger<RepositoryBase> logger) 
+    : RepositoryBase(serviceProvider, mongoOptions, logger), IOrderRepository
 {
-    public Task AddProductToOrderAsync(Guid idOrder, Guid idProduct, string name, string description, long price, int quantity, long? updaatedAt, Guid? updateBy, CancellationToken cancellationToken)
+    public Task AddProductToOrderAsync(AddProductToOrderParams parameters, CancellationToken cancellationToken)
     {
         var product = new ProductEntity
         {
-            Id = idProduct,
-            Name = name,
-            Description = description,
-            Price = price,
-            Quantity = quantity
+            Id = parameters.IdProduct,
+            Name = parameters.Name,
+            Description = parameters.Description,
+            Price = parameters.Price,
+            Quantity = parameters.Quantity
         };
 
-        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, idOrder);
+        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, parameters.Id);
         var update = Builders<OrderAggregate>.Update
             .Push(x => x.Products, product)
-            .Set(x => x.UpdatedAt, updaatedAt)
-            .Set(x => x.UpdatedBy, updateBy);
+            .Set(x => x.UpdatedAt, parameters.UpdatedAt)
+            .Set(x => x.UpdatedBy, parameters.UpdateBy);
 
         var collection = base.GetCollection<OrderAggregate>();
 
@@ -28,29 +29,29 @@ public class OrderRepository(IServiceProvider serviceProvider, IOptions<MongoOpt
          );
     }
 
-    public Task CancelOrderAsync(Guid idOrder, OrderStatus orderStatus, string? reason, long? cancelledAt, long? updaatedAt, Guid? updateBy, CancellationToken cancellationToken)
+    public Task CancelOrderAsync(CancelOrderParams parameters, CancellationToken cancellationToken)
     {
-        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, idOrder);
+        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, parameters.Id);
 
         var update = Builders<OrderAggregate>.Update
-            .Set(x => x.Status, orderStatus)
-            .Set(x => x.ReasonForCancellation, reason)
-            .Set(x => x.CancelledAt, cancelledAt)
-            .Set(x => x.UpdatedAt, updaatedAt)
-            .Set(x => x.UpdatedBy, updateBy);
+            .Set(x => x.Status, parameters.OrderStatus)
+            .Set(x => x.ReasonForCancellation, parameters.Reason)
+            .Set(x => x.CancelledAt, parameters.CancelledAt)
+            .Set(x => x.UpdatedAt, parameters.UpdatedAt)
+            .Set(x => x.UpdatedBy, parameters.UpdateBy);
 
         return base.GetCollection<OrderAggregate>().UpdateOneAsync(filterId, update, cancellationToken: cancellationToken);
     }
 
-    public Task CompleteOrderAsync(Guid idOrder, long? completedAt, OrderStatus orderStatus, long? updaatedAt, Guid? updateBy, CancellationToken cancellationToken)
+    public Task CompleteOrderAsync(CompleteOrderParams parameters, CancellationToken cancellationToken)
     {
-        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, idOrder);
+        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, parameters.Id);
 
         var update = Builders<OrderAggregate>.Update
-            .Set(x => x.CompletedAt, completedAt)
-            .Set(x => x.Status, orderStatus)
-            .Set(x => x.UpdatedAt, updaatedAt)
-            .Set(x => x.UpdatedBy, updateBy);
+            .Set(x => x.CompletedAt, parameters.CompletedAt)
+            .Set(x => x.Status, parameters.OrderStatus)
+            .Set(x => x.UpdatedAt, parameters.UpdatedAt)
+            .Set(x => x.UpdatedBy, parameters.UpdateBy);
 
         return base.GetCollection<OrderAggregate>().UpdateOneAsync(filterId, update, cancellationToken: cancellationToken);
     }
@@ -74,14 +75,14 @@ public class OrderRepository(IServiceProvider serviceProvider, IOptions<MongoOpt
         return await result.ToListAsync(cancellationToken);
     }
 
-    public Task RemoveProductFromOrderAsync(Guid idOrder, Guid idProduct, long? updaatedAt, Guid? updateBy, CancellationToken cancellationToken)
+    public Task RemoveProductFromOrderAsync(RemoveProductFromOrderParams parameters, CancellationToken cancellationToken)
     {
-        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, idOrder);
+        var filterId = Builders<OrderAggregate>.Filter.Eq(x => x.Id, parameters.Id);
 
         var update = Builders<OrderAggregate>.Update
-            .PullFilter(x => x.Products, p => p.Id == idProduct)
-            .Set(x => x.UpdatedAt, updaatedAt)
-            .Set(x => x.UpdatedBy, updateBy);
+            .PullFilter(x => x.Products, p => p.Id == parameters.IdProduct)
+            .Set(x => x.UpdatedAt, parameters.UpdatedAt)
+            .Set(x => x.UpdatedBy, parameters.UpdateBy);
 
         return base.GetCollection<OrderAggregate>().UpdateOneAsync(filterId, update, cancellationToken: cancellationToken);
     }
@@ -91,19 +92,18 @@ public class OrderRepository(IServiceProvider serviceProvider, IOptions<MongoOpt
         return this.UpdateAsync(order, cancellationToken);
     }
 
-    public Task UpdateQuantityProductAsync(Guid idOrder, Guid productId, int newQuantity, long? updaatedAt, Guid? updateBy, CancellationToken cancellationToken)
+    public Task UpdateQuantityProductAsync(UpdateQuantityProductParams parameters, CancellationToken cancellationToken)
     {
         var filterId = Builders<OrderAggregate>.Filter.And(
-            Builders<OrderAggregate>.Filter.Eq(x => x.Id, idOrder),
-            Builders<OrderAggregate>.Filter.ElemMatch(x => x.Products, x => x.Id == productId)
+            Builders<OrderAggregate>.Filter.Eq(x => x.Id, parameters.Id),
+            Builders<OrderAggregate>.Filter.ElemMatch(x => x.Products, x => x.Id == parameters.ProductId)
         );
 
         var update = Builders<OrderAggregate>.Update
-            .Set("Products.$.Quantity", newQuantity)
-            .Set(x => x.UpdatedAt, updaatedAt)
-            .Set(x => x.UpdatedBy, updateBy);
+            .Set("Products.$.Quantity", parameters.NewQuantity)
+            .Set(x => x.UpdatedAt, parameters.UpdatedAt)
+            .Set(x => x.UpdatedBy, parameters.UpdateBy);
 
         return base.GetCollection<OrderAggregate>().UpdateOneAsync(filterId, update, cancellationToken: cancellationToken);
-
     }
 }

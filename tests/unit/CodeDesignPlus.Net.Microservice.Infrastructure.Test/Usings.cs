@@ -9,3 +9,4 @@ global using Microsoft.Extensions.Options;
 global using MongoDB.Driver;
 global using Moq;
 global using Microsoft.Extensions.Configuration;
+global using CodeDesignPlus.Net.Microservice.Domain.DataTransferObjects;

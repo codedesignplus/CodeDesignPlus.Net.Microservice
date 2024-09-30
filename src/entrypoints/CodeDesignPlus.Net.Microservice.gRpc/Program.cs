@@ -38,7 +38,7 @@ var app = builder.Build();
 app.UseAuth();
 
 // Configure the HTTP request pipeline.
-app.MapGrpcService<OrdersService>();//.RequireAuthorization();
+app.MapGrpcService<OrdersService>().RequireAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -49,4 +49,7 @@ app.MapGet("/", () => "Communication with gRPC endpoints must be made through a 
 
 await app.RunAsync();
 
-public partial class Program { }
+public partial class Program
+{
+    protected Program() { }
+}

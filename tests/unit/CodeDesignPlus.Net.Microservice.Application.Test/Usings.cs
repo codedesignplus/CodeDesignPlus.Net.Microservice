@@ -12,5 +12,5 @@ global using CodeDesignPlus.Net.Exceptions;
 global using CodeDesignPlus.Net.Microservice.Domain.Entities;
 global using Mapster;
 global using MapsterMapper;
-
+global using CodeDesignPlus.Net.Microservice.Domain.DataTransferObjects;
 global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;

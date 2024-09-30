@@ -9,8 +9,15 @@ public class CancelOrderCommandHandler(IOrderRepository orderRepository, IUserCo
         ApplicationGuard.IsNull(order, Errors.OrderNotFound);
 
         order.CancelOrder(request.Reason, user.IdUser);
-
-        await orderRepository.CancelOrderAsync(order.Id, order.Status, order.ReasonForCancellation, order.CancelledAt, order.UpdatedAt, order.UpdatedBy, cancellationToken);
+        
+        await orderRepository.CancelOrderAsync(new CancelOrderParams() {
+            Id = order.Id,
+            OrderStatus = order.Status,
+            Reason = order.ReasonForCancellation,
+            CancelledAt = order.CancelledAt,
+            UpdatedAt = order.UpdatedAt,
+            UpdateBy = order.UpdatedBy
+        },cancellationToken);
 
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

@@ -10,7 +10,14 @@ public class UpdateQuantityProductCommandHandler(IOrderRepository orderRepositor
 
         order.UpdateProductQuantity(request.ProductId, request.Quantity, user.IdUser);
 
-        await orderRepository.UpdateQuantityProductAsync(request.Id, request.ProductId, request.Quantity, order.UpdatedAt, order.UpdatedBy, cancellationToken);
+        await orderRepository.UpdateQuantityProductAsync(new UpdateQuantityProductParams()
+        {
+            Id = order.Id,
+            ProductId = request.ProductId,
+            NewQuantity = request.Quantity,
+            UpdatedAt = order.UpdatedAt,
+            UpdateBy = user.IdUser
+        }, cancellationToken);
 
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
