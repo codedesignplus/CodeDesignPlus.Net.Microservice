@@ -9,7 +9,7 @@ public class StartupTest
     /// Validates that the startup services do not throw exceptions during initialization.
     /// </summary>
     [Theory]
-    [StartupValidation<Application.Startup>]
+    [Startup<Application.Startup>]
     public void Sturtup_CheckNotThrowException_Application(IStartupServices startup, Exception exception)
     {
         // Assert
@@ -21,7 +21,7 @@ public class StartupTest
     /// Validates that the startup services do not throw exceptions during initialization.
     /// </summary>
     [Theory]
-    [StartupValidation<Infrastructure.Startup>]
+    [Startup<Infrastructure.Startup>]
     public void Sturtup_CheckNotThrowException_Infrastructure(IStartupServices startup, Exception exception)
     {
         // Assert

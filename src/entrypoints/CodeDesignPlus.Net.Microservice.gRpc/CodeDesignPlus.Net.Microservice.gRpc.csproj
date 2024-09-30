@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.2.0-alpha.11" />
+		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.2.0-alpha.15" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.66.0" />
 		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.66.0" />
 		<PackageReference Include="Grpc.Tools" Version="2.66.0">
@@ -30,13 +30,13 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
 
-		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.2.0-alpha.11" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.2.0-alpha.11" />
-		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.2.0-alpha.11" />
-		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.2.0-alpha.11" />
-		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.2.0-alpha.11" />
-		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.2.0-alpha.11" />
-		<PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="0.2.0-alpha.11" />
+		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="0.2.0-alpha.15" />
 	</ItemGroup>
 
 </Project>

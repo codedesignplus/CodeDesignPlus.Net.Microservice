@@ -14,7 +14,7 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>		
-		<!-- <PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.2.0-alpha.11" /> -->
+		<PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.2.0-alpha.15" />
 		<PackageReference Include="Ductus.FluentDocker.XUnit" Version="2.10.59" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
@@ -33,7 +33,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\src\entrypoints\CodeDesignPlus.Net.Microservice.AsyncWorker\CodeDesignPlus.Net.Microservice.AsyncWorker.csproj" />
-	  <ProjectReference Include="..\..\..\..\CodeDesignPlus.Net.Sdk\packages\CodeDesignPlus.Net.xUnit.Microservice\src\CodeDesignPlus.Net.xUnit.Microservice\CodeDesignPlus.Net.xUnit.Microservice.csproj" />
 	</ItemGroup>
 
 </Project>

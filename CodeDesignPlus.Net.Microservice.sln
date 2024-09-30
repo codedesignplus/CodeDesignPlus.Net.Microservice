@@ -12,29 +12,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{7C446BF8-6C29-44EA-BF60-0F249269464C}"
 	ProjectSection(SolutionItems) = preProject
+		resources\shared\grafana-dashboards.yaml = resources\shared\grafana-dashboards.yaml
 		resources\shared\grafana-datasources.yaml = resources\shared\grafana-datasources.yaml
 		resources\shared\loki-config.yaml = resources\shared\loki-config.yaml
 		resources\shared\otel-config.yaml = resources\shared\otel-config.yaml
 		resources\shared\prometheus-config.yaml = resources\shared\prometheus-config.yaml
 		resources\shared\tempo-config.yaml = resources\shared\tempo-config.yaml
-		resources\shared\grafana-dashboards.yaml = resources\shared\grafana-dashboards.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "entrypoints", "entrypoints", "{EBFDC2CC-2318-45BC-B619-8754439D2541}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{D4373A94-4BBC-46D8-BC13-438F0B895467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Domain", "src\domain\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj", "{99DF2DDB-D964-4E58-BEA0-DCD466C94DAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Domain", "src\domain\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj", "{99DF2DDB-D964-4E58-BEA0-DCD466C94DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Application", "src\domain\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj", "{9AFB99ED-40CA-4992-A301-EEF8519C7240}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Application", "src\domain\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj", "{9AFB99ED-40CA-4992-A301-EEF8519C7240}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Infrastructure", "src\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj", "{74D017BE-39B9-4D77-9E08-1DF7B8A4FE62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Infrastructure", "src\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj", "{74D017BE-39B9-4D77-9E08-1DF7B8A4FE62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.AsyncWorker", "src\entrypoints\CodeDesignPlus.Net.Microservice.AsyncWorker\CodeDesignPlus.Net.Microservice.AsyncWorker.csproj", "{97F34780-1E43-49AA-9FCA-798815A69E77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.AsyncWorker", "src\entrypoints\CodeDesignPlus.Net.Microservice.AsyncWorker\CodeDesignPlus.Net.Microservice.AsyncWorker.csproj", "{97F34780-1E43-49AA-9FCA-798815A69E77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.gRpc", "src\entrypoints\CodeDesignPlus.Net.Microservice.gRpc\CodeDesignPlus.Net.Microservice.gRpc.csproj", "{25D85FA0-461E-4BB1-A956-55DA4835122A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.gRpc", "src\entrypoints\CodeDesignPlus.Net.Microservice.gRpc\CodeDesignPlus.Net.Microservice.gRpc.csproj", "{25D85FA0-461E-4BB1-A956-55DA4835122A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest", "src\entrypoints\CodeDesignPlus.Net.Microservice.Rest\CodeDesignPlus.Net.Microservice.Rest.csproj", "{4971758B-7FA0-489F-A5EF-5913385BB672}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Rest", "src\entrypoints\CodeDesignPlus.Net.Microservice.Rest\CodeDesignPlus.Net.Microservice.Rest.csproj", "{4971758B-7FA0-489F-A5EF-5913385BB672}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8CA2014D-1EBA-4CC8-B303-13289F7F279C}"
 EndProject
@@ -45,33 +45,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "load", "load", "{454F7422-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{C19E3964-BDFB-41E0-B86C-CA90E3E5F335}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "entrypoints", "entrypoints", "{32897FF5-A392-4179-B598-57CDFC2D1A87}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{A41D5F48-9046-403A-8560-068354ED74A9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{5769C6DB-68E8-4A8C-B43A-243401CDB4A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CE331B2A-8735-469E-80AC-B2994AD8BBFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Application.Test", "tests\unit\domain\CodeDesignPlus.Net.Microservice.Application.Test\CodeDesignPlus.Net.Microservice.Application.Test.csproj", "{76EABAE3-8F75-41E0-81CB-6B8B5A692973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\integration\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Domain.Test", "tests\unit\domain\CodeDesignPlus.Net.Microservice.Domain.Test\CodeDesignPlus.Net.Microservice.Domain.Test.csproj", "{55496196-F18D-444E-88AE-170C6F0D23E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\integration\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{0C61268F-92C9-4A73-ACC7-398E70081AC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Infrastructure.Test", "tests\unit\domain\CodeDesignPlus.Net.Microservice.Infrastructure.Test\CodeDesignPlus.Net.Microservice.Infrastructure.Test.csproj", "{E1B5FDA0-37E7-4467-A2F8-C5655875121A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\integration\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\unit\entrypoints\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{89C9CAD5-BA8E-4BF5-BBA4-076353588982}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Application.Test", "tests\unit\CodeDesignPlus.Net.Microservice.Application.Test\CodeDesignPlus.Net.Microservice.Application.Test.csproj", "{92CD6EF4-50B4-41DA-AA90-BF6A67961833}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\unit\entrypoints\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{E1701916-4F93-4A6D-8395-BB890821625A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\unit\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{6CF4ECEA-ECC1-4D34-A288-7168BE0D28BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\unit\entrypoints\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{1171DD25-3941-4CFB-9E16-148A8974482D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Default.Test", "tests\unit\CodeDesignPlus.Net.Microservice.Default.Test\CodeDesignPlus.Net.Microservice.Default.Test.csproj", "{231147C8-D789-49E0-B8D0-24F4FEA91C95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\integration\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Domain.Test", "tests\unit\CodeDesignPlus.Net.Microservice.Domain.Test\CodeDesignPlus.Net.Microservice.Domain.Test.csproj", "{07011B4D-501F-490B-9174-A2434B071E79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\integration\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{0C61268F-92C9-4A73-ACC7-398E70081AC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.gRpc.Test", "tests\unit\CodeDesignPlus.Net.Microservice.gRpc.Test\CodeDesignPlus.Net.Microservice.gRpc.Test.csproj", "{223DF4AA-8E95-4624-B439-EA232409E903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.AsyncWorker.Test", "tests\integration\CodeDesignPlus.Net.Microservice.AsyncWorker.Test\CodeDesignPlus.Net.Microservice.AsyncWorker.Test.csproj", "{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Infrastructure.Test", "tests\unit\CodeDesignPlus.Net.Microservice.Infrastructure.Test\CodeDesignPlus.Net.Microservice.Infrastructure.Test.csproj", "{B190F800-89F0-43CD-B9BD-3EDD0C2E4B37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDesignPlus.Net.Microservice.Default.Test", "tests\unit\CodeDesignPlus.Net.Microservice.Default.Test\CodeDesignPlus.Net.Microservice.Default.Test.csproj", "{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\unit\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{86BB4D11-6C2F-44CA-B7DF-527FDFE79959}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,30 +99,6 @@ Global
 		{4971758B-7FA0-489F-A5EF-5913385BB672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4971758B-7FA0-489F-A5EF-5913385BB672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4971758B-7FA0-489F-A5EF-5913385BB672}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76EABAE3-8F75-41E0-81CB-6B8B5A692973}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55496196-F18D-444E-88AE-170C6F0D23E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55496196-F18D-444E-88AE-170C6F0D23E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55496196-F18D-444E-88AE-170C6F0D23E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55496196-F18D-444E-88AE-170C6F0D23E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1B5FDA0-37E7-4467-A2F8-C5655875121A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89C9CAD5-BA8E-4BF5-BBA4-076353588982}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1701916-4F93-4A6D-8395-BB890821625A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1701916-4F93-4A6D-8395-BB890821625A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1701916-4F93-4A6D-8395-BB890821625A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1701916-4F93-4A6D-8395-BB890821625A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1171DD25-3941-4CFB-9E16-148A8974482D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1171DD25-3941-4CFB-9E16-148A8974482D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1171DD25-3941-4CFB-9E16-148A8974482D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1171DD25-3941-4CFB-9E16-148A8974482D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -139,10 +111,34 @@ Global
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92CD6EF4-50B4-41DA-AA90-BF6A67961833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92CD6EF4-50B4-41DA-AA90-BF6A67961833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92CD6EF4-50B4-41DA-AA90-BF6A67961833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92CD6EF4-50B4-41DA-AA90-BF6A67961833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF4ECEA-ECC1-4D34-A288-7168BE0D28BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF4ECEA-ECC1-4D34-A288-7168BE0D28BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF4ECEA-ECC1-4D34-A288-7168BE0D28BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF4ECEA-ECC1-4D34-A288-7168BE0D28BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{231147C8-D789-49E0-B8D0-24F4FEA91C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{231147C8-D789-49E0-B8D0-24F4FEA91C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{231147C8-D789-49E0-B8D0-24F4FEA91C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{231147C8-D789-49E0-B8D0-24F4FEA91C95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07011B4D-501F-490B-9174-A2434B071E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07011B4D-501F-490B-9174-A2434B071E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07011B4D-501F-490B-9174-A2434B071E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07011B4D-501F-490B-9174-A2434B071E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{223DF4AA-8E95-4624-B439-EA232409E903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{223DF4AA-8E95-4624-B439-EA232409E903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{223DF4AA-8E95-4624-B439-EA232409E903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{223DF4AA-8E95-4624-B439-EA232409E903}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B190F800-89F0-43CD-B9BD-3EDD0C2E4B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B190F800-89F0-43CD-B9BD-3EDD0C2E4B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B190F800-89F0-43CD-B9BD-3EDD0C2E4B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B190F800-89F0-43CD-B9BD-3EDD0C2E4B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86BB4D11-6C2F-44CA-B7DF-527FDFE79959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86BB4D11-6C2F-44CA-B7DF-527FDFE79959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86BB4D11-6C2F-44CA-B7DF-527FDFE79959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86BB4D11-6C2F-44CA-B7DF-527FDFE79959}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,19 +155,17 @@ Global
 		{4971758B-7FA0-489F-A5EF-5913385BB672} = {EBFDC2CC-2318-45BC-B619-8754439D2541}
 		{454F7422-1558-4ECB-9BA6-9C4BF69CF8C6} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
 		{C19E3964-BDFB-41E0-B86C-CA90E3E5F335} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{32897FF5-A392-4179-B598-57CDFC2D1A87} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
-		{A41D5F48-9046-403A-8560-068354ED74A9} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
 		{5769C6DB-68E8-4A8C-B43A-243401CDB4A2} = {8CA2014D-1EBA-4CC8-B303-13289F7F279C}
-		{76EABAE3-8F75-41E0-81CB-6B8B5A692973} = {A41D5F48-9046-403A-8560-068354ED74A9}
-		{55496196-F18D-444E-88AE-170C6F0D23E9} = {A41D5F48-9046-403A-8560-068354ED74A9}
-		{E1B5FDA0-37E7-4467-A2F8-C5655875121A} = {A41D5F48-9046-403A-8560-068354ED74A9}
-		{89C9CAD5-BA8E-4BF5-BBA4-076353588982} = {32897FF5-A392-4179-B598-57CDFC2D1A87}
-		{E1701916-4F93-4A6D-8395-BB890821625A} = {32897FF5-A392-4179-B598-57CDFC2D1A87}
-		{1171DD25-3941-4CFB-9E16-148A8974482D} = {32897FF5-A392-4179-B598-57CDFC2D1A87}
 		{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
 		{0C61268F-92C9-4A73-ACC7-398E70081AC7} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
 		{32A68CA6-ACF6-4087-8A5C-F838FC8103CF} = {C19E3964-BDFB-41E0-B86C-CA90E3E5F335}
-		{B12A45BC-E91E-4AB0-92D4-5F25598C43E7} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{92CD6EF4-50B4-41DA-AA90-BF6A67961833} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{6CF4ECEA-ECC1-4D34-A288-7168BE0D28BB} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{231147C8-D789-49E0-B8D0-24F4FEA91C95} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{07011B4D-501F-490B-9174-A2434B071E79} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{223DF4AA-8E95-4624-B439-EA232409E903} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{B190F800-89F0-43CD-B9BD-3EDD0C2E4B37} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
+		{86BB4D11-6C2F-44CA-B7DF-527FDFE79959} = {5769C6DB-68E8-4A8C-B43A-243401CDB4A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BAB16E-7151-425E-919F-2725C0813642}
