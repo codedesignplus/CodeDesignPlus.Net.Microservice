@@ -22,6 +22,6 @@ public class ProductRemovedFromOrderHandlerTest(Server<Program> server) : Server
 
         Assert.Contains(logs, log => log.Contains("ProductRemovedFromOrderDomainEvent Recived"));
         Assert.Contains(logs, log => log.Contains(domainEvent.AggregateId.ToString()));
-        Assert.Contains(logs, log => log.Contains(JsonConvert.SerializeObject(domainEvent)));
+        Assert.Contains(logs, log => log.Contains(JsonSerializer.Serialize(domainEvent)));
     }
 }

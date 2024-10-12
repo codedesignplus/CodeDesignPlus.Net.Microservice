@@ -26,6 +26,6 @@ public class OrderCreatedHandlerTest(Server<Program> server) : ServerBase<Progra
 
         Assert.Contains(logs, log => log.Contains("OrderCreatedDomainEvent Recived"));
         Assert.Contains(logs, log => log.Contains(domainEvent.AggregateId.ToString()));
-        Assert.Contains(logs, log => log.Contains(JsonConvert.SerializeObject(domainEvent)));
+        Assert.Contains(logs, log => log.Contains(JsonSerializer.Serialize(domainEvent)));
     }
 }

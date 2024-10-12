@@ -7,7 +7,7 @@ public class UpdateQuantityProductHandler(ILogger<UpdateQuantityProductHandler> 
 
     public Task HandleAsync(ProductQuantityUpdatedDomainEvent data, CancellationToken token)
     {
-        logger.LogInformation("ProductQuantityUpdatedDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonConvert.SerializeObject(data));
+        logger.LogInformation("ProductQuantityUpdatedDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonSerializer.Serialize(data));
 
         return Task.CompletedTask;
     }

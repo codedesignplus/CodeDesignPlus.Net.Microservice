@@ -7,7 +7,7 @@ public class ProductRemovedFromOrderHandler(ILogger<ProductRemovedFromOrderHandl
 
     public Task HandleAsync(ProductRemovedFromOrderDomainEvent data, CancellationToken token)
     {
-        logger.LogInformation("ProductRemovedFromOrderDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonConvert.SerializeObject(data));
+        logger.LogInformation("ProductRemovedFromOrderDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonSerializer.Serialize(data));
 
         return Task.CompletedTask;
     }

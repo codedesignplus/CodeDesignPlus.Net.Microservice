@@ -7,7 +7,7 @@ public class AddProductToOrderHandler(ILogger<AddProductToOrderHandler> logger) 
 
     public Task HandleAsync(ProductAddedToOrderDomainEvent data, CancellationToken token)
     {
-        logger.LogInformation("ProductAddedToOrderDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonConvert.SerializeObject(data));
+        logger.LogInformation("ProductAddedToOrderDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonSerializer.Serialize(data));
 
         return Task.CompletedTask;
     }

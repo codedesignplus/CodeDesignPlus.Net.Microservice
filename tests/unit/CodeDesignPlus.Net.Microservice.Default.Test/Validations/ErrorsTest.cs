@@ -9,7 +9,7 @@ public class ErrorTests
     /// Validates that error messages follow the correct format.
     /// </summary>
     [Theory]
-    [Errors<Infrastructure.Errors>]
+    [Errors<Application.Errors>]
     public void Errors_CheckFormat_Infrastructure(FieldInfo error, object value)
     {
         // Assert
@@ -41,7 +41,7 @@ public class ErrorTests
     /// Validates that error messages follow the correct format.
     /// </summary>
     [Theory]
-    [Errors<Infrastructure.Errors>]
+    [Errors<Domain.Errors>]
     public void Errors_CheckFormat_Domain(FieldInfo error, object value)
     {
         // Assert

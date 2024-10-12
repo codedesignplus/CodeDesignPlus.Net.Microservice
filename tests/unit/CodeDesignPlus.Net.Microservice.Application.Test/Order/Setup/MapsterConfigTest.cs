@@ -1,4 +1,6 @@
-namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.DataTransferObjects;
+using CodeDesignPlus.Net.Microservice.Application.Order.Setup;
+
+namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Setup;
 
 public class MapsterConfigTest
 {
@@ -7,7 +9,7 @@ public class MapsterConfigTest
     {
         // Arrange
         var config = TypeAdapterConfig.GlobalSettings;
-        config.Scan(typeof(MapsterConfig).Assembly);
+        config.Scan(typeof(MapsterConfigOrder).Assembly);
 
         // Act
         var mapper = new Mapper(config);

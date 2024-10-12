@@ -1,6 +1,6 @@
-﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Setup;
 
-public static class MapsterConfig
+public static class MapsterConfigOrder
 {
     public static void Configure()
     {

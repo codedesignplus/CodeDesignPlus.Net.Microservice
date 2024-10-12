@@ -7,7 +7,7 @@ public class OrderCreatedHandler(ILogger<OrderCreatedHandler> logger) : IEventHa
 
     public Task HandleAsync(OrderCreatedDomainEvent data, CancellationToken token)
     {
-        logger.LogInformation("OrderCreatedDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonConvert.SerializeObject(data));
+        logger.LogInformation("OrderCreatedDomainEvent Recived, {AggregateId}, {Json}", data.AggregateId, JsonSerializer.Serialize(data));
 
         return Task.CompletedTask;
     }

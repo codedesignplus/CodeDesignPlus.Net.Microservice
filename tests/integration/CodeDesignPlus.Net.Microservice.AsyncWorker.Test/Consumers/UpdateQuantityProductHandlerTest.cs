@@ -22,6 +22,6 @@ public class UpdateQuantityProductHandlerTest(Server<Program> server) : ServerBa
 
         Assert.Contains(logs, log => log.Contains("ProductQuantityUpdatedDomainEvent Recived"));
         Assert.Contains(logs, log => log.Contains(domainEvent.AggregateId.ToString()));
-        Assert.Contains(logs, log => log.Contains(JsonConvert.SerializeObject(domainEvent)));
+        Assert.Contains(logs, log => log.Contains(JsonSerializer.Serialize(domainEvent)));
     }
 }

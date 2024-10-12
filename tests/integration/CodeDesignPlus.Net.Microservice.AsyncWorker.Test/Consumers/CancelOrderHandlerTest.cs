@@ -22,6 +22,6 @@ public class CancelOrderHandlerTest(Server<Program> server) : ServerBase<Program
 
         Assert.Contains(logs, log => log.Contains("OrderCancelledDomainEvent Recived"));
         Assert.Contains(logs, log => log.Contains(domainEvent.AggregateId.ToString()));
-        Assert.Contains(logs, log => log.Contains(JsonConvert.SerializeObject(domainEvent)));
+        Assert.Contains(logs, log => log.Contains(JsonSerializer.Serialize(domainEvent)));
     }
 }

@@ -26,6 +26,6 @@ public class AddProductToOrderHandlerTest(Server<Program> server) : ServerBase<P
 
         Assert.Contains(logs, log => log.Contains("ProductAddedToOrderDomainEvent Recived"));
         Assert.Contains(logs, log => log.Contains(domainEvent.AggregateId.ToString()));
-        Assert.Contains(logs, log => log.Contains(JsonConvert.SerializeObject(domainEvent)));
+        Assert.Contains(logs, log => log.Contains(JsonSerializer.Serialize(domainEvent)));
     }
 }
