@@ -1,4 +1,4 @@
-﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Setup;
+﻿namespace CodeDesignPlus.Net.Microservice.Application.Setup;
 
 public static class MapsterConfigOrder
 {

@@ -1,6 +1,6 @@
-using CodeDesignPlus.Net.Microservice.Application.Order.Setup;
+using CodeDesignPlus.Net.Microservice.Application.Setup;
 
-namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Setup;
+namespace CodeDesignPlus.Net.Microservice.Application.Test.Setup;
 
 public class MapsterConfigTest
 {

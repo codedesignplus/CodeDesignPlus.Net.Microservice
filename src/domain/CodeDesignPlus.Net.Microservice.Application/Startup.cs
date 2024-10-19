@@ -1,5 +1,5 @@
 ﻿using CodeDesignPlus.Net.Core.Abstractions;
-using CodeDesignPlus.Net.Microservice.Application.Order.Setup;
+using CodeDesignPlus.Net.Microservice.Application.Setup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
