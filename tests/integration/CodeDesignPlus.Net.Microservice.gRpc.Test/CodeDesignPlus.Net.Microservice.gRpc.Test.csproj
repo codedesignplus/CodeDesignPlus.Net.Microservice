@@ -14,17 +14,17 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Google.Protobuf" Version="3.28.2" />
+		<PackageReference Include="Google.Protobuf" Version="3.28.3" />
 		<PackageReference Include="Grpc.Net.Client" Version="2.66.0" />
-		<PackageReference Include="Grpc.Tools" Version="2.66.0">
+		<PackageReference Include="Grpc.Tools" Version="2.67.0">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		
-		<PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.2.0-alpha.15" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
+		<PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.3.0-rc.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.10" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit" Version="2.9.2" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">

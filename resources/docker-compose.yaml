@@ -8,7 +8,6 @@ services:
     environment:
       VAULT_DEV_ROOT_TOKEN_ID: "root"
       VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
-      FILE_CREDENTIAL: ${FILE_CREDENTIAL}
     volumes:
       - ./shared/vault-data:/vault/file
       - ./shared/vault-config:/vault/config
@@ -18,6 +17,8 @@ services:
     cap_add:
       - IPC_LOCK
     command: /bin/sh -c "chmod +x /resources/entrypoint.sh && chmod +x /resources/config.sh && /resources/entrypoint.sh"
+    networks:
+      - backend
   
   rabbitmq:
     image: rabbitmq:3-management
@@ -31,6 +32,8 @@ services:
       RABBITMQ_NODE_IP_ADDRESS: "0.0.0.0"
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - backend
       
   mongo:
     image: mongo:latest

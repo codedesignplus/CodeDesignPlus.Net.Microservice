@@ -8,12 +8,15 @@ using CodeDesignPlus.Net.Observability.Extensions;
 using CodeDesignPlus.Net.RabbitMQ.Extensions;
 using CodeDesignPlus.Net.Redis.Extensions;
 using CodeDesignPlus.Net.Security.Extensions;
+using CodeDesignPlus.Net.Vault.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 Serilog.Debugging.SelfLog.Enable(Console.Error);
 
 builder.Host.UseSerilog();
+
+builder.Configuration.AddVault();
 
 // Add services to the container.
 builder.Services.AddGrpc(options =>
@@ -22,6 +25,7 @@ builder.Services.AddGrpc(options =>
 });
 builder.Services.AddGrpcReflection();
 
+builder.Services.AddVault(builder.Configuration);
 builder.Services.AddMapster();
 builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
 builder.Services.AddFluentValidation();

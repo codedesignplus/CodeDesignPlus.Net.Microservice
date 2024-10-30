@@ -14,9 +14,9 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>		
-		<PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.3.0-rc.3" />
 		<PackageReference Include="Ductus.FluentDocker.XUnit" Version="2.10.59" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit" Version="2.9.2" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">

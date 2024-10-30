@@ -5,7 +5,9 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VAULT_ROLE_ID": "vault_role_id",
+        "VAULT_SECRET_ID": "vault_secret_id",
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5175"

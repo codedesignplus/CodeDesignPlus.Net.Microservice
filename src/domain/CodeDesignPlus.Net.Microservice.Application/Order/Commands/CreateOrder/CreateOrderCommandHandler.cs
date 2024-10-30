@@ -15,4 +15,3 @@ public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserCo
         await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
 }
-

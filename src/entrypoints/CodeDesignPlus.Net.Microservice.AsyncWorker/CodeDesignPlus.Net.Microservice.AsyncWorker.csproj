@@ -10,13 +10,14 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.2.0-alpha.15" />
-		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.2.0-alpha.15" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.2.0-alpha.15" />
-		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.2.0-alpha.15" />
-		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.2.0-alpha.15" />
-		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.2.0-alpha.15" />
-		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.2.0-alpha.15" />
+		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.3.0-rc.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.4.0" />
+		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.3.0-rc.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.3.0-rc.3" />
+		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.3.0-rc.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.3.0-rc.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.3.0-rc.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.3.0-rc.3" />
 	</ItemGroup>
 
 	<ItemGroup>
