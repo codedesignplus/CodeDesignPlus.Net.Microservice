@@ -1,5 +1,24 @@
 version: '3.8'
 services:
+  vault:
+    image: hashicorp/vault:latest
+    ports:
+      - "8200:8200"
+    restart: unless-stopped
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "root"
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
+      FILE_CREDENTIAL: ${FILE_CREDENTIAL}
+    volumes:
+      - ./shared/vault-data:/vault/file
+      - ./shared/vault-config:/vault/config
+      - ./shared/vault/config.sh:/resources/config.sh
+      - ./shared/vault/full-access.hcl:/resources/full-access.hcl
+      - ./shared/vault/entrypoint.sh:/resources/entrypoint.sh
+    cap_add:
+      - IPC_LOCK
+    command: /bin/sh -c "chmod +x /resources/entrypoint.sh && chmod +x /resources/config.sh && /resources/entrypoint.sh"
+  
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -7,13 +26,17 @@ services:
       - "5672:5672"   # APP
       - "15672:15672" # UI
     environment:
-      RABBITMQ_DEFAULT_USER: usr_code
-      RABBITMQ_DEFAULT_PASS: Temporal1
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_NODE_IP_ADDRESS: "0.0.0.0"
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
       
   mongo:
     image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - "27017:27017"
     volumes:
