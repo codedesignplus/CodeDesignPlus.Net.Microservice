@@ -16,7 +16,7 @@ builder.Configuration.AddVault();
 builder.Services.AddVault(builder.Configuration);
 builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>(builder.Configuration);
 builder.Services.AddRedis(builder.Configuration);
-builder.Services.AddRabbitMQ(builder.Configuration);
+builder.Services.AddRabbitMQ<Program>(builder.Configuration);
 builder.Services.AddSecurity(builder.Configuration);
 
 var app = builder.Build();

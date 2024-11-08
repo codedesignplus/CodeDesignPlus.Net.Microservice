@@ -1,7 +1,22 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
 
-public class OrderControllerTest(Server<Program> server) : ServerBase<Program>(server), IClassFixture<Server<Program>>
+public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Program>>
 {
+    public OrderControllerTest(Server<Program> server) : base(server)
+    {
+        server.InMemoryCollection = (x) =>
+        {
+            x.Add("Vault:Enabled", "false");
+            x.Add("Vault:Address", "http://localhost:8200");
+            x.Add("Vault:Token", "root");
+            x.Add("Solution", "CodeDesignPlus");
+            x.Add("AppName", "my-test");
+            x.Add("RabbitMQ:UserName", "guest");
+            x.Add("RabbitMQ:Password", "guest");
+            x.Add("Security:ValidAudiences:0", Guid.NewGuid().ToString());
+        };
+    }
+
     [Fact]
     public async Task GetOrders_ReturnOk()
     {

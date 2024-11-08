@@ -32,7 +32,7 @@ builder.Services.AddFluentValidation();
 
 builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>(builder.Configuration);
 builder.Services.AddRedis(builder.Configuration);
-builder.Services.AddRabbitMQ(builder.Configuration);
+builder.Services.AddRabbitMQ<CodeDesignPlus.Net.Microservice.Domain.Startup>(builder.Configuration);
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration, builder.Environment);
 builder.Services.AddLogger(builder.Configuration);

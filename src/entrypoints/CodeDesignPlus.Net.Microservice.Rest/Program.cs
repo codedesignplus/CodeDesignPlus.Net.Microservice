@@ -21,7 +21,7 @@ builder.Services.AddRedis(builder.Configuration);
 builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration, builder.Environment, x => { }, x => { });
 builder.Services.AddLogger(builder.Configuration);
-builder.Services.AddRabbitMQ(builder.Configuration);
+builder.Services.AddRabbitMQ<CodeDesignPlus.Net.Microservice.Domain.Startup>(builder.Configuration);
 builder.Services.AddMapster();
 builder.Services.AddFluentValidation();
 builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();

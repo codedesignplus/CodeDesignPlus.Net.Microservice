@@ -10,14 +10,14 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.3.0-rc.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.4.0" />
-		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.3.0-rc.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.3.0-rc.3" />
-		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.3.0-rc.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.3.0-rc.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.3.0-rc.3" />
-		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.3.0-rc.3" />
+		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.5.0-beta.14" />
+		<PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.5.0-beta.14" />
+		<PackageReference Include="CodeDesignPlus.Net.Mongo" Version="0.5.0-beta.14" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.5.0-beta.14" />
+		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.5.0-beta.14" />
+		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.5.0-beta.14" />
+		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.5.0-beta.14" />
+		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.5.0-beta.14" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,6 +29,12 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Consumers\" />
+	  <Folder Include="DomainEvents\" />
 	</ItemGroup>
 
 </Project>
