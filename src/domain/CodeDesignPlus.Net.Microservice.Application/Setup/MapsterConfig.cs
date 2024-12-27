@@ -1,10 +1,13 @@
-﻿namespace CodeDesignPlus.Net.Microservice.Application.Setup;
+﻿using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+
+namespace CodeDesignPlus.Net.Microservice.Application.Setup;
 
 public static class MapsterConfigOrder
 {
     public static void Configure()
     {
-        TypeAdapterConfig<ClientDto, ClientEntity>.NewConfig().TwoWays();
+        TypeAdapterConfig<ClientDto, ClientValueObject>.NewConfig().TwoWays();
+        TypeAdapterConfig<AddressDto, AddressValueObject>.NewConfig().TwoWays();
         TypeAdapterConfig<ProductDto, ProductDto>.NewConfig().TwoWays();
 
         TypeAdapterConfig<OrderAggregate, OrderDto>.NewConfig()

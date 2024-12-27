@@ -1,4 +1,5 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.RemoveProduct;
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.RemoveProduct;
 
@@ -42,7 +43,10 @@ public class RemoveProductCommandHandlerTest
         var message = new Mock<IMessage>();
         var handler = new RemoveProductCommandHandler(orderRepository.Object, user, message.Object);
         var request = new RemoveProductCommand(Guid.NewGuid(), Guid.NewGuid());
-        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Client", this.user.Tenant, this.user.IdUser);
+        var clientValueObject = ClientValueObject.Create(Guid.NewGuid(), "Client", "1234567890", "CC");
+        var addressValueObject = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
+
+        var order = OrderAggregate.Create(Guid.NewGuid(), clientValueObject, addressValueObject, this.user.Tenant, this.user.IdUser);
 
         order.Products.Add(new ProductEntity()
         {

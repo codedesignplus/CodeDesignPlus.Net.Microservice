@@ -1,3 +1,5 @@
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+
 namespace CodeDesignPlus.Net.Microservice.Infrastructure.Test.Repositories;
 
 public class OrderRepositoryTest
@@ -133,7 +135,9 @@ public class OrderRepositoryTest
     public async Task CreateOrderAsync_Should_Create_Order()
     {
         // Arrange
-        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Order Name", Guid.NewGuid(), Guid.NewGuid());
+        var client = ClientValueObject.Create(Guid.NewGuid(), "CodeDesignPlus", "1234567890", "CC");
+        var address = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
+        var order = OrderAggregate.Create(Guid.NewGuid(), client, address, Guid.NewGuid(), Guid.NewGuid());
         var cancellationToken = CancellationToken.None;
 
         collectionMock
@@ -210,7 +214,9 @@ public class OrderRepositoryTest
     public async Task UpdateOrderAsync_Should_Update_Order()
     {
         // Arrange
-        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Order Name", Guid.NewGuid(), Guid.NewGuid());
+        var client = ClientValueObject.Create(Guid.NewGuid(), "CodeDesignPlus", "1234567890", "CC");
+        var address = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
+        var order = OrderAggregate.Create(Guid.NewGuid(), client, address, Guid.NewGuid(), Guid.NewGuid());
         var cancellationToken = CancellationToken.None;
 
         collectionMock

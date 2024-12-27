@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Services;
 
@@ -23,8 +23,10 @@ public class OrdersServiceTest : ServerBase<Program>, IClassFixture<Server<Progr
     {
         bool isInvoked = false;
         var orderClient = new Orders.OrdersClient(Channel);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "CodeDesignPlus", "1234567890", "CC");
+        var address = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
 
-        var orderExpected = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "CodeDesignPlus", Guid.NewGuid(), Guid.NewGuid());
+        var orderExpected = OrderAggregate.Create(Guid.NewGuid(), client, address, Guid.NewGuid(), Guid.NewGuid());
 
         var repository = Services.GetRequiredService<IOrderRepository>();
 

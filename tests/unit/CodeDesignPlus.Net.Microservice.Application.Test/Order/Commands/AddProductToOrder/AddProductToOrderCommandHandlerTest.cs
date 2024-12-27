@@ -1,4 +1,5 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.AddProductToOrder;
 
@@ -55,8 +56,10 @@ public class AddProductToOrderCommandHandlerTest
         // Arrange
         var orderRepository = new Mock<IOrderRepository>();
         var message = new Mock<IMessage>();
+        var client = ClientValueObject.Create(Guid.NewGuid(), "client", "1234567890", "CC");
+        var address = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
 
-        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "client", Guid.NewGuid(), Guid.NewGuid());
+        var order = OrderAggregate.Create(Guid.NewGuid(), client, address, this.user.Tenant, this.user.IdUser);
 
         var command = new AddProductToOrderCommand
         (

@@ -1,4 +1,5 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.CreateOrder;
 
@@ -20,16 +21,30 @@ public class CreateOrderCommandHandlerTest
         // Arrange
         var orderRepository = new Mock<IOrderRepository>();
         var message = new Mock<IMessage>();
+        
+        var clientValueObject = ClientValueObject.Create(Guid.NewGuid(), "Client", "1234567890", "CC");
+        var addressValueObject = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
 
-        var command = new CreateOrderCommand(Guid.NewGuid(), new ClientDto()
+        var client = new ClientDto()
         {
             Id = Guid.NewGuid(),
-            Name = "Client"
-        });
+            Name = "Client",
+            Document = "1234567890",
+            TypeDocument = "CC"
+        };
+        var address = new AddressDto(){
+            Country = "Colombia",
+            State = "Bogota",
+            City = "Bogota",
+            Address = "Calle 123",
+            CodePostal = 123456
+        };
+
+        var command = new CreateOrderCommand(Guid.NewGuid(), client, address);
 
         orderRepository
             .Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!
-            .ReturnsAsync(OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "Client", this.userMock.Object.Tenant, this.userMock.Object.IdUser));
+            .ReturnsAsync(OrderAggregate.Create(Guid.NewGuid(), clientValueObject, addressValueObject, this.userMock.Object.Tenant, this.userMock.Object.IdUser));
 
         var handler = new CreateOrderCommandHandler(orderRepository.Object, this.userMock.Object, message.Object);
 
@@ -52,11 +67,23 @@ public class CreateOrderCommandHandlerTest
         var orderRepository = new Mock<IOrderRepository>();
         var message = new Mock<IMessage>();
 
-        var command = new CreateOrderCommand(Guid.NewGuid(), new ClientDto()
+        var client = new ClientDto()
         {
             Id = Guid.NewGuid(),
-            Name = "Client"
-        });
+            Name = "Client",
+            Document = "1234567890",
+            TypeDocument = "CC"
+        };
+        var address = new AddressDto(){
+            Country = "Colombia",
+            State = "Bogota",
+            City = "Bogota",
+            Address = "Calle 123",
+            CodePostal = 123456
+        };
+
+
+        var command = new CreateOrderCommand(Guid.NewGuid(), client, address);
 
         var handler = new CreateOrderCommandHandler(orderRepository.Object, this.userMock.Object, message.Object);
 

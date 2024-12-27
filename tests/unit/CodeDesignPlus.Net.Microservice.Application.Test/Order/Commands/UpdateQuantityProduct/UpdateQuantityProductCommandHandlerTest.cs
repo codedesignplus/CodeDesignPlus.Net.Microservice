@@ -1,4 +1,5 @@
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityProduct;
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.UpdateQuantityProduct;
 
@@ -48,8 +49,10 @@ public class UpdateQuantityProductCommandHandlerTest
         // Arrange
         var orderRepository = new Mock<IOrderRepository>();
         var message = new Mock<IMessage>();
+        var client = ClientValueObject.Create(Guid.NewGuid(), "client", "1234567890", "CC");
+        var address = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
 
-        var order = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "client", this.user.Tenant, this.user.IdUser);
+        var order = OrderAggregate.Create(Guid.NewGuid(), client, address, this.user.Tenant, this.user.IdUser);
 
         order.Products.Add(new ProductEntity()
         {

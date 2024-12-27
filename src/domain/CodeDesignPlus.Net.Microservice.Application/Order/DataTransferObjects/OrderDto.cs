@@ -6,6 +6,7 @@ public class OrderDto: IDtoBase
     public long? CompletedAt { get; set; }
     public long? CancelledAt { get; set; }
     public ClientDto Client { get; set; } = default!;
+    public AddressDto ShippingAddress { get; set; } = default!;
     public List<ProductDto> Products { get; set; } = [];
     public OrderStatus Status { get; set; }
     public string? ReasonForCancellation { get; set; }

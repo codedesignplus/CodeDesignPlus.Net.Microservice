@@ -69,6 +69,16 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
             {
                 Name = "CodeDesignPlus",
                 Id = Guid.NewGuid(),
+                Document = "1234567890",
+                TypeDocument = "CC"
+            },
+            Address = new AddressDto()
+            {
+                Country = "Colombia",
+                State = "Bogota",
+                City = "Bogota",
+                Address = "Calle 123",
+                CodePostal = 123456
             }
         };
 
@@ -277,6 +287,16 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
             {
                 Name = "CodeDesignPlus",
                 Id = Guid.NewGuid(),
+                Document = "1234567890",
+                TypeDocument = "CC"
+            },
+            Address = new AddressDto()
+            {
+                Country = "Colombia",
+                State = "Bogota",
+                City = "Bogota",
+                Address = "Calle 123",
+                CodePostal = 123456
             }
         };
 

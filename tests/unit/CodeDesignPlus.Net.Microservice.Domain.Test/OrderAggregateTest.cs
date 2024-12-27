@@ -1,3 +1,5 @@
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+
 namespace CodeDesignPlus.Net.Microservice.Domain.Test;
 
 public class OrderAggregateTest
@@ -11,31 +13,15 @@ public class OrderAggregateTest
         var nameClient = "John Doe";
         var tenant = Guid.NewGuid();
         var createdBy = Guid.NewGuid();
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, client, shippingAddress, tenant, createdBy));
 
         // Assert
         Assert.Equal(Errors.IdOrderIsInvalid.GetCode(), exception.Code);
         Assert.Equal(Errors.IdOrderIsInvalid.GetMessage(), exception.Message);
-    }
-
-    [Fact]
-    public void Create_IdClientIsEmpty_Should_Throw_DomainException()
-    {
-        // Arrange
-        var id = Guid.NewGuid();
-        var idClient = Guid.Empty;
-        var nameClient = "John Doe";
-        var tenant = Guid.NewGuid();
-        var createdBy = Guid.NewGuid();
-
-        // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
-
-        // Assert
-        Assert.Equal(Errors.IdClientIsInvalid.GetCode(), exception.Code);
-        Assert.Equal(Errors.IdClientIsInvalid.GetMessage(), exception.Message);
     }
 
     [Fact]
@@ -44,12 +30,13 @@ public class OrderAggregateTest
         // Arrange
         var id = Guid.NewGuid();
         var idClient = Guid.NewGuid();
-        var nameClient = "John Doe";
         var tenant = Guid.Empty;
         var createdBy = Guid.NewGuid();
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, client, shippingAddress, tenant, createdBy));
 
         // Assert
         Assert.Equal(Errors.TenantIsInvalid.GetCode(), exception.Code);
@@ -57,21 +44,40 @@ public class OrderAggregateTest
     }
 
     [Fact]
-    public void Create_NameClientIsEmpty_Should_Throw_DomainException()
+    public void Create_ClientIsNull_Should_Throw_DomainException()
     {
         // Arrange
         var id = Guid.NewGuid();
         var idClient = Guid.NewGuid();
-        var nameClient = string.Empty;
         var tenant = Guid.NewGuid();
+        var createdBy = Guid.NewGuid();
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+
+        // Act
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, null!, shippingAddress, tenant, createdBy));
+
+        // Assert
+        Assert.Equal(Errors.ClientIsNull.GetCode(), exception.Code);
+        Assert.Equal(Errors.ClientIsNull.GetMessage(), exception.Message);
+    }
+
+    
+    [Fact]
+    public void Create_AddressIsNull_Should_Throw_DomainException()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        var idClient = Guid.NewGuid();
+        var tenant = Guid.NewGuid();
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
         var createdBy = Guid.NewGuid();
 
         // Act
-        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy));
+        var exception = Assert.Throws<CodeDesignPlusException>(() => OrderAggregate.Create(id, client, null!, tenant, createdBy));
 
         // Assert
-        Assert.Equal(Errors.NameClientIsInvalid.GetCode(), exception.Code);
-        Assert.Equal(Errors.NameClientIsInvalid.GetMessage(), exception.Message);
+        Assert.Equal(Errors.AddressIsNull.GetCode(), exception.Code);
+        Assert.Equal(Errors.AddressIsNull.GetMessage(), exception.Message);
     }
 
     [Fact]
@@ -79,28 +85,42 @@ public class OrderAggregateTest
     {
         // Arrange
         var id = Guid.NewGuid();
-        var idClient = Guid.NewGuid();
-        var nameClient = "John Doe";
         var tenant = Guid.NewGuid();
         var createdBy = Guid.NewGuid();
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
 
         // Act
-        var orderAggregate = OrderAggregate.Create(id, idClient, nameClient, tenant, createdBy);
+        var orderAggregate = OrderAggregate.Create(id, client, shippingAddress, tenant, createdBy);
         var @event = orderAggregate.GetAndClearEvents()[0] as OrderCreatedDomainEvent;
 
         // Assert
         Assert.NotNull(orderAggregate);
         Assert.Equal(id, orderAggregate.Id);
-        Assert.Equal(idClient, orderAggregate.Client.Id);
-        Assert.Equal(nameClient, orderAggregate.Client.Name);
+        Assert.Equal(client.Id, orderAggregate.Client.Id);
+        Assert.Equal(client.Name, orderAggregate.Client.Name);
+        Assert.Equal(client.Document, orderAggregate.Client.Document);
+        Assert.Equal(client.TypeDocument, orderAggregate.Client.TypeDocument);
+        Assert.Equal(shippingAddress.Country, orderAggregate.ShippingAddress.Country);
+        Assert.Equal(shippingAddress.State, orderAggregate.ShippingAddress.State);
+        Assert.Equal(shippingAddress.City, orderAggregate.ShippingAddress.City);
+        Assert.Equal(shippingAddress.Address, orderAggregate.ShippingAddress.Address);
+        Assert.Equal(shippingAddress.CodePostal, orderAggregate.ShippingAddress.CodePostal);
         Assert.Equal(tenant, orderAggregate.Tenant);
         Assert.Equal(createdBy, orderAggregate.CreatedBy);
         Assert.Equal(OrderStatus.Created, orderAggregate.Status);
 
         Assert.NotNull(@event);
         Assert.Equal(id, @event.AggregateId);
-        Assert.Equal(idClient, @event.Client.Id);
-        Assert.Equal(nameClient, @event.Client.Name);
+        Assert.Equal(client.Id, @event.Client.Id);
+        Assert.Equal(client.Name, @event.Client.Name);
+        Assert.Equal(client.Document, @event.Client.Document);
+        Assert.Equal(client.TypeDocument, @event.Client.TypeDocument);
+        Assert.Equal(shippingAddress.Country, @event.ShippingAddress.Country);
+        Assert.Equal(shippingAddress.State, @event.ShippingAddress.State);
+        Assert.Equal(shippingAddress.City, @event.ShippingAddress.City);
+        Assert.Equal(shippingAddress.Address, @event.ShippingAddress.Address);
+        Assert.Equal(shippingAddress.CodePostal, @event.ShippingAddress.CodePostal);
         Assert.Equal(tenant, @event.Tenant);
         Assert.Equal(OrderStatus.Created, @event.OrderStatus);
         Assert.NotEqual(0, @event.CreatedAt);
@@ -112,7 +132,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(),client, shippingAddress, Guid.NewGuid(), createdBy);
         var id = Guid.Empty;
         var name = "Product 1";
         var description = "Product 1 description";
@@ -133,7 +155,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var id = Guid.NewGuid();
         var name = string.Empty;
         var description = "Product 1 description";
@@ -154,7 +178,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var id = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -175,7 +201,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var id = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -196,7 +224,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -234,7 +264,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var id = Guid.Empty;
 
         // Act
@@ -251,7 +283,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
 
         // Act
@@ -268,7 +302,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -298,7 +334,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var id = Guid.Empty;
         var newQuantity = 5;
 
@@ -316,7 +354,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var newQuantity = -1;
 
@@ -334,7 +374,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var productId = Guid.NewGuid();
         var name = "Product 1";
         var description = "Product 1 description";
@@ -368,7 +410,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         orderAggregate.CancelOrder("Out of stock", Guid.NewGuid());
 
         // Act
@@ -385,7 +429,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         orderAggregate.CompleteOrder(Guid.NewGuid());
 
         // Act
@@ -402,7 +448,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
 
         // Act
         orderAggregate.CompleteOrder(updatedBy);
@@ -427,7 +475,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         orderAggregate.CancelOrder("Out of stock", Guid.NewGuid());
 
         // Act
@@ -444,7 +494,9 @@ public class OrderAggregateTest
         // Arrange
         var createdBy = Guid.NewGuid();
         var updatedBy = Guid.NewGuid();
-        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), Guid.NewGuid(), "John Doe", Guid.NewGuid(), createdBy);
+        var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
+        var shippingAddress = AddressValueObject.Create("Colombia", "Antioquia", "Medellin", "Cra 80 # 45a 45", 500);
+        var orderAggregate = OrderAggregate.Create(Guid.NewGuid(), client, shippingAddress, Guid.NewGuid(), createdBy);
         var reason = "Out of stock";
 
         // Act

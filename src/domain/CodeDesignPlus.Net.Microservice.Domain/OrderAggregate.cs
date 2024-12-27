@@ -1,32 +1,30 @@
-﻿namespace CodeDesignPlus.Net.Microservice.Domain;
+﻿using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+
+namespace CodeDesignPlus.Net.Microservice.Domain;
 
 public class OrderAggregate(Guid id) : AggregateRoot(id)
 {
     public long? CompletedAt { get; private set; }
     public long? CancelledAt { get; private set; }
-    public ClientEntity Client { get; private set; } = default!;
+    public ClientValueObject Client { get; private set; } = default!;
     public List<ProductEntity> Products { get; private set; } = [];
     public OrderStatus Status { get; private set; }
     public string? ReasonForCancellation { get; private set; }
+    public AddressValueObject ShippingAddress { get; private set; } = default!;
 
-    public static OrderAggregate Create(Guid id, Guid idClient, string nameClient, Guid tenant, Guid createBy)
+    public static OrderAggregate Create(Guid id, ClientValueObject client, AddressValueObject shippingAddress, Guid tenant, Guid createBy)
     {
         DomainGuard.GuidIsEmpty(id, Errors.IdOrderIsInvalid);
-        DomainGuard.GuidIsEmpty(idClient, Errors.IdClientIsInvalid);
-        DomainGuard.IsNullOrEmpty(nameClient, Errors.NameClientIsInvalid);
+        DomainGuard.IsNull(client, Errors.ClientIsNull);
         DomainGuard.GuidIsEmpty(tenant, Errors.TenantIsInvalid);
+        DomainGuard.IsNull(shippingAddress, Errors.AddressIsNull);
 
-        var client = new ClientEntity
-        {
-            Id = idClient,
-            Name = nameClient
-        };
-
-        var @event = OrderCreatedDomainEvent.Create(id, client, tenant, createBy);
+        var @event = OrderCreatedDomainEvent.Create(id, client, shippingAddress, tenant, createBy);
 
         var aggregate = new OrderAggregate(id)
         {
             Client = client,
+            ShippingAddress = shippingAddress,
             CreatedAt = @event.CreatedAt,
             Status = @event.OrderStatus,
             Tenant = tenant,
