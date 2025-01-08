@@ -27,7 +27,7 @@ exporters:
   loki:
     endpoint: "http://host.docker.internal:3100/loki/api/v1/push"
   otlp:
-    endpoint: host.docker.internal:4320 # Send to Tempo
+    endpoint: host.docker.internal:5317 # Send to Tempo
     tls:
       insecure: true
   prometheus:

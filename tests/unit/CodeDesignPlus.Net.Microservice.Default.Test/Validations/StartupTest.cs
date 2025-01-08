@@ -9,8 +9,20 @@ public class StartupTest
     /// Validates that the startup services do not throw exceptions during initialization.
     /// </summary>
     [Theory]
+    [Startup<Domain.Startup>]
+    public void Sturtup_CheckNotThrowException_Domain(IStartup startup, Exception exception)
+    {
+        // Assert
+        Assert.NotNull(startup);
+        Assert.Null(exception);
+    }
+
+    /// <summary>
+    /// Validates that the startup services do not throw exceptions during initialization.
+    /// </summary>
+    [Theory]
     [Startup<Application.Startup>]
-    public void Sturtup_CheckNotThrowException_Application(IStartupServices startup, Exception exception)
+    public void Sturtup_CheckNotThrowException_Application(IStartup startup, Exception exception)
     {
         // Assert
         Assert.NotNull(startup);
@@ -22,7 +34,7 @@ public class StartupTest
     /// </summary>
     [Theory]
     [Startup<Infrastructure.Startup>]
-    public void Sturtup_CheckNotThrowException_Infrastructure(IStartupServices startup, Exception exception)
+    public void Sturtup_CheckNotThrowException_Infrastructure(IStartup startup, Exception exception)
     {
         // Assert
         Assert.NotNull(startup);

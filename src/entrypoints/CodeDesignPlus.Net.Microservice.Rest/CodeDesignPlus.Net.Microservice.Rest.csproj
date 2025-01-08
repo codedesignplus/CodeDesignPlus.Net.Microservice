@@ -1,43 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<InvariantGlobalization>true</InvariantGlobalization>
-		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<NoWarn>$(NoWarn);1591</NoWarn>
-		<DockerfileContext>..\..</DockerfileContext>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.5.0-beta.30" />
-		<PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.5.0-beta.30" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
-		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.9.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.9.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.9.0" />
-
-		<PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.5.0-beta.30" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.5.0-beta.30" />
-		<PackageReference Include="CodeDesignPlus.Net.Security" Version="0.5.0-beta.30" />
-		<PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.5.0-beta.30" />
-		<PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.5.0-beta.30" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<InternalsVisibleTo Include="CodeDesignPlus.Net.Microservice.Rest.Test" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<SonarQubeSetting Include="sonar.coverage.exclusions">
-		<Value>**/SwaggerExtensions.cs, **/Program.cs</Value>
-		</SonarQubeSetting>
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
-	</ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.5.0-beta.60" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
+    <PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Security" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis.Cache" Version="0.5.0-beta.60" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="CodeDesignPlus.Net.Microservice.Rest.Test" />
+  </ItemGroup>
+  <ItemGroup>
+    <SonarQubeSetting Include="sonar.coverage.exclusions">
+      <Value>**/SwaggerExtensions.cs, **/Program.cs</Value>
+    </SonarQubeSetting>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

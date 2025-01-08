@@ -6,7 +6,8 @@ import { uuidv4, randomIntBetween } from 'https://jslib.k6.io/k6-utils/1.4.0/ind
 const params = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ilg1ZVhrNHh5b2pORnVtMWtsMll0djhkbE5QNC1jNTdkTzZRR1RWQndhTmsiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhNzRjYjE5Mi01OThjLTQ3NTctOTVhZS1iMzE1NzkzYmJiY2EiLCJpc3MiOiJodHRwczovL2NvZGVkZXNpZ25wbHVzLmIyY2xvZ2luLmNvbS8zNDYxZTMxMS1hNjZlLTQ2YWItYWZkZi0yYmJmYjcyYTVjYjAvdjIuMC8iLCJleHAiOjE3MjQ5MDYzMzIsIm5iZiI6MTcyNDkwMjczMiwib2lkIjoiMTZjOGIyYjctZjEwMi00YmZiLTlmYzctYzBmOGQyMzI0ZDE4Iiwic3ViIjoiMTZjOGIyYjctZjEwMi00YmZiLTlmYzctYzBmOGQyMzI0ZDE4IiwiZmFtaWx5X25hbWUiOiJEZXNpZ24gUGx1cyIsImNpdHkiOiJCb2dvdGEiLCJsZWdhbEFnZUdyb3VwQ2xhc3NpZmljYXRpb24iOiJBZHVsdCIsInBvc3RhbENvZGUiOiIxMTE2MTEiLCJzdHJlZXRBZGRyZXNzIjoiQ2FsbGUgM2EgIyA1M2MtMTMiLCJzdGF0ZSI6IkJvZ290YSIsImdpdmVuX25hbWUiOiJDb2RlIiwibmFtZSI6IkNvZGVEZXNpZ25QbHVzIiwiY291bnRyeSI6IkNvbG9tYmlhIiwiam9iVGl0bGUiOiJBcmNoaXRlY3QiLCJlbWFpbHMiOlsid2xpc2Nhbm85M0BnbWFpbC5jb20iLCJjb2RlZGVzaWducGx1c0BvdXRsb29rLmNvbSJdLCJ0ZnAiOiJCMkNfMV9Db2RlRGVzZWlnblBsdXMiLCJzY3AiOiJyZWFkIiwiYXpwIjoiYTc0Y2IxOTItNTk4Yy00NzU3LTk1YWUtYjMxNTc5M2JiYmNhIiwidmVyIjoiMS4wIiwiaWF0IjoxNzI0OTAyNzMyfQ.TSIri-A4eRKaqCKOd4zJ_LqFv7d2MQpUI2nm-ieuoHZDJMiWufVL1z5DQs7-6ta0Ch_OSODDKW80FZOpU-ehJ77yVBouRiEKdtqJpy4-rthlJASq0nz0qVZ71rwJKrZSh55fboZBxUW0qqDdRifXZfGvtxiP1HZnewiszklqeyelC51Mmw8gV7tANtw2VihuC9Jj0Qf7_7wDEGALkJ-IQ9Bxx7MmQqRnPppZNF-08w46rgEoe52aHeVthZXW6n3gnCVdnCZcRhzw0QHg8kuOA7P80y8qQSlqIQXCny0hOKyNULde6p0WX37bPdHi_j0sk7eB9yp5SwwcU8tqzFXbsg'
+        'X-Tenant': uuidv4(),
+        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ilg1ZVhrNHh5b2pORnVtMWtsMll0djhkbE5QNC1jNTdkTzZRR1RWQndhTmsiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhNzRjYjE5Mi01OThjLTQ3NTctOTVhZS1iMzE1NzkzYmJiY2EiLCJpc3MiOiJodHRwczovL2NvZGVkZXNpZ25wbHVzLmIyY2xvZ2luLmNvbS8zNDYxZTMxMS1hNjZlLTQ2YWItYWZkZi0yYmJmYjcyYTVjYjAvdjIuMC8iLCJleHAiOjE3MzYzMDg1ODIsIm5iZiI6MTczNjMwNDk4Miwib2lkIjoiYzAzZjI4ZGEtMTI4Yy00Yzk3LThjZTgtMDAzNmFkY2U1YmU1Iiwic3ViIjoiYzAzZjI4ZGEtMTI4Yy00Yzk3LThjZTgtMDAzNmFkY2U1YmU1IiwiZmFtaWx5X25hbWUiOiJMaXNjYW5vIiwiY2l0eSI6IkJvZ290w6EiLCJwb3N0YWxDb2RlIjoiMTExNjExIiwic3RyZWV0QWRkcmVzcyI6IkNhbGxlIDNhICMgNTNjLTEzIiwic3RhdGUiOiJCb2dvdGEiLCJnaXZlbl9uYW1lIjoiV2lsem9uIiwibmFtZSI6IldpbHpvbiBMaXNjYW5vIiwiY291bnRyeSI6IkNvbG9tYmlhIiwiam9iVGl0bGUiOiJBcmNoaXRlY2giLCJlbWFpbHMiOlsiY29kZWRlc2lnbnBsdXNAb3V0bG9vay5jb20iXSwidGZwIjoiQjJDXzFfQ29kZURlc2VpZ25QbHVzIiwic2NwIjoicmVhZCIsImF6cCI6ImE3NGNiMTkyLTU5OGMtNDc1Ny05NWFlLWIzMTU3OTNiYmJjYSIsInZlciI6IjEuMCIsImlhdCI6MTczNjMwNDk4Mn0.sI-xBgZEBL_1wlbGvXndYPljtL--4qw6225cUHqgR_ZDpbaiuok55wSRtI9t95mh105DwjMQLBIykyoT-Pn0VEyAvGproeBExiLNE49bM0-yIRQQs_4Bkt1hQAcgOizMRMOzeMVp_cNkxNoDKzinl8939deV8WXbr-HP2hQRzn9eY_odbhfyBKl5EclUTfePXhZszsn8lYs5oxpdWSyD5MvBrXySu-0bV2Q9Tmi6NNfcnRLZ36qQPoQfoSt0ETBFOj1iICpp4767xb5Zd4b4bVkKcuXB1F0sBLNKjDRb-yeRxVNepUDrLflb2zymSQw6u8dZXxnOWSspGmnejpXg6A'
     },
 };
 
@@ -18,7 +19,7 @@ export const options = {
             duration: '600s',
 
             // How many iterations per timeUnit
-            rate: 50,
+            rate: 10,
 
             // Start `rate` iterations per second
             timeUnit: '1s',
@@ -39,14 +40,23 @@ export default async function () {
         "id": uuidv4(),
         "client": {
             "id": uuidv4(),
-            "name": `Client ${randomIntBetween(1, 1000)}`,
+            "name": `Client ${randomIntBetween(1, 1000)}`,            
+            "document": `${randomIntBetween(1, 2123123)}`,
+            "typeDocument": "CC"
+        },
+        "address": {
+          "country": "Colombia",
+          "state": "Bogotá",
+          "city": "Bogotá",
+          "address": "Calle siempre viva",
+          "codePostal": 111611
         }
     });
 
     let response = await http.asyncRequest('POST', 'http://localhost:5175/api/orders', order, params);
 
     check(response, {
-        'is status 200': (r) => r.status === 200,
+        'is status 204': (r) => r.status === 204,
     });
 
     sleep(1);

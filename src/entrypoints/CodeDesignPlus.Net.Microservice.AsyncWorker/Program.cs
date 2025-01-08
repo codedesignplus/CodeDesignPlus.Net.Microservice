@@ -1,6 +1,7 @@
 using CodeDesignPlus.Net.Logger.Extensions;
 using CodeDesignPlus.Net.Mongo.Extensions;
 using CodeDesignPlus.Net.RabbitMQ.Extensions;
+using CodeDesignPlus.Net.Redis.Cache.Extensions;
 using CodeDesignPlus.Net.Redis.Extensions;
 using CodeDesignPlus.Net.Security.Extensions;
 using CodeDesignPlus.Net.Vault.Extensions;
@@ -18,6 +19,7 @@ builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup
 builder.Services.AddRedis(builder.Configuration);
 builder.Services.AddRabbitMQ<Program>(builder.Configuration);
 builder.Services.AddSecurity(builder.Configuration);
+builder.Services.AddCache(builder.Configuration);
 
 var app = builder.Build();
 

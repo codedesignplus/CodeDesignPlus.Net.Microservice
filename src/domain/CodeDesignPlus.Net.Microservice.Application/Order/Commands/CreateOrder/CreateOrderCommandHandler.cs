@@ -10,6 +10,7 @@ public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserCo
 
         ApplicationGuard.IsNotNull(order, Errors.OrderAlreadyExists);
 
+
         var client = ClientValueObject.Create(request.Client.Id, request.Client.Name, request.Client.Document, request.Client.TypeDocument);
 
         var address = AddressValueObject.Create(request.Address.Country, request.Address.State, request.Address.City, request.Address.Address, request.Address.CodePostal);

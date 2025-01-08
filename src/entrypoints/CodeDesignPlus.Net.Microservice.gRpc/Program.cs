@@ -6,6 +6,7 @@ using CodeDesignPlus.Net.Microservice.gRpc.Services;
 using CodeDesignPlus.Net.Mongo.Extensions;
 using CodeDesignPlus.Net.Observability.Extensions;
 using CodeDesignPlus.Net.RabbitMQ.Extensions;
+using CodeDesignPlus.Net.Redis.Cache.Extensions;
 using CodeDesignPlus.Net.Redis.Extensions;
 using CodeDesignPlus.Net.Security.Extensions;
 using CodeDesignPlus.Net.Vault.Extensions;
@@ -36,6 +37,7 @@ builder.Services.AddRabbitMQ<CodeDesignPlus.Net.Microservice.Domain.Startup>(bui
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration, builder.Environment);
 builder.Services.AddLogger(builder.Configuration);
+builder.Services.AddCache(builder.Configuration);
 
 var app = builder.Build();
 

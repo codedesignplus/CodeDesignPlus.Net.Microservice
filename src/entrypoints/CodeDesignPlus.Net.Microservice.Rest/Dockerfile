@@ -14,20 +14,24 @@ RUN apt-get update \
 
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["CodeDesignPlus.Net.Microservice/CodeDesignPlus.Net.Microservice.csproj", "CodeDesignPlus.Net.Microservice/"]
-RUN dotnet restore "./CodeDesignPlus.Net.Microservice/./CodeDesignPlus.Net.Microservice.csproj"
-COPY . .
-WORKDIR "/src/CodeDesignPlus.Net.Microservice"
-RUN dotnet build "./CodeDesignPlus.Net.Microservice.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
+COPY ["domain/", "domain/"]
+COPY ["entrypoints/CodeDesignPlus.Net.Microservice.Rest/", "entrypoints/CodeDesignPlus.Net.Microservice.Rest/"]
+RUN dotnet restore "./entrypoints/CodeDesignPlus.Net.Microservice.Rest/CodeDesignPlus.Net.Microservice.Rest.csproj"
+
+WORKDIR "/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest"
+RUN dotnet build "./CodeDesignPlus.Net.Microservice.Rest.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish
+WORKDIR /src
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./CodeDesignPlus.Net.Microservice.csproj" \
+RUN dotnet publish "./entrypoints/CodeDesignPlus.Net.Microservice.Rest/CodeDesignPlus.Net.Microservice.Rest.csproj" \
     -c "$BUILD_CONFIGURATION" \
     -o /app/publish /p:UseAppHost=true
 
-FROM mcr.microsoft.com/dotnet/runtime-deps:8.0 AS final
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+USER app
 WORKDIR /app
 EXPOSE 8080
 COPY --from=publish /app/publish .
-ENTRYPOINT ["./CodeDesignPlus.Net.Microservice.Rest"]
+ENTRYPOINT ["dotnet", "CodeDesignPlus.Net.Microservice.Rest.dll"]

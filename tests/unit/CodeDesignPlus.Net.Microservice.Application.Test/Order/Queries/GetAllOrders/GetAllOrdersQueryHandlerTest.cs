@@ -17,6 +17,9 @@ public class GetAllOrdersQueryHandlerTest
                 Id = Guid.NewGuid(),
                 Client = new ClientDto(){
                     Name = "Client 1",
+                    Document = "123456789",
+                    TypeDocument = "CC",
+                    Id = Guid.NewGuid()
                 },
                 CompletedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 CreatedBy = Guid.NewGuid(),
@@ -36,6 +39,9 @@ public class GetAllOrdersQueryHandlerTest
                 Id = Guid.NewGuid(),
                 Client = new ClientDto(){
                     Name = "Client 2",
+                    Document = "987654321",
+                    TypeDocument = "CC",
+                    Id = Guid.NewGuid()
                 },
                 CompletedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 CreatedBy = Guid.NewGuid(),

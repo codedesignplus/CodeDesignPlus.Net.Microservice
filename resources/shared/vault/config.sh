@@ -51,7 +51,12 @@ vault write auth/approle/login role_id=$role_id secret_id=$secret_id
 
 # Write secrets
 echo "6. Writing secrets..."
-vault kv put -mount=archetype-keyvalue ms-archetype Security:ClientId=a74cb192-598c-4757-95ae-b315793bbbca Security:ValidAudiences:0=a74cb192-598c-4757-95ae-b315793bbbca Security:ValidAudiences:1=api://a74cb192-598c-4757-95ae-b315793bbbca
+vault kv put -mount=archetype-keyvalue ms-archetype \
+    Security:ClientId=a74cb192-598c-4757-95ae-b315793bbbca \
+    Security:ValidAudiences:0=a74cb192-598c-4757-95ae-b315793bbbca \
+    Security:ValidAudiences:1=api://a74cb192-598c-4757-95ae-b315793bbbca \
+    Redis:Instances:Core:ConnectionString=localhost:6379
+    
 vault kv get -mount=archetype-keyvalue ms-archetype
 
 # Write database configuration

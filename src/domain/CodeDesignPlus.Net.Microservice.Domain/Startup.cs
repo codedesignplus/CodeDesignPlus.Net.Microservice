@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeDesignPlus.Net.Microservice.Domain;
 
-public class Startup : IStartupServices
+public class Startup : IStartup
 {
     public void Initialize(IServiceCollection services, IConfiguration configuration)
     {

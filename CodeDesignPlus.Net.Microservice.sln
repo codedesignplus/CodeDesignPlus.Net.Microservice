@@ -53,6 +53,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{CE331B2A
 		tools\sonar.sh = tools\sonar.sh
 		tools\update-packages.ps1 = tools\update-packages.ps1
 		tools\upgrade-assist.ps1 = tools\upgrade-assist.ps1
+		tools\update-packages.sh = tools\update-packages.sh
+		tools\upgrade-assist.sh = tools\upgrade-assist.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeDesignPlus.Net.Microservice.Rest.Test", "tests\integration\CodeDesignPlus.Net.Microservice.Rest.Test\CodeDesignPlus.Net.Microservice.Rest.Test.csproj", "{5E9FE4C4-9055-4EAD-A600-BAE1A5D598ED}"
