@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder;
 
-public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IMessage message) : IRequestHandler<CompleteOrderCommand>
+public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IPubSub pubsub) : IRequestHandler<CompleteOrderCommand>
 {
     public async Task Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
     {
@@ -19,7 +19,7 @@ public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IUser
             UpdateBy = order.UpdatedBy
         }, cancellationToken);
 
-        await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
+        await pubsub.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
 }
 

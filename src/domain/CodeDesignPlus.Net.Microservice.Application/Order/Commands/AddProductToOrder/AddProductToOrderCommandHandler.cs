@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
 
-public class AddProductToOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IMessage message) : IRequestHandler<AddProductToOrderCommand>
+public class AddProductToOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IPubSub pubsub) : IRequestHandler<AddProductToOrderCommand>
 {
     public async Task Handle(AddProductToOrderCommand request, CancellationToken cancellationToken)
     {
@@ -22,6 +22,6 @@ public class AddProductToOrderCommandHandler(IOrderRepository orderRepository, I
             UpdateBy = user.IdUser
         }, cancellationToken);
 
-        await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
+        await pubsub.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
 }

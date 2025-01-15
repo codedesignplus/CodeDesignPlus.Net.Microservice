@@ -2,7 +2,7 @@
 
 dotnet tool install -g upgrade-assistant
 
-proyectos=$(find ./../ -name "*.csproj")
+proyectos=$(find ./../../ -name "*.csproj")
 
 for proyecto in $proyectos
 do

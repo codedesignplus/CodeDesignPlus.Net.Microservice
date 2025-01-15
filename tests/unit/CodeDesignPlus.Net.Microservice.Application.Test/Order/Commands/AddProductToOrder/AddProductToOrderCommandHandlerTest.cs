@@ -22,7 +22,7 @@ public class AddProductToOrderCommandHandlerTest
     {
         // Arrange
         var orderRepository = new Mock<IOrderRepository>();
-        var message = new Mock<IMessage>();
+        var pubsub = new Mock<IPubSub>();
 
         var command = new AddProductToOrderCommand
         (
@@ -36,7 +36,7 @@ public class AddProductToOrderCommandHandlerTest
 
         orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
 
-        var handler = new AddProductToOrderCommandHandler(orderRepository.Object, this.user, message.Object);
+        var handler = new AddProductToOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
         // Act
         var exception = await Assert.ThrowsAsync<CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
@@ -44,7 +44,7 @@ public class AddProductToOrderCommandHandlerTest
         // Assert
         orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
         orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Never);
-        message.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
+        pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Equal(Errors.OrderNotFound.GetCode(), exception.Code);
         Assert.Equal(Errors.OrderNotFound.GetMessage(), exception.Message);
@@ -55,7 +55,7 @@ public class AddProductToOrderCommandHandlerTest
     {
         // Arrange
         var orderRepository = new Mock<IOrderRepository>();
-        var message = new Mock<IMessage>();
+        var pubsub = new Mock<IPubSub>();
         var client = ClientValueObject.Create(Guid.NewGuid(), "client", "1234567890", "CC");
         var address = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
 
@@ -73,7 +73,7 @@ public class AddProductToOrderCommandHandlerTest
 
         orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(order);
 
-        var handler = new AddProductToOrderCommandHandler(orderRepository.Object, this.user, message.Object);
+        var handler = new AddProductToOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
         // Act
         await handler.Handle(command, CancellationToken.None);
@@ -81,7 +81,7 @@ public class AddProductToOrderCommandHandlerTest
         // Assert
         orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
         orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
-        message.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
+        pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
 
         Assert.NotEmpty(order.Products);
         Assert.NotNull(order.UpdatedAt);

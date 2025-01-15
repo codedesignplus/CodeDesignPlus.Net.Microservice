@@ -2,7 +2,7 @@
 
 dotnet tool install --global dotnet-outdated-tool
 
-proyectos=$(find ./../ -name "*.csproj")
+proyectos=$(find ./../../ -name "*.csproj")
 
 for proyecto in $proyectos
 do

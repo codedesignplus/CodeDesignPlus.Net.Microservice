@@ -2,7 +2,7 @@
 
 namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
 
-public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IMessage message) : IRequestHandler<CreateOrderCommand>
+public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IPubSub pubsub) : IRequestHandler<CreateOrderCommand>
 {
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
@@ -19,6 +19,6 @@ public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserCo
 
         await orderRepository.CreateOrderAsync(order, cancellationToken);
 
-        await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
+        await pubsub.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
 }

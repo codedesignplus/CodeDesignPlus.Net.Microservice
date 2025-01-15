@@ -22,8 +22,8 @@ public class RemoveProductCommandHandlerTest
     {
         // Arrange
         var orderRepository = new Mock<IOrderRepository>();
-        var message = new Mock<IMessage>();
-        var handler = new RemoveProductCommandHandler(orderRepository.Object, user, message.Object);
+        var pubsub = new Mock<IPubSub>();
+        var handler = new RemoveProductCommandHandler(orderRepository.Object, user, pubsub.Object);
         var request = new RemoveProductCommand(Guid.NewGuid(), Guid.NewGuid());
 
         orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync((OrderAggregate)null!);
@@ -40,8 +40,8 @@ public class RemoveProductCommandHandlerTest
     {
         // Arrange
         var orderRepository = new Mock<IOrderRepository>();
-        var message = new Mock<IMessage>();
-        var handler = new RemoveProductCommandHandler(orderRepository.Object, user, message.Object);
+        var pubsub = new Mock<IPubSub>();
+        var handler = new RemoveProductCommandHandler(orderRepository.Object, user, pubsub.Object);
         var request = new RemoveProductCommand(Guid.NewGuid(), Guid.NewGuid());
         var clientValueObject = ClientValueObject.Create(Guid.NewGuid(), "Client", "1234567890", "CC");
         var addressValueObject = AddressValueObject.Create("Colombia", "Bogota", "Bogota", "Calle 123", 123456);
@@ -65,7 +65,7 @@ public class RemoveProductCommandHandlerTest
         Assert.NotNull(order.UpdatedAt);
         Assert.Equal(this.user.IdUser, order.UpdatedBy);
         orderRepository.Verify(x => x.RemoveProductFromOrderAsync(It.IsAny<RemoveProductFromOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
-        message.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
+        pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
 }

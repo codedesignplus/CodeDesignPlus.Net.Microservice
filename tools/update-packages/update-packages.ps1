@@ -1,6 +1,6 @@
 dotnet tool install --global dotnet-outdated-tool
 
-$proyectos = Get-ChildItem -Path "./../" -Recurse -Filter "*.csproj"
+$proyectos = Get-ChildItem -Path "./../../" -Recurse -Filter "*.csproj"
 
 foreach ($proyecto in $proyectos) 
 {
