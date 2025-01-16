@@ -56,15 +56,6 @@ if [ -z "$role_id" ] || [ -z "$secret_id" ]; then
     exit 1
 fi
 
-file="credentials.json"
-
-cat <<EOF > /vault/config/$file
-{
-  "role_id": "$role_id",
-  "secret_id": "$secret_id"
-}
-EOF
-
 echo "Role ID: $role_id"
 echo "Secret ID: $secret_id"
 
