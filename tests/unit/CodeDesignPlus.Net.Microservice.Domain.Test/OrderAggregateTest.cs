@@ -10,7 +10,6 @@ public class OrderAggregateTest
         // Arrange
         var id = Guid.Empty;
         var idClient = Guid.NewGuid();
-        var nameClient = "John Doe";
         var tenant = Guid.NewGuid();
         var createdBy = Guid.NewGuid();
         var client = ClientValueObject.Create(Guid.NewGuid(), "John Doe", "123456789", "CC");
