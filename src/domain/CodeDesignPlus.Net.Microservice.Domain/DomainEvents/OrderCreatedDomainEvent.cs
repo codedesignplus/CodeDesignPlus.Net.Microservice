@@ -8,18 +8,18 @@ public class OrderCreatedDomainEvent(
    OrderStatus orderStatus,
    ClientValueObject client,
    AddressValueObject shippingAddress,
-   long createdAt,
+   Instant createdAt,
    Guid tenant,
    Guid createBy,
    Guid? eventId = null,
-   DateTime? occurredAt = null,
+   Instant? occurredAt = null,
    Dictionary<string, object>? metadata = null
 ) : DomainEvent(aggregateId, eventId, occurredAt, metadata)
 {
     public ClientValueObject Client { get; } = client;
     public AddressValueObject ShippingAddress { get; } = shippingAddress;
     public OrderStatus OrderStatus { get; } = orderStatus;
-    public long CreatedAt { get; } = createdAt;
+    public Instant CreatedAt { get; } = createdAt;
     public Guid Tenant { get; private set; } = tenant;
     public Guid CreateBy { get; private set; } = createBy;
 
@@ -35,7 +35,7 @@ public class OrderCreatedDomainEvent(
             OrderStatus.Created,
             client,
             shippingAddress,
-            DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            SystemClock.Instance.GetCurrentInstant(),
             tenant,
             creaateBy
         );

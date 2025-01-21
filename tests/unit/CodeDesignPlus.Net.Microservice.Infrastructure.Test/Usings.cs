@@ -7,6 +7,7 @@ global using MongoDB.Driver;
 global using Moq;
 global using Microsoft.Extensions.Configuration;
 global using CodeDesignPlus.Net.Serializers;
+global using NodaTime;
 
 global using CodeDesignPlus.Net.Microservice.Infrastructure.Repositories;
 global using CodeDesignPlus.Net.Microservice.Domain;

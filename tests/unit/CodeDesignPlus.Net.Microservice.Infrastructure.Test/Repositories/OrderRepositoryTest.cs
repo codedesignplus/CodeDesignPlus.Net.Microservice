@@ -69,7 +69,7 @@ public class OrderRepositoryTest
             Description = description,
             Price = price,
             Quantity = quantity,
-            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdatedAt = SystemClock.Instance.GetCurrentInstant(),
             UpdateBy = Guid.NewGuid()
         }, cancellationToken);
 
@@ -84,7 +84,7 @@ public class OrderRepositoryTest
         var idOrder = Guid.NewGuid();
         var reason = "Reason for cancellation";
         var cancellationToken = CancellationToken.None;
-        var cancelledAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        var cancelledAt = SystemClock.Instance.GetCurrentInstant();
 
         collectionMock
             .Setup(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken))
@@ -97,7 +97,7 @@ public class OrderRepositoryTest
             OrderStatus = OrderStatus.Cancelled,
             Reason = reason,
             CancelledAt = cancelledAt,
-            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdatedAt = SystemClock.Instance.GetCurrentInstant(),
             UpdateBy = Guid.NewGuid()
         }, cancellationToken);
 
@@ -111,7 +111,7 @@ public class OrderRepositoryTest
         // Arrange
         var idOrder = Guid.NewGuid();
         var cancellationToken = CancellationToken.None;
-        var completedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        var completedAt = SystemClock.Instance.GetCurrentInstant();
 
         collectionMock
             .Setup(x => x.UpdateOneAsync(It.IsAny<FilterDefinition<OrderAggregate>>(), It.IsAny<UpdateDefinition<OrderAggregate>>(), It.IsAny<UpdateOptions>(), cancellationToken))
@@ -123,7 +123,7 @@ public class OrderRepositoryTest
             Id = idOrder,
             CompletedAt = completedAt,
             OrderStatus = OrderStatus.Completed,
-            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdatedAt = SystemClock.Instance.GetCurrentInstant(),
             UpdateBy = Guid.NewGuid()
         }, cancellationToken);
 
@@ -202,7 +202,7 @@ public class OrderRepositoryTest
         {
             Id = idOrder,
             IdProduct = idProduct,
-            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdatedAt = SystemClock.Instance.GetCurrentInstant(),
             UpdateBy = Guid.NewGuid()
         }, cancellationToken);
 
@@ -249,7 +249,7 @@ public class OrderRepositoryTest
             Id = idOrder,
             ProductId = productId,
             NewQuantity = newQuantity,
-            UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            UpdatedAt = SystemClock.Instance.GetCurrentInstant(),
             UpdateBy = Guid.NewGuid()
         }, cancellationToken);
 

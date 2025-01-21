@@ -21,9 +21,9 @@ public class GetAllOrdersQueryHandlerTest
                     TypeDocument = "CC",
                     Id = Guid.NewGuid()
                 },
-                CompletedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                CompletedAt = SystemClock.Instance.GetCurrentInstant(),
                 CreatedBy = Guid.NewGuid(),
-                CreatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                CreatedAt = SystemClock.Instance.GetCurrentInstant(),
                 IsActive = true,
                 Products = [
                     new(){
@@ -43,9 +43,9 @@ public class GetAllOrdersQueryHandlerTest
                     TypeDocument = "CC",
                     Id = Guid.NewGuid()
                 },
-                CompletedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                CompletedAt = SystemClock.Instance.GetCurrentInstant(),
                 CreatedBy = Guid.NewGuid(),
-                CreatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                CreatedAt = SystemClock.Instance.GetCurrentInstant(),
                 IsActive = true,
                 Products = [
                     new(){

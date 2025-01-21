@@ -98,8 +98,8 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         Assert.Equal(data.Client.Id, order.Client.Id);
         Assert.NotEqual(Guid.Empty, order.CreatedBy);
         Assert.Equal(Guid.Empty, order.UpdatedBy);
-        Assert.NotEqual(0, order.CreatedAt);
-        Assert.Equal(0, order.UpdatedAt);
+        Assert.True(order.CreatedAt > Instant.MinValue);
+        Assert.Null(order.UpdatedAt);
     }
 
     [Fact]
@@ -125,8 +125,8 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         Assert.NotNull(order.CancelledAt);
         Assert.NotEqual(Guid.Empty, order.CreatedBy);
         Assert.NotEqual(Guid.Empty, order.UpdatedBy);
-        Assert.NotEqual(0, order.CreatedAt);
-        Assert.NotEqual(0, order.UpdatedAt);
+        Assert.True(order.CreatedAt > Instant.MinValue);
+        Assert.True(order.UpdatedAt > Instant.MinValue);
     }
 
     [Fact]
@@ -147,8 +147,8 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         Assert.NotNull(order.CompletedAt);
         Assert.NotEqual(Guid.Empty, order.CreatedBy);
         Assert.NotEqual(Guid.Empty, order.UpdatedBy);
-        Assert.NotEqual(0, order.CreatedAt);
-        Assert.NotEqual(0, order.UpdatedAt);
+        Assert.True(order.CreatedAt > Instant.MinValue);
+        Assert.True(order.UpdatedAt > Instant.MinValue);
     }
 
     [Fact]
@@ -185,8 +185,8 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         Assert.Equal(addProduct.Quantity, order.Products.First().Quantity);
         Assert.NotEqual(Guid.Empty, order.CreatedBy);
         Assert.NotEqual(Guid.Empty, order.UpdatedBy);
-        Assert.NotEqual(0, order.CreatedAt);
-        Assert.NotEqual(0, order.UpdatedAt);
+        Assert.True(order.CreatedAt > Instant.MinValue);
+        Assert.True(order.UpdatedAt > Instant.MinValue);
     }
 
     [Fact]
@@ -230,8 +230,8 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         Assert.Equal(updateQuantity.Quantity, order.Products.First().Quantity);
         Assert.NotEqual(Guid.Empty, order.CreatedBy);
         Assert.NotEqual(Guid.Empty, order.UpdatedBy);
-        Assert.NotEqual(0, order.CreatedAt);
-        Assert.NotEqual(0, order.UpdatedAt);
+        Assert.True(order.CreatedAt > Instant.MinValue);
+        Assert.True(order.UpdatedAt > Instant.MinValue);
     }
 
     [Fact]
@@ -265,8 +265,8 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         Assert.Empty(order.Products);
         Assert.NotEqual(Guid.Empty, order.CreatedBy);
         Assert.NotEqual(Guid.Empty, order.UpdatedBy);
-        Assert.NotEqual(0, order.CreatedAt);
-        Assert.NotEqual(0, order.UpdatedAt);
+        Assert.True(order.CreatedAt > Instant.MinValue);
+        Assert.True(order.UpdatedAt > Instant.MinValue);
     }
 
     private static StringContent BuildBody(object data)

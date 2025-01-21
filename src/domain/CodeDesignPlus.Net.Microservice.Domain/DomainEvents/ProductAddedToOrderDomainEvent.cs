@@ -6,7 +6,7 @@ public class ProductAddedToOrderDomainEvent(
     int quantity,
     ProductEntity product,
     Guid? eventId = null,
-    DateTime? occurredAt = null,
+    Instant? occurredAt = null,
     Dictionary<string, object>? metadata = null
 ) : DomainEvent(aggregateId, eventId, occurredAt, metadata)
 {

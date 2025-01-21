@@ -122,7 +122,7 @@ public class OrderAggregateTest
         Assert.Equal(shippingAddress.CodePostal, @event.ShippingAddress.CodePostal);
         Assert.Equal(tenant, @event.Tenant);
         Assert.Equal(OrderStatus.Created, @event.OrderStatus);
-        Assert.NotEqual(0, @event.CreatedAt);
+        Assert.True(@event.CreatedAt > Instant.MinValue);
     }
 
     [Fact]
@@ -461,7 +461,7 @@ public class OrderAggregateTest
 
         Assert.NotNull(@event);
         Assert.Equal(orderAggregate.Id, @event.AggregateId);
-        Assert.NotEqual(0, @event.CompletedAt);
+        Assert.True(@event.CompletedAt > Instant.MinValue);
 
         Assert.NotNull(orderAggregate.UpdatedAt);
         Assert.Equal(updatedBy, orderAggregate.UpdatedBy);

@@ -4,34 +4,32 @@ namespace CodeDesignPlus.Net.Microservice.Domain;
 
 public class OrderAggregate(Guid id) : AggregateRoot(id)
 {
-    public long? CompletedAt { get; private set; }
-    public long? CancelledAt { get; private set; }
+    public Instant? CompletedAt { get; private set; }
+    public Instant? CancelledAt { get; private set; }
     public ClientValueObject Client { get; private set; } = default!;
     public List<ProductEntity> Products { get; private set; } = [];
     public OrderStatus Status { get; private set; }
     public string? ReasonForCancellation { get; private set; }
     public AddressValueObject ShippingAddress { get; private set; } = default!;
 
-    public static OrderAggregate Create(Guid id, ClientValueObject client, AddressValueObject shippingAddress, Guid tenant, Guid createBy)
+    public static OrderAggregate Create(Guid id, ClientValueObject client, AddressValueObject shippingAddress, Guid tenant, Guid createdBy)
     {
         DomainGuard.GuidIsEmpty(id, Errors.IdOrderIsInvalid);
         DomainGuard.IsNull(client, Errors.ClientIsNull);
         DomainGuard.GuidIsEmpty(tenant, Errors.TenantIsInvalid);
         DomainGuard.IsNull(shippingAddress, Errors.AddressIsNull);
 
-        var @event = OrderCreatedDomainEvent.Create(id, client, shippingAddress, tenant, createBy);
-
         var aggregate = new OrderAggregate(id)
         {
             Client = client,
             ShippingAddress = shippingAddress,
-            CreatedAt = @event.CreatedAt,
-            Status = @event.OrderStatus,
+            CreatedAt = SystemClock.Instance.GetCurrentInstant(),
+            Status = OrderStatus.Created,
             Tenant = tenant,
-            CreatedBy = createBy
+            CreatedBy = createdBy
         };
 
-        aggregate.AddEvent(@event);
+        aggregate.AddEvent(OrderCreatedDomainEvent.Create(aggregate.Id, aggregate.Client, aggregate.ShippingAddress, aggregate.Tenant, aggregate.CreatedBy));
 
         return aggregate;
     }
@@ -43,7 +41,7 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
         DomainGuard.IsLessThan(price, 0, Errors.PriceProductIsInvalid);
         DomainGuard.IsLessThan(quantity, 0, Errors.QuantityProductIsInvalid);
 
-        this.UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        this.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
         this.UpdatedBy = updateBy;
 
         var product = new ProductEntity
@@ -68,7 +66,7 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
 
         DomainGuard.IsNull(product, Errors.ProductNotFound);
 
-        this.UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        this.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
         this.UpdatedBy = updateBy;
 
         Products.Remove(product);
@@ -85,7 +83,7 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
 
         DomainGuard.IsNull(product, Errors.ProductNotFound);
 
-        this.UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        this.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
         this.UpdatedBy = updateBy;
 
         product.Quantity = newQuantity;
@@ -100,7 +98,7 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
 
         var @event = OrderCompletedDomainEvent.Create(Id);
 
-        this.UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        this.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
         this.UpdatedBy = updateBy;
 
         this.CompletedAt = @event.CompletedAt;
@@ -113,10 +111,10 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
     {
         DomainGuard.IsTrue(Status == OrderStatus.Cancelled, Errors.OrderAlreadyCancelled);
 
-        this.UpdatedAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        this.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
         this.UpdatedBy = updateBy;
         this.ReasonForCancellation = reason;
-        this.CancelledAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        this.CancelledAt = SystemClock.Instance.GetCurrentInstant();
         this.Status = OrderStatus.Cancelled;
 
         AddEvent(OrderCancelledDomainEvent.Create(Id, reason));

@@ -8,11 +8,11 @@
     <Protobuf Include="Protos\orders.proto" GrpcServices="Server" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.5.0-beta.71" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.67.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.68.1">
+    <PackageReference Include="Grpc.Tools" Version="2.69.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -24,12 +24,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
-    <PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Security" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Redis.Cache" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Security" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis.Cache" Version="0.5.0-beta.71" />
   </ItemGroup>
 </Project>

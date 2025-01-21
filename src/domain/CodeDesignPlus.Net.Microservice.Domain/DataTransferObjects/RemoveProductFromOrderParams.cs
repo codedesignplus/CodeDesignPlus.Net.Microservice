@@ -6,6 +6,6 @@ public class RemoveProductFromOrderParams: IDtoBase
 {
     public required Guid Id { get; set; }
     public required Guid IdProduct { get; set; }
-    public required long? UpdatedAt { get; set; }
+    public required Instant? UpdatedAt { get; set; }
     public required Guid? UpdateBy { get; set; }
 }

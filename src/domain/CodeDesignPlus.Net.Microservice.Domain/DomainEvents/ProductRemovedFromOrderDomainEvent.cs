@@ -5,7 +5,7 @@ public class ProductRemovedFromOrderDomainEvent(
     Guid aggregateId,
     Guid productId,
     Guid? eventId = null,
-    DateTime? occurredAt = null,
+    Instant? occurredAt = null,
     Dictionary<string, object>? metadata = null
 ) : DomainEvent(aggregateId, eventId, occurredAt, metadata)
 {

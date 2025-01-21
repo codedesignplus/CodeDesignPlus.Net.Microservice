@@ -17,7 +17,7 @@ public class OrderCancelledDomainEventTest
         Assert.NotNull(domainEvent);
         Assert.Equal(aggregateId, domainEvent.AggregateId);
         Assert.Equal(reason, domainEvent.Reason);
-        Assert.True(domainEvent.CancelledAt > 0);
+        Assert.True(domainEvent.CancelledAt > Instant.MinValue);
     }
 
     [Fact]
@@ -27,8 +27,8 @@ public class OrderCancelledDomainEventTest
         var eventId = Guid.NewGuid();
         var aggregateId = Guid.NewGuid();
         var reason = "Some reason";
-        var cancelledAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        var occurredAt = DateTime.UtcNow;
+        var cancelledAt = SystemClock.Instance.GetCurrentInstant();
+        var occurredAt = SystemClock.Instance.GetCurrentInstant();
         var metadata = new Dictionary<string, object>();
 
         // Act

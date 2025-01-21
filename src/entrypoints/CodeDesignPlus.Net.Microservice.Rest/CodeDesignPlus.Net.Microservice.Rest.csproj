@@ -10,17 +10,17 @@
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.5.0-beta.71" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
-    <PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Security" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.5.0-beta.60" />
-    <PackageReference Include="CodeDesignPlus.Net.Redis.Cache" Version="0.5.0-beta.60" />
+    <PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Security" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.5.0-beta.71" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis.Cache" Version="0.5.0-beta.71" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="CodeDesignPlus.Net.Microservice.Rest.Test" />
