@@ -3,7 +3,7 @@
 public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Program>>
 {
     public OrderControllerTest(Server<Program> server) : base(server)
-    {
+    {        
         server.InMemoryCollection = (x) =>
         {
             x.Add("Vault:Enable", "false");
