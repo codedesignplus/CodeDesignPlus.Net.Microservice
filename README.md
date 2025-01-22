@@ -43,76 +43,110 @@ A production-ready microservice template built with .NET 9, implementing Clean A
 
 ## 🚀 Getting Started
 
+The following instructions will help you set up the project on your local machine for development and testing purposes.
+
 1. Clone the repository:
 ```bash
 git clone <repository-url>
 ```
 
-2. Configure environment settings in `appsettings.json`:
+2. Run the MongoDB, Redis, and RabbitMQ services using Docker Compose. Clone this repository [CodeDesignPlus.Environment.Dev](https://github.com/codedesignplus/CodeDesignPlus.Environment.Dev) and run the following command:
 
-```json
-{
-  "Core": {
-    "AppName": "your-service-name",
-    "Version": "v1"
-  },
-  "MongoDb": {
-    "ConnectionString": "mongodb://localhost:27017",
-    "Database": "your-database"
-  },
-  "Redis": {
-    "ConnectionString": "localhost:6379"
-  },
-  "RabbitMQ": {
-    "Host": "localhost",
-    "Port": 5672
-  }
-}
+```bash
+cd resources
+
+docker-compose up -d
 ```
 
-3. Build the solution:
+3. Run the script to config the vault:
+
+```bash
+cd tools/vault
+
+./config-vault.sh
+```
+
+4. Build the solution:
 ```bash
 dotnet build
 ```
 
-4. Run the desired entry point:
-For REST API:
-```bash
-dotnet run --project src/entrypoints/CodeDesignPlus.Net.Microservice.Rest
-```
+5. Run the desired entry point:
+   
+   - For REST API:
+      ```bash
+      dotnet run --project src/entrypoints/CodeDesignPlus.Net.Microservice.Rest
+      ```
 
-For gRPC:
-```bash
-dotnet run --project src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc
-```
+   - For gRPC:
+      ```bash
+      dotnet run --project src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc
+      ```
 
-For Worker:
-```bash
-dotnet run --project src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker
-```
+   - For Worker:
+      ```bash
+      dotnet run --project src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker
+      ```
 
 ## 🧪 Testing
-Run unit tests:
+To run the unit and integration tests, execute the following command:
+
 ```bash
-dotnet test tests/CodeDesignPlus.Net.Microservice.Application.Test
+dotnet test
 ```
 
-Run integration tests:
+## 📦 Update Packages
+To update the NuGet packages, run the following script:
+
 ```bash
-dotnet test tests/integration
+cd tools/update-packages
+
+./update-packages.sh
 ```
 
-Run load tests:
+## 📦 Upgrading .NET Version
+
+To upgrade the .NET version, run the following script:
+
 ```bash
-cd tests/load
-k6 run load-test.js
+cd tools/upgrade-dotnet
+
+./upgrade-dotnet.sh
+```
+
+## 🧪 SonarQube Analysis
+
+To run the SonarQube analysis, follow the instructions in the sonarqube directory.
+
+1. Replace the SonarQube URL and token in the sonarqube.sh script to analyze with SonarQube locally.
+2. Run the script:
+
+```bash
+cd tools/sonarqube
+
+./sonarqube.sh
 ```
 
 🐳 Docker Support
-Build the Docker image:
+
+To build and run the application using Docker, follow these steps:
+
+1. Build the Docker image using the Dockerfile in the REST API entry point:
 ```bash
-docker build -t codedesignplus-microservice .
+docker build -t codedesignplus-microservice . -f src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile
+
+docker run -d -p 5000:80 --name codedesignplus-microservice codedesignplus-microservice
 ```
+2. Build the Docker image using the Dockerfile in the gRPC entry point:
+```bash
+docker build -t codedesignplus-microservice . -f src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile
+```
+3. Build the Docker image using the Dockerfile in the Worker entry point:
+```bash
+docker build -t codedesignplus-microservice . -f src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile
+```
+4. Run the Docker container:
+
 
 Run with Docker Compose:
 

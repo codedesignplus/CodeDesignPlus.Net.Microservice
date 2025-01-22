@@ -19,7 +19,6 @@ builder.Host.UseSerilog();
 
 builder.Configuration.AddVault();
 
-// Add services to the container.
 builder.Services.AddGrpc(options =>
 {
     options.Interceptors.Add<ErrorInterceptor>();
@@ -43,7 +42,6 @@ var app = builder.Build();
 
 app.UseAuth();
 
-// Configure the HTTP request pipeline.
 app.MapGrpcService<OrderService>().RequireAuthorization();
 
 if (app.Environment.IsDevelopment())

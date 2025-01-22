@@ -10,7 +10,7 @@
         "VAULT_SECRET_ID": "vault_secret_id",
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5175"
+      "applicationUrl": "http://localhost:8080"
     },
     "Docker": {
       "commandName": "Docker",
