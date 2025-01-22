@@ -154,7 +154,7 @@ vault write vault-database/config/db-ms-archetype `
 
 vault write vault-database/roles/ms-archetype-mongo-role `
     db_name=db-ms-archetype `
-    creation_statements="{ \""db\"": \""admin\"", \""roles\"": [{ \""role\"": \""readWrite\"", \""db\"": \""db-ms-archetype\"" }] }" `
+    creation_statements="{ """db""": """admin""", """roles""": [{ """role""": """readWrite""", """db""": """db-ms-archetype""" }] }" `
     default_ttl="1h" `
     max_ttl="24h"
 
@@ -173,6 +173,6 @@ vault write vault-rabbitmq/config/connection `
     password="password"
 
 vault write vault-rabbitmq/roles/ms-archetype-rabbitmq-role `
-    vhosts="{\""/\"":{\""write\"": \"".*\"", \""read\"": \"".*\"", \""configure\"": \"".*\""}}"
+    vhosts="{"""/""":{"""write""": """.*""", """read""": """.*""", """configure""": """.*"""}}"
 
 vault read vault-rabbitmq/creds/ms-archetype-rabbitmq-role

@@ -8,7 +8,7 @@ public class OrdersServiceTest : ServerBase<Program>, IClassFixture<Server<Progr
     {
         server.InMemoryCollection = (x) =>
         {
-            x.Add("Vault:Enabled", "false");
+            x.Add("Vault:Enable", "false");
             x.Add("Vault:Address", "http://localhost:8200");
             x.Add("Vault:Token", "root");
             x.Add("Solution", "CodeDesignPlus");

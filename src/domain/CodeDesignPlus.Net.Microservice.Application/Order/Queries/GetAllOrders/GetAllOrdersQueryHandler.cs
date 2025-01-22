@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Queries.GetAllOrders;
 
-public class GetAllOrdersQueryHandler(IOrderRepository orderRepository, IMapper mapper)
+public class GetAllOrdersQueryHandler(IOrderRepository orderRepository, IMapper mapper, IUserContext user)
     : IRequestHandler<GetAllOrdersQuery, List<OrderDto>>
 {
 
@@ -9,7 +9,7 @@ public class GetAllOrdersQueryHandler(IOrderRepository orderRepository, IMapper 
 
     public async Task<List<OrderDto>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        var result = await this.orderRepository.MatchingAsync<OrderAggregate>(request.Criteria, cancellationToken).ConfigureAwait(false);
+        var result = await this.orderRepository.MatchingAsync<OrderAggregate>(request.Criteria, user.Tenant, cancellationToken).ConfigureAwait(false);
 
         var data = this.mapper.Map<List<OrderDto>>(result);
 

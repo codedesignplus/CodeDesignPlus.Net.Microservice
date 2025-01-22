@@ -3,6 +3,7 @@ syntax = "proto3";
 
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "CodeDesignPlus.Net.Microservice.gRpc";
 
@@ -39,15 +40,15 @@ message GetOrderResponse {
 
 message Order {
   string id = 1;
-  google.protobuf.Int64Value completed_at = 2;
-  google.protobuf.Int64Value cancelled_at = 3;
+  google.protobuf.Timestamp completed_at = 2;
+  google.protobuf.Timestamp cancelled_at = 3;
   Client client = 4;
   repeated Product products = 5;
   OrderStatus status = 6;
   google.protobuf.StringValue reason_for_cancellation = 7;
-  int64 created_at = 8;
+  google.protobuf.Timestamp created_at = 8;
   string created_by = 9;
-  int64 updated_at = 10;
+  optional google.protobuf.Timestamp updated_at = 10;
   string updated_by = 11;
   bool is_active = 12;
 }

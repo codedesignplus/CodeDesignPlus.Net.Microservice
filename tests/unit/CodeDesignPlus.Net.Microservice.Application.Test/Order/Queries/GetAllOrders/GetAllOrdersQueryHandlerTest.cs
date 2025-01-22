@@ -9,6 +9,7 @@ public class GetAllOrdersQueryHandlerTest
     public async Task Handle_Success()
     {
         // Arrange
+        var tenant = Guid.NewGuid();
         var criteria = new C.Criteria();
         var query = new GetAllOrdersQuery(criteria);
         var orders = new List<OrderDto>
@@ -33,7 +34,6 @@ public class GetAllOrdersQueryHandlerTest
                         Quantity = 1
                     }
                 ],
-
             },
             new() {
                 Id = Guid.NewGuid(),
@@ -61,7 +61,11 @@ public class GetAllOrdersQueryHandlerTest
 
         var orderRepositoryMock = new Mock<IOrderRepository>();
         var mapperMock = new Mock<IMapper>();
-        var queryHandler = new GetAllOrdersQueryHandler(orderRepositoryMock.Object, mapperMock.Object);
+        var userContextMock = new Mock<IUserContext>();
+
+        userContextMock.SetupGet(x => x.Tenant).Returns(tenant);
+
+        var queryHandler = new GetAllOrdersQueryHandler(orderRepositoryMock.Object, mapperMock.Object, userContextMock.Object);
 
         mapperMock.Setup(x => x.Map<List<OrderDto>>(It.IsAny<List<OrderAggregate>>())).Returns(orders);
 
@@ -73,7 +77,7 @@ public class GetAllOrdersQueryHandlerTest
         Assert.NotEmpty(result);
         Assert.Equal(orders.Count, result.Count);
 
-        orderRepositoryMock.Verify(x => x.MatchingAsync<OrderAggregate>(criteria, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepositoryMock.Verify(x => x.MatchingAsync<OrderAggregate>(criteria, tenant, It.IsAny<CancellationToken>()), Times.Once);
         mapperMock.Verify(x => x.Map<List<OrderDto>>(It.IsAny<List<OrderAggregate>>()), Times.Once);
     }
 

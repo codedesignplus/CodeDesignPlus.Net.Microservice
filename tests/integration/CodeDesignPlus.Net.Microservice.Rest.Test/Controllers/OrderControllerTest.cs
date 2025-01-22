@@ -6,7 +6,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
     {
         server.InMemoryCollection = (x) =>
         {
-            x.Add("Vault:Enabled", "false");
+            x.Add("Vault:Enable", "false");
             x.Add("Vault:Address", "http://localhost:8200");
             x.Add("Vault:Token", "root");
             x.Add("Solution", "CodeDesignPlus");
@@ -30,7 +30,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
 
         var json = await response.Content.ReadAsStringAsync();
 
-        var orders = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<OrderDto>>(json);
+        var orders = JsonSerializer.Deserialize<IEnumerable<OrderDto>>(json);
 
         Assert.NotNull(orders);
         Assert.NotEmpty(orders);
@@ -50,7 +50,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
 
         var json = await response.Content.ReadAsStringAsync();
 
-        var order = Newtonsoft.Json.JsonConvert.DeserializeObject<OrderDto>(json);
+        var order = JsonSerializer.Deserialize<OrderDto>(json);
 
         Assert.NotNull(order);
         Assert.Equal(orderCreated.Id, order.Id);
@@ -82,7 +82,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
             }
         };
 
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+        var json = JsonSerializer.Serialize(data);
 
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -271,7 +271,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
 
     private static StringContent BuildBody(object data)
     {
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+        var json = JsonSerializer.Serialize(data);
 
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -300,7 +300,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
             }
         };
 
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+        var json = JsonSerializer.Serialize(data);
 
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -315,7 +315,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
 
         var json = await response.Content.ReadAsStringAsync();
 
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<OrderDto>(json)!;
+        return JsonSerializer.Deserialize<OrderDto>(json)!;
     }
 
     private async Task<HttpResponseMessage> RequestAsync(string uri, Guid tenant, HttpContent? content, HttpMethod method)
