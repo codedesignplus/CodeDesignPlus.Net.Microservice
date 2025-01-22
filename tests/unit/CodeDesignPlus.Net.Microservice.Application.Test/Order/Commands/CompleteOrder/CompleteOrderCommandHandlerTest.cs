@@ -28,7 +28,7 @@ public class CompleteOrderCommandHandlerTest
 
         var command = new CompleteOrderCommand(Guid.NewGuid());
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
 
         var handler = new CompleteOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -36,8 +36,8 @@ public class CompleteOrderCommandHandlerTest
         var exception = await Assert.ThrowsAsync<CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
 
         // Assert
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.CompleteOrderAsync(It.IsAny<CompleteOrderParams>(),  It.IsAny<CancellationToken>()), Times.Never);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.CompleteOrderAsync(It.IsAny<CompleteOrderParams>(), this.user.Tenant, It.IsAny<CancellationToken>()), Times.Never);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Equal(Errors.OrderNotFound.GetCode(), exception.Code);
@@ -57,7 +57,7 @@ public class CompleteOrderCommandHandlerTest
 
         var command = new CompleteOrderCommand(order.Id);
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
 
         var handler = new CompleteOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -67,8 +67,8 @@ public class CompleteOrderCommandHandlerTest
         // Assert        
         Assert.NotNull(order.UpdatedAt);
         Assert.Equal(this.user.IdUser, order.UpdatedBy);
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.CompleteOrderAsync(It.IsAny<CompleteOrderParams>(),  It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.CompleteOrderAsync(It.IsAny<CompleteOrderParams>(), this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
     }
 
 }

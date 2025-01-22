@@ -5,7 +5,6 @@ namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.Cancel
 
 public class CancelOrderCommandHandlerTest
 {
-
     private readonly IUserContext user;
 
     public CancelOrderCommandHandlerTest()
@@ -27,7 +26,7 @@ public class CancelOrderCommandHandlerTest
 
         var command = new CancelOrderCommand(Guid.NewGuid(), "Reason");
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
 
         var handler = new CancelOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -35,8 +34,8 @@ public class CancelOrderCommandHandlerTest
         var exception = await Assert.ThrowsAsync<CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
 
         // Assert
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.CancelOrderAsync(It.IsAny<CancelOrderParams>(), It.IsAny<CancellationToken>()), Times.Never);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.CancelOrderAsync(It.IsAny<CancelOrderParams>(), this.user.Tenant, It.IsAny<CancellationToken>()), Times.Never);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Equal(Errors.OrderNotFound.GetCode(), exception.Code);
@@ -56,7 +55,7 @@ public class CancelOrderCommandHandlerTest
 
         var command = new CancelOrderCommand(order.Id, "Reason");
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(),It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
 
         var handler = new CancelOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -66,8 +65,8 @@ public class CancelOrderCommandHandlerTest
         // Assert
         Assert.NotNull(order.UpdatedAt);
         Assert.Equal(this.user.IdUser, order.UpdatedBy);
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.CancelOrderAsync(It.IsAny<CancelOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.CancelOrderAsync(It.IsAny<CancelOrderParams>(),this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 

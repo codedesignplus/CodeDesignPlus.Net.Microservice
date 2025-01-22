@@ -2,13 +2,9 @@
 
 public interface IOrderRepository : IRepositoryBase
 {
-    Task<OrderAggregate> FindAsync(Guid id, CancellationToken cancellationToken);
-    Task<List<OrderAggregate>> GetAllOrdersAsync(CancellationToken cancellationToken);
-    Task CreateOrderAsync(OrderAggregate order, CancellationToken cancellationToken);
-    Task AddProductToOrderAsync(AddProductToOrderParams parameters, CancellationToken cancellationToken);
-    Task RemoveProductFromOrderAsync(RemoveProductFromOrderParams parameters, CancellationToken cancellationToken);
-    Task UpdateQuantityProductAsync(UpdateQuantityProductParams parameters, CancellationToken cancellationToken);
-    Task CompleteOrderAsync(CompleteOrderParams parameters, CancellationToken cancellationToken);
-    Task CancelOrderAsync(CancelOrderParams parameters, CancellationToken cancellationToken);
-    Task UpdateOrderAsync(OrderAggregate order, CancellationToken cancellationToken);
+    Task AddProductToOrderAsync(Guid id, Guid tenant, AddProductToOrderParams parameters, CancellationToken cancellationToken);
+    Task CancelOrderAsync(CancelOrderParams parameters, Guid tenant, CancellationToken cancellationToken);
+    Task CompleteOrderAsync(CompleteOrderParams parameters, Guid tenant, CancellationToken cancellationToken);
+    Task RemoveProductFromOrderAsync(RemoveProductFromOrderParams parameters, Guid tenant, CancellationToken cancellationToken);
+    Task UpdateQuantityProductAsync(Guid id, Guid tenant, UpdateQuantityProductParams parameters, CancellationToken cancellationToken);
 }

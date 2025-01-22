@@ -6,18 +6,17 @@ public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserCo
 {
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.FindAsync(request.Id, cancellationToken);
+        var exist = await orderRepository.ExistsAsync<OrderAggregate>(request.Id, user.Tenant, cancellationToken);
 
-        ApplicationGuard.IsNotNull(order, Errors.OrderAlreadyExists);
-
+        ApplicationGuard.IsTrue(exist, Errors.OrderAlreadyExists);
 
         var client = ClientValueObject.Create(request.Client.Id, request.Client.Name, request.Client.Document, request.Client.TypeDocument);
 
         var address = AddressValueObject.Create(request.Address.Country, request.Address.State, request.Address.City, request.Address.Address, request.Address.CodePostal);
 
-        order = OrderAggregate.Create(request.Id, client, address, user.Tenant, user.IdUser);
+        var order = OrderAggregate.Create(request.Id, client, address, user.Tenant, user.IdUser);
 
-        await orderRepository.CreateOrderAsync(order, cancellationToken);
+        await orderRepository.CreateAsync(order, cancellationToken);
 
         await pubsub.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

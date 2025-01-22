@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <Protobuf_UseNodaTime>true</Protobuf_UseNodaTime>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4">
@@ -17,7 +18,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.5.0-beta.78" />
+    <PackageReference Include="NodaTime.Serialization.Protobuf" Version="2.0.2" />
+    <PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.5.0-beta.81" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="9.0.1" />

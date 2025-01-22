@@ -1,10 +1,12 @@
 using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+using NodaTime;
+using NodaTime.Serialization.Protobuf;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Services;
 
-public class OrdersServiceTest : ServerBase<Program>, IClassFixture<Server<Program>>
+public class OrderServiceTest : ServerBase<Program>, IClassFixture<Server<Program>>
 {
-    public OrdersServiceTest(Server<Program> server) : base(server)
+    public OrderServiceTest(Server<Program> server) : base(server)
     {
         server.InMemoryCollection = (x) =>
         {
@@ -32,7 +34,12 @@ public class OrdersServiceTest : ServerBase<Program>, IClassFixture<Server<Progr
 
         await repository.CreateAsync(orderExpected, CancellationToken.None);
 
-        using var streamingCall = orderClient.GetOrder();
+        var metadata = new Metadata
+        {
+            new("X-Tenant", orderExpected.Tenant.ToString())
+        };
+
+        using var streamingCall = orderClient.GetOrder(metadata);
 
         _ = Task.Run(async () =>
         {
@@ -43,7 +50,7 @@ public class OrdersServiceTest : ServerBase<Program>, IClassFixture<Server<Progr
                 Assert.Equal(orderExpected.Client.Id.ToString(), response.Order.Client.Id);
                 Assert.Equal(orderExpected.Client.Name, response.Order.Client.Name);
                 Assert.Equal(orderExpected.CreatedBy.ToString(), response.Order.CreatedBy);
-                Assert.True(response.Order.CreatedAt > 0);
+                Assert.True(response.Order.CreatedAt.ToInstant() > Instant.MinValue);
 
                 isInvoked = true;
             }
@@ -54,7 +61,7 @@ public class OrdersServiceTest : ServerBase<Program>, IClassFixture<Server<Progr
             Id = orderExpected.Id.ToString()
         });
 
-        await Task.Delay(1000);
+        await Task.Delay(2000);
 
         await streamingCall.RequestStream.CompleteAsync();
 

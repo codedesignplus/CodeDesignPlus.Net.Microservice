@@ -4,7 +4,7 @@ public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IUser
 {
     public async Task Handle(CompleteOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.FindAsync(request.Id, cancellationToken);
+        var order = await orderRepository.FindAsync<OrderAggregate>(request.Id, user.Tenant, cancellationToken);
 
         ApplicationGuard.IsNull(order, Errors.OrderNotFound);
 
@@ -17,7 +17,7 @@ public class CompleteOrderCommandHandler(IOrderRepository orderRepository, IUser
             OrderStatus = order.Status,
             UpdatedAt = order.UpdatedAt,
             UpdateBy = order.UpdatedBy
-        }, cancellationToken);
+        }, user.Tenant, cancellationToken);
 
         await pubsub.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }

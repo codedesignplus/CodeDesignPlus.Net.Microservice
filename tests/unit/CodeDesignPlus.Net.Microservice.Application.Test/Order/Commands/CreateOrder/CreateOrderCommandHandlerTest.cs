@@ -5,14 +5,16 @@ namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.Create
 
 public class CreateOrderCommandHandlerTest
 {
-    private Mock<IUserContext> userMock;
+    private readonly IUserContext user;
 
     public CreateOrderCommandHandlerTest()
     {
-        this.userMock = new Mock<IUserContext>();
+        var userMock = new Mock<IUserContext>();
 
         userMock.Setup(x => x.IdUser).Returns(Guid.NewGuid());
         userMock.Setup(x => x.Tenant).Returns(Guid.NewGuid());
+
+        this.user = userMock.Object;
     }
 
     [Fact]
@@ -43,17 +45,17 @@ public class CreateOrderCommandHandlerTest
         var command = new CreateOrderCommand(Guid.NewGuid(), client, address);
 
         orderRepository
-            .Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!
-            .ReturnsAsync(OrderAggregate.Create(Guid.NewGuid(), clientValueObject, addressValueObject, this.userMock.Object.Tenant, this.userMock.Object.IdUser));
+            .Setup(x => x.ExistsAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(true);
 
-        var handler = new CreateOrderCommandHandler(orderRepository.Object, this.userMock.Object, pubsub.Object);
+        var handler = new CreateOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
         // Act
         var exception = await Assert.ThrowsAsync<Exceptions.CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
 
         // Assert
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.CreateOrderAsync(It.IsAny<OrderAggregate>(), It.IsAny<CancellationToken>()), Times.Never);
+        orderRepository.Verify(x => x.ExistsAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.CreateAsync(It.IsAny<OrderAggregate>(), It.IsAny<CancellationToken>()), Times.Never);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Equal(Errors.OrderAlreadyExists.GetCode(), exception.Code);
@@ -85,16 +87,14 @@ public class CreateOrderCommandHandlerTest
 
         var command = new CreateOrderCommand(Guid.NewGuid(), client, address);
 
-        var handler = new CreateOrderCommandHandler(orderRepository.Object, this.userMock.Object, pubsub.Object);
+        var handler = new CreateOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
         // Act
         await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        orderRepository.Verify(x => x.CreateOrderAsync(It.IsAny<OrderAggregate>(), It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.CreateAsync(It.IsAny<OrderAggregate>(), It.IsAny<CancellationToken>()), Times.Once);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
-        userMock.Verify(x => x.Tenant, Times.Once);
-        userMock.Verify(x => x.IdUser, Times.Once);
     }
 
 }

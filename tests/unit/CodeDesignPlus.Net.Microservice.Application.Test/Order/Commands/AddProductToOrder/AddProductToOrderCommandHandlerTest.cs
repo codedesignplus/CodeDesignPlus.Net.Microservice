@@ -34,7 +34,7 @@ public class AddProductToOrderCommandHandlerTest
             1
         );
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
 
         var handler = new AddProductToOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -42,8 +42,8 @@ public class AddProductToOrderCommandHandlerTest
         var exception = await Assert.ThrowsAsync<CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
 
         // Assert
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Never);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.AddProductToOrderAsync(command.Id, this.user.Tenant, It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Never);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Equal(Errors.OrderNotFound.GetCode(), exception.Code);
@@ -71,7 +71,7 @@ public class AddProductToOrderCommandHandlerTest
             1
         );
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(order);
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(order);
 
         var handler = new AddProductToOrderCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -79,8 +79,8 @@ public class AddProductToOrderCommandHandlerTest
         await handler.Handle(command, CancellationToken.None);
 
         // Assert
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.AddProductToOrderAsync(It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.AddProductToOrderAsync(order.Id, this.user.Tenant, It.IsAny<AddProductToOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
 
         Assert.NotEmpty(order.Products);

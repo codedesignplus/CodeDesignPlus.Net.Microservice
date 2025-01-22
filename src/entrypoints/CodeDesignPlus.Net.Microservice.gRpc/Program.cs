@@ -44,7 +44,7 @@ var app = builder.Build();
 app.UseAuth();
 
 // Configure the HTTP request pipeline.
-app.MapGrpcService<OrdersService>().RequireAuthorization();
+app.MapGrpcService<OrderService>().RequireAuthorization();
 
 if (app.Environment.IsDevelopment())
 {

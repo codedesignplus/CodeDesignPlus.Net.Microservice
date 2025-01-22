@@ -4,16 +4,15 @@ public class AddProductToOrderCommandHandler(IOrderRepository orderRepository, I
 {
     public async Task Handle(AddProductToOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.FindAsync(request.Id, cancellationToken);
+        var order = await orderRepository.FindAsync<OrderAggregate>(request.Id, user.Tenant, cancellationToken);
 
         ApplicationGuard.IsNull(order, Errors.OrderNotFound);
 
         order.AddProduct(request.IdProduct, request.Name, request.Description, request.Price, request.Quantity, user.IdUser);
 
-        await orderRepository.AddProductToOrderAsync(new AddProductToOrderParams()
+        await orderRepository.AddProductToOrderAsync(order.Id, user.Tenant, new AddProductToOrderParams()
         {
-            Id = order.Id,
-            IdProduct = request.IdProduct,
+            Id = request.IdProduct,
             Name = request.Name,
             Description = request.Description,
             Price = request.Price,

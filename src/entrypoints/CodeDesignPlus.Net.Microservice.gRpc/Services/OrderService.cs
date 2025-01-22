@@ -1,7 +1,6 @@
-
 namespace CodeDesignPlus.Net.Microservice.gRpc.Services;
 
-public class OrdersService(IMediator mediator, IMapper mapper) : Orders.OrdersBase
+public class OrderService(IMediator mediator, IMapper mapper) : Orders.OrdersBase
 {
     public override async Task GetOrder(IAsyncStreamReader<GetOrderRequest> requestStream, IServerStreamWriter<GetOrderResponse> responseStream, ServerCallContext context)
     {

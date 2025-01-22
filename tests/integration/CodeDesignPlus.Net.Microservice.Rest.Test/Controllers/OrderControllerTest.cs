@@ -88,7 +88,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
 
         var response = await this.RequestAsync("http://localhost/api/Orders", tenant, content, HttpMethod.Post);
 
-        var order = await this.GetRecordAsync(data.Id);
+        var order = await this.GetRecordAsync(data.Id, tenant);
 
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -116,7 +116,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         // Act
         var response = await this.RequestAsync($"http://localhost/api/Orders/{orderCreated.Id}/cancel", tenant, content, HttpMethod.Delete);
 
-        var order = await this.GetRecordAsync(orderCreated.Id);
+        var order = await this.GetRecordAsync(orderCreated.Id, tenant);
 
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -139,7 +139,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         // Act
         var response = await this.RequestAsync($"http://localhost/api/Orders/{orderCreated.Id}/complete", tenant, null, HttpMethod.Patch);
 
-        var order = await this.GetRecordAsync(orderCreated.Id);
+        var order = await this.GetRecordAsync(orderCreated.Id, tenant);
 
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -173,7 +173,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         // Act
         var response = await this.RequestAsync($"http://localhost/api/Orders/{orderCreated.Id}/products", tenant, content, HttpMethod.Post);
 
-        var order = await this.GetRecordAsync(orderCreated.Id);
+        var order = await this.GetRecordAsync(orderCreated.Id, tenant);
 
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -222,7 +222,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         // Act
         var response = await this.RequestAsync($"http://localhost/api/Orders/{orderCreated.Id}/products/{addProduct.IdProduct}", tenant, content, HttpMethod.Put);
 
-        var order = await this.GetRecordAsync(orderCreated.Id);
+        var order = await this.GetRecordAsync(orderCreated.Id, tenant);
 
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -258,7 +258,7 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         // Act
         var response = await this.RequestAsync($"http://localhost/api/Orders/{orderCreated.Id}/products/{addProduct.IdProduct}", tenant, null, HttpMethod.Delete);
 
-        var order = await this.GetRecordAsync(orderCreated.Id);
+        var order = await this.GetRecordAsync(orderCreated.Id, tenant);
 
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -309,9 +309,9 @@ public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Pro
         return data;
     }
 
-    private async Task<OrderDto> GetRecordAsync(Guid id)
+    private async Task<OrderDto> GetRecordAsync(Guid id, Guid tenant)
     {
-        var response = await this.RequestAsync($"http://localhost/api/Orders/{id}", Guid.NewGuid(), null, HttpMethod.Get);
+        var response = await this.RequestAsync($"http://localhost/api/Orders/{id}", tenant, null, HttpMethod.Get);
 
         var json = await response.Content.ReadAsStringAsync();
 

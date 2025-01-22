@@ -21,7 +21,7 @@ enum OrderStatus
     Created = 1;
     Pending = 2;
     Completed = 3;
-    Cancelled= 4;
+    Cancelled = 4;
 }
 
 // The orders service definition.
@@ -49,7 +49,7 @@ message Order {
   google.protobuf.Timestamp created_at = 8;
   string created_by = 9;
   optional google.protobuf.Timestamp updated_at = 10;
-  string updated_by = 11;
+  optional string updated_by = 11;
   bool is_active = 12;
 }
 

@@ -26,7 +26,7 @@ public class UpdateQuantityProductCommandHandlerTest
 
         var command = new UpdateQuantityProductCommand(Guid.NewGuid(), Guid.NewGuid(), 1);
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(default(OrderAggregate));
 
         var handler = new UpdateQuantityProductCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -34,8 +34,8 @@ public class UpdateQuantityProductCommandHandlerTest
         var exception = await Assert.ThrowsAsync<CodeDesignPlusException>(() => handler.Handle(command, CancellationToken.None));
 
         // Assert
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.UpdateQuantityProductAsync(It.IsAny<UpdateQuantityProductParams>(), It.IsAny<CancellationToken>()), Times.Never);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.UpdateQuantityProductAsync(command.Id, this.user.Tenant, It.IsAny<UpdateQuantityProductParams>(), It.IsAny<CancellationToken>()), Times.Never);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Never);
 
         Assert.Equal(Errors.OrderNotFound.GetCode(), exception.Code);
@@ -64,7 +64,7 @@ public class UpdateQuantityProductCommandHandlerTest
 
         var command = new UpdateQuantityProductCommand(order.Id, order.Products[0].Id, 2);
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
 
         var handler = new UpdateQuantityProductCommandHandler(orderRepository.Object, this.user, pubsub.Object);
 
@@ -74,8 +74,8 @@ public class UpdateQuantityProductCommandHandlerTest
         // Assert        
         Assert.NotNull(order.UpdatedAt);
         Assert.Equal(this.user.IdUser, order.UpdatedBy);
-        orderRepository.Verify(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Once);
-        orderRepository.Verify(x => x.UpdateQuantityProductAsync(It.IsAny<UpdateQuantityProductParams>(), It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.FindAsync<OrderAggregate>(command.Id, this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.UpdateQuantityProductAsync(command.Id, this.user.Tenant, It.IsAny<UpdateQuantityProductParams>(), It.IsAny<CancellationToken>()), Times.Once);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 

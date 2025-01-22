@@ -5,14 +5,16 @@ namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Commands.Remove
 
 public class RemoveProductCommandHandlerTest
 {
+    private readonly Guid idUser = Guid.NewGuid();
+    private readonly Guid tenant = Guid.NewGuid();
     private readonly IUserContext user;
 
     public RemoveProductCommandHandlerTest()
     {
         var userMock = new Mock<IUserContext>();
 
-        userMock.Setup(x => x.IdUser).Returns(Guid.NewGuid());
-        userMock.Setup(x => x.Tenant).Returns(Guid.NewGuid());
+        userMock.Setup(x => x.IdUser).Returns(idUser);
+        userMock.Setup(x => x.Tenant).Returns(tenant);
 
         this.user = userMock.Object;
     }
@@ -26,7 +28,7 @@ public class RemoveProductCommandHandlerTest
         var handler = new RemoveProductCommandHandler(orderRepository.Object, user, pubsub.Object);
         var request = new RemoveProductCommand(Guid.NewGuid(), Guid.NewGuid());
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync((OrderAggregate)null!);
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync((OrderAggregate)null!);
 
         // Act
         var exception = await Assert.ThrowsAsync<CodeDesignPlusException>(() => handler.Handle(request, CancellationToken.None));
@@ -56,7 +58,7 @@ public class RemoveProductCommandHandlerTest
             Quantity = 1
         });
 
-        orderRepository.Setup(x => x.FindAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
+        orderRepository.Setup(x => x.FindAsync<OrderAggregate>(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<CancellationToken>()))!.ReturnsAsync(order);
 
         // Act
         await handler.Handle(request, CancellationToken.None);
@@ -64,7 +66,7 @@ public class RemoveProductCommandHandlerTest
         // Assert        
         Assert.NotNull(order.UpdatedAt);
         Assert.Equal(this.user.IdUser, order.UpdatedBy);
-        orderRepository.Verify(x => x.RemoveProductFromOrderAsync(It.IsAny<RemoveProductFromOrderParams>(), It.IsAny<CancellationToken>()), Times.Once);
+        orderRepository.Verify(x => x.RemoveProductFromOrderAsync(It.IsAny<RemoveProductFromOrderParams>(), this.user.Tenant, It.IsAny<CancellationToken>()), Times.Once);
         pubsub.Verify(x => x.PublishAsync(It.IsAny<IReadOnlyList<IDomainEvent>>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 

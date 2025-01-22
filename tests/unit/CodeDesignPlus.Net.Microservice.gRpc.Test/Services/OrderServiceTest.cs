@@ -4,13 +4,13 @@ public class OrderServiceTest
 {
     private readonly Mock<IMediator> _mediatorMock;
     private readonly Mock<IMapper> _mapperMock;
-    private readonly OrdersService _ordersService;
+    private readonly OrderService _ordersService;
 
     public OrderServiceTest()
     {
         _mediatorMock = new Mock<IMediator>();
         _mapperMock = new Mock<IMapper>();
-        _ordersService = new OrdersService(_mediatorMock.Object, _mapperMock.Object);
+        _ordersService = new OrderService(_mediatorMock.Object, _mapperMock.Object);
     }
 
     [Fact]
