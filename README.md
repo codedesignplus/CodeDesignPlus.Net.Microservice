@@ -121,52 +121,46 @@ To run the SonarQube analysis, follow the instructions in the sonarqube director
 1. Replace the SonarQube URL and token in the sonarqube.sh script to analyze with SonarQube locally.
 2. Run the script:
 
-```bash
-cd tools/sonarqube
+   ```bash
+   cd tools/sonarqube
 
-./sonarqube.sh
-```
+   ./sonarqube.sh
+   ```
 
 🐳 Docker Support
 
 To build and run the application using Docker, follow these steps:
 
 1. Build the Docker image using the Dockerfile in the REST API entry point:
-```bash
-docker build -t ms-archetype-rest . -f src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile
+   ```bash
+   docker build -t ms-archetype-rest . -f src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile
 
-docker run -d -p 5000:5000 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-rest ms-archetype-rest
-```
+   docker run -d -p 5000:5000 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-rest ms-archetype-rest
+   ```
+
 2. Build the Docker image using the Dockerfile in the gRPC entry point:
-```bash
-docker build -t ms-archetype-grpc . -f src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile
+   ```bash
+   docker build -t ms-archetype-grpc . -f src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile
 
-docker run -d -p 5001:5001 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-grpc ms-archetype-grpc
-```
+   docker run -d -p 5001:5001 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-grpc ms-archetype-grpc
+   ```
+
 3. Build the Docker image using the Dockerfile in the Worker entry point:
-```bash
-docker build -t ms-archetype-worker . -f src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile
+   ```bash
+   docker build -t ms-archetype-worker . -f src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile
 
-docker run -d -p 5002:5002 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-worker ms-archetype-worker
-```
-4. Run the Docker container:
-
-
-Run with Docker Compose:
-
-```bash
-docker-compose up -d
-```
+   docker run -d -p 5002:5002 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-worker ms-archetype-worker
+   ```
 
 ## 📚 Documentation
-API documentation available at `/swagger`
-gRPC service definitions in Protos
+1. API documentation available at `/swagger`
+2. gRPC service definitions in Protos or `MapGrpcReflectionService` for reflection
 
 ## 🤝 Contributing
 Please read our Contributing Guide for details on our code of conduct and development process.
 
 ## 📄 License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the GNU Lesser General Public License v3.0 - see the LICENSE.md file for details.
 
 ## 🔧 Tools
 The repository includes several utility scripts in the tools directory:
@@ -178,10 +172,4 @@ The repository includes several utility scripts in the tools directory:
 - `sonarqube/`: SonarQube analysis configuration
 
 ## 📦 CodeDesignPlus Packages
-This template uses the following CodeDesignPlus NuGet packages:
-
-- CodeDesignPlus.Net.Core
-- CodeDesignPlus.Net.Redis
-- CodeDesignPlus.Net.RabbitMQ
-- CodeDesignPlus.Net.Logger
-- CodeDesignPlus.Net.Vault
+This template use the `CodeDesignPlus.Net.Sdk` package to simplify the development process. For more information, visit the [Doc Site](https://codedesignplus.github.io/).
