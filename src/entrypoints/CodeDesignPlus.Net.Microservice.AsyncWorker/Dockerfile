@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 5000
+EXPOSE 5002
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 # Install clang/zlib1g-dev dependencies for publishing to native
@@ -15,22 +15,22 @@ RUN apt-get update \
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/domain/", "domain/"]
-COPY ["src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/", "entrypoints/CodeDesignPlus.Net.Microservice.Rest/"]
-RUN dotnet restore "./entrypoints/CodeDesignPlus.Net.Microservice.Rest/CodeDesignPlus.Net.Microservice.Rest.csproj"
+COPY ["src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/", "entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/"]
+RUN dotnet restore "./entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/CodeDesignPlus.Net.Microservice.AsyncWorker.csproj"
 
-WORKDIR "/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest"
-RUN dotnet build "./CodeDesignPlus.Net.Microservice.Rest.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
+WORKDIR "/src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker"
+RUN dotnet build "./CodeDesignPlus.Net.Microservice.AsyncWorker.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
 FROM build AS publish
 WORKDIR /src
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./entrypoints/CodeDesignPlus.Net.Microservice.Rest/CodeDesignPlus.Net.Microservice.Rest.csproj" \
+RUN dotnet publish "./entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/CodeDesignPlus.Net.Microservice.AsyncWorker.csproj" \
     -c "$BUILD_CONFIGURATION" \
     -o /app/publish /p:UseAppHost=true
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 USER app
 WORKDIR /app
-EXPOSE 5000
+EXPOSE 5002
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CodeDesignPlus.Net.Microservice.Rest.dll"]
+ENTRYPOINT ["dotnet", "CodeDesignPlus.Net.Microservice.AsyncWorker.dll"]

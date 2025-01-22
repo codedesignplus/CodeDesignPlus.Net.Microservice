@@ -29,7 +29,7 @@ builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>
 
 var app = builder.Build();
 
-var home = app.MapGroup("/home");
+var home = app.MapGroup("/");
 
 home.MapGet("/", () => "Ready");
 

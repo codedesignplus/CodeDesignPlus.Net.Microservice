@@ -133,17 +133,21 @@ To build and run the application using Docker, follow these steps:
 
 1. Build the Docker image using the Dockerfile in the REST API entry point:
 ```bash
-docker build -t codedesignplus-microservice . -f src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile
+docker build -t ms-archetype-rest . -f src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile
 
-docker run -d -p 5000:80 --name codedesignplus-microservice codedesignplus-microservice
+docker run -d -p 5000:5000 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-rest ms-archetype-rest
 ```
 2. Build the Docker image using the Dockerfile in the gRPC entry point:
 ```bash
-docker build -t codedesignplus-microservice . -f src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile
+docker build -t ms-archetype-grpc . -f src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile
+
+docker run -d -p 5001:5001 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-grpc ms-archetype-grpc
 ```
 3. Build the Docker image using the Dockerfile in the Worker entry point:
 ```bash
-docker build -t codedesignplus-microservice . -f src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile
+docker build -t ms-archetype-worker . -f src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile
+
+docker run -d -p 5002:5002 --network=backend -e ASPNETCORE_ENVIRONMENT=Docker --name ms-archetype-worker ms-archetype-worker
 ```
 4. Run the Docker container:
 
