@@ -10,5 +10,6 @@ global using Xunit;
 global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
 global using Microsoft.AspNetCore.Mvc;
 global using CodeDesignPlus.Net.Serializers;
+global using NodaTime;
 
 global using CodeDesignPlus.Net.Microservice.Rest.Controllers;

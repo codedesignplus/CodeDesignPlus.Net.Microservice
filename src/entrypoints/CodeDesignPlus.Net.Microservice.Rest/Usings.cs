@@ -11,6 +11,7 @@ global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
 global using CodeDesignPlus.Net.Serializers;
+global using NodaTime;
 
 global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
 global using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder;
