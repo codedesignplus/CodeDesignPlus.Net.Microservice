@@ -10,6 +10,7 @@ global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
 global using CodeDesignPlus.Net.Core.Abstractions;
 global using CodeDesignPlus.Net.Serializers;
 global using NodaTime;
+global using CodeDesignPlus.Net.Cache.Abstractions;
 
 global using CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 global using CodeDesignPlus.Net.Microservice.Domain;
