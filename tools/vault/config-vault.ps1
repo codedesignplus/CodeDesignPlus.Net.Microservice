@@ -137,8 +137,7 @@ Write-Host "6. Writing secrets..." -ForegroundColor Blue
 vault kv put -mount=vault-keyvalue ms-archetype `
     Security:ClientId=a74cb192-598c-4757-95ae-b315793bbbca `
     Security:ValidAudiences:0=a74cb192-598c-4757-95ae-b315793bbbca `
-    Security:ValidAudiences:1=api://a74cb192-598c-4757-95ae-b315793bbbca `
-    Redis:Instances:Core:ConnectionString=localhost:6379
+    Security:ValidAudiences:1=api://a74cb192-598c-4757-95ae-b315793bbbca
 
 vault kv get -mount=vault-keyvalue ms-archetype
 
