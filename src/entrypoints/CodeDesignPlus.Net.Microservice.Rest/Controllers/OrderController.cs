@@ -1,7 +1,4 @@
-﻿global using C = CodeDesignPlus.Net.Core.Abstractions.Models.Criteria;
-using Microsoft.AspNetCore.Authorization;
-
-namespace CodeDesignPlus.Net.Microservice.Rest.Controllers;
+﻿namespace CodeDesignPlus.Net.Microservice.Rest.Controllers;
 
 /// <summary>
 /// Controller class responsible for handling HTTP requests related to orders.
@@ -22,7 +19,6 @@ public class OrdersController(IMediator mediator, IMapper mapper) : ControllerBa
     /// <param name="cancellationToken">Cancellation token (optional).</param>
     /// <returns>An `OkObjectResult` containing the list of orders if successful, otherwise an appropriate error response.</returns>
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetOrders([FromQuery] C.Criteria criteria, CancellationToken cancellationToken)
     {
         var result = await mediator.Send(new GetAllOrdersQuery(criteria), cancellationToken);

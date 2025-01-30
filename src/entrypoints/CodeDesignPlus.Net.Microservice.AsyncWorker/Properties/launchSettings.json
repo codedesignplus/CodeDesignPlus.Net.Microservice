@@ -3,13 +3,13 @@
   "profiles": {
     "http": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "home",
-      "applicationUrl": "http://localhost:5246",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5002"
+    },
   }
 }

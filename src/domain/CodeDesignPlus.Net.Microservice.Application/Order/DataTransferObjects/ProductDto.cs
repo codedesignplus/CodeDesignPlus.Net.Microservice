@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.DataTransferObjects;
 
-public class ProductDto
+public class ProductDto: IDtoBase
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }

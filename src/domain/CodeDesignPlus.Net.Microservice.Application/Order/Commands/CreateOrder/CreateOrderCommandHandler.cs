@@ -1,18 +1,23 @@
-﻿namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+﻿using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
-public class CreateOrderCommandHandler(IOrderRepository orderRepository, IPubSub message) : IRequestHandler<CreateOrderCommand>
+namespace CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+
+public class CreateOrderCommandHandler(IOrderRepository orderRepository, IUserContext user, IPubSub pubsub) : IRequestHandler<CreateOrderCommand>
 {
     public async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await orderRepository.FindAsync(request.Id, cancellationToken);
+        var exist = await orderRepository.ExistsAsync<OrderAggregate>(request.Id, user.Tenant, cancellationToken);
 
-        ApplicationGuard.IsNotNull(order, Errors.OrderAlreadyExists);
+        ApplicationGuard.IsTrue(exist, Errors.OrderAlreadyExists);
 
-        order = OrderAggregate.Create(request.Id, request.Client.Id, request.Client.Name, Guid.NewGuid());
+        var client = ClientValueObject.Create(request.Client.Id, request.Client.Name, request.Client.Document, request.Client.TypeDocument);
 
-        await orderRepository.CreateOrderAsync(order, cancellationToken);
+        var address = AddressValueObject.Create(request.Address.Country, request.Address.State, request.Address.City, request.Address.Address, request.Address.CodePostal);
 
-        await message.PublishAsync(order.GetAndClearEvents(), cancellationToken);
+        var order = OrderAggregate.Create(request.Id, client, address, user.Tenant, user.IdUser);
+
+        await orderRepository.CreateAsync(order, cancellationToken);
+
+        await pubsub.PublishAsync(order.GetAndClearEvents(), cancellationToken);
     }
 }
-

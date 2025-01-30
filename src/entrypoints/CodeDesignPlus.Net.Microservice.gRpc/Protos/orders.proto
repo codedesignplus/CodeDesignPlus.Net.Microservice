@@ -2,7 +2,7 @@ syntax = "proto3";
 
 
 import "google/protobuf/wrappers.proto";
-import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "CodeDesignPlus.Net.Microservice.gRpc";
 
@@ -20,93 +20,35 @@ enum OrderStatus
     Created = 1;
     Pending = 2;
     Completed = 3;
-    Cancelled= 4;
+    Cancelled = 4;
 }
 
 // The orders service definition.
 service Orders {
-  rpc GetOrders (GetOrdersRequest) returns (GetOrdersResponse);
-  rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
-  rpc CreateOrder (CreateOrderRequest) returns (google.protobuf.Empty);
-  rpc CancelOrder (CancelOrderRequest) returns (google.protobuf.Empty);
-  rpc CompleteOrder (CompleteOrderRequest) returns (google.protobuf.Empty);
-  rpc AddProductToOrder (AddProductToOrderRequest) returns (google.protobuf.Empty);
-  rpc UpdateQuantityProductToOrder (UpdateQuantityProductToOrderRequest) returns (google.protobuf.Empty);
-  rpc RemoveProductFromOrder (RemoveProductFromOrderRequest) returns (google.protobuf.Empty);
-}
-
-// Types to request
-message GetOrdersRequest {
-  Criteria Criteria = 1;
+  rpc GetOrder (stream GetOrderRequest) returns (stream GetOrderResponse);
 }
 
 message GetOrderRequest {
   string Id = 1;
 }
 
-message CreateOrderRequest {
-  string Id = 1;
-  Client client = 2;
-}
-
-message CancelOrderRequest {
-  string Id = 1;
-  string Reason = 2;
-}
-
-message CompleteOrderRequest {
-  string Id = 1;
-}
-
-message AddProductToOrderRequest {
-  string Id = 1;
-  string IdProduct = 2;
-  string Name = 3;
-  string Description = 4;
-  int64 Price = 5;
-  int32 Quantity = 6;
-}
-
-message UpdateQuantityProductToOrderRequest {
-  string Id = 1;
-  string IdProduct = 2;
-  int32 Quantity = 3;
-}
-
-message RemoveProductFromOrderRequest {
-  string Id = 1;
-  string IdProduct = 2;
-}
-
 // Types to response
-message GetOrdersResponse {
-  repeated Order Orders = 1;
-}
-
 message GetOrderResponse {
   Order Order = 1;
 }
 
-// Default Types
-message Criteria {
-  google.protobuf.StringValue filters = 1;
-  google.protobuf.StringValue orderBy = 2;
-  OrderType orderType = 3;
-}
-
-
 message Order {
   string id = 1;
-  google.protobuf.Int64Value completed_at = 2;
-  google.protobuf.Int64Value cancelled_at = 3;
+  google.protobuf.Timestamp completed_at = 2;
+  google.protobuf.Timestamp cancelled_at = 3;
   Client client = 4;
   repeated Product products = 5;
   OrderStatus status = 6;
   google.protobuf.StringValue reason_for_cancellation = 7;
-  int64 created_at = 8;
-  string create_by = 9;
-  int64 updated_at = 10;
-  string updated_by = 11;
+  google.protobuf.Timestamp created_at = 8;
+  string created_by = 9;
+  optional google.protobuf.Timestamp updated_at = 10;
+  optional string updated_by = 11;
   bool is_active = 12;
 }
 

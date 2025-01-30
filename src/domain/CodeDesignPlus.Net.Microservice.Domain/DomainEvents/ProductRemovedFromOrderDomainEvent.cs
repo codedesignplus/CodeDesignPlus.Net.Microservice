@@ -1,13 +1,11 @@
-﻿
+﻿namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
-namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
-
-[Key("dtop.ms-archetype.v1.domain_event.product.removed")]
+[EventKey<ProductEntity>(1, "ProductRemovedFromOrder")]
 public class ProductRemovedFromOrderDomainEvent(
     Guid aggregateId,
     Guid productId,
     Guid? eventId = null,
-    DateTime? occurredAt = null,
+    Instant? occurredAt = null,
     Dictionary<string, object>? metadata = null
 ) : DomainEvent(aggregateId, eventId, occurredAt, metadata)
 {

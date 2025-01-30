@@ -1,14 +1,12 @@
-﻿
+﻿namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
-namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
-
-[Key("dtop.ms-archetype.v1.domain_event.product.quantity_updated")]
+[EventKey<ProductEntity>(1, "ProductQuantityUpdated")]
 public class ProductQuantityUpdatedDomainEvent(
     Guid aggregateId,
     Guid productId,
     int newQuantity,
     Guid? eventId = null,
-    DateTime? occurredAt = null,
+    Instant? occurredAt = null,
     Dictionary<string, object>? metadata = null
 ) : DomainEvent(aggregateId, eventId, occurredAt, metadata)
 {

@@ -1,6 +1,6 @@
 ﻿namespace CodeDesignPlus.Net.Microservice.Domain;
 
-public static class Errors
+public class Errors: IErrorCodes
 {
     public const string IdOrderIsInvalid = "100 : Id is invalid.";
     public const string TenantIsInvalid = "101 : Tenant is invalid.";
@@ -18,4 +18,11 @@ public static class Errors
     public const string ProductNotFound = "110 : Product not found in the order.";
     public const string OrderAlreadyCompleted = "111 : Order already completed.";
     public const string OrderAlreadyCancelled = "112 : Order already cancelled.";
+    public const string DocumentIsNull = "113 : Document is null.";
+    public const string TypeDocumentIsNull = "114 : Type document is null.";
+    public const string CountryIsNull = "115 : Country is null.";
+    public const string StateIsNull = "116 : State is null.";
+    public const string CityIsNull = "117 : City is null.";
+    public const string AddressIsNull = "118 : Address is null.";
+    public const string CodePostalIsInvalid = "119 : Code postal is invalid.";
 }

@@ -1,26 +1,44 @@
-﻿
+﻿using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+
 namespace CodeDesignPlus.Net.Microservice.Domain.DomainEvents;
 
-[Key("dtop.ms-archetype.v1.domain_event.order.created")]
+[EventKey<OrderAggregate>(1, "OrderCreated")]
 public class OrderCreatedDomainEvent(
    Guid aggregateId,
    OrderStatus orderStatus,
-   ClientEntity client,
-   long createAt,
+   ClientValueObject client,
+   AddressValueObject shippingAddress,
+   Instant createdAt,
    Guid tenant,
+   Guid createBy,
    Guid? eventId = null,
-   DateTime? occurredAt = null,
+   Instant? occurredAt = null,
    Dictionary<string, object>? metadata = null
 ) : DomainEvent(aggregateId, eventId, occurredAt, metadata)
 {
-    public ClientEntity Client { get; } = client;
+    public ClientValueObject Client { get; } = client;
+    public AddressValueObject ShippingAddress { get; } = shippingAddress;
     public OrderStatus OrderStatus { get; } = orderStatus;
-    public long CreatedAt { get; } = createAt;
+    public Instant CreatedAt { get; } = createdAt;
     public Guid Tenant { get; private set; } = tenant;
+    public Guid CreateBy { get; private set; } = createBy;
 
-    public static OrderCreatedDomainEvent Create(Guid id, ClientEntity client, Guid tenant)
+    public static OrderCreatedDomainEvent Create(
+        Guid id,
+        ClientValueObject client,
+        AddressValueObject shippingAddress,
+        Guid tenant,
+        Guid creaateBy)
     {
-        return new OrderCreatedDomainEvent(id, OrderStatus.Created, client, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), tenant);
+        return new OrderCreatedDomainEvent(
+            id,
+            OrderStatus.Created,
+            client,
+            shippingAddress,
+            SystemClock.Instance.GetCurrentInstant(),
+            tenant,
+            creaateBy
+        );
     }
 }
 

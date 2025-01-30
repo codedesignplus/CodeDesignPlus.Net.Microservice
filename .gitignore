@@ -50,3 +50,7 @@ Thumbs.db
 .$packages.drawio.bkp
 
 .vs
+.sonarqube
+resources/prom_rw
+resources/shared/vault-config
+resources/shared/vault-data
