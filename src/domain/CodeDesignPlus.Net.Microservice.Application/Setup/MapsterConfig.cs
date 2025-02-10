@@ -1,4 +1,8 @@
-﻿using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+﻿using CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
+using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder;
+using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CreateOrder;
+using CodeDesignPlus.Net.Microservice.Application.Order.Commands.UpdateQuantityProduct;
+using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Setup;
 
@@ -22,5 +26,11 @@ public static class MapsterConfigOrder
             .Map(dest => dest.CreatedBy, src => src.CreatedBy)
             .Map(dest => dest.UpdatedBy, src => src.UpdatedBy)
             .Map(dest => dest.ReasonForCancellation, src => src.ReasonForCancellation);
+
+        
+        TypeAdapterConfig<CodeDesignPlus.Microservice.Api.Dtos.AddProductToOrderDto, AddProductToOrderCommand>.NewConfig().TwoWays();
+        TypeAdapterConfig<CodeDesignPlus.Microservice.Api.Dtos.CancelOrderDto, CancelOrderCommand>.NewConfig().TwoWays();
+        TypeAdapterConfig<CodeDesignPlus.Microservice.Api.Dtos.CreateOrderDto, CreateOrderCommand>.NewConfig().TwoWays();
+        TypeAdapterConfig<CodeDesignPlus.Microservice.Api.Dtos.UpdateQuantityProductDto, UpdateQuantityProductCommand>.NewConfig().TwoWays();
     }
 }

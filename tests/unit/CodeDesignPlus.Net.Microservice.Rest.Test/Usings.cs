@@ -1,4 +1,3 @@
-global using CodeDesignPlus.Net.Microservice.Rest.Core.Mapster;
 global using Mapster;
 global using MapsterMapper;
 global using MediatR;
