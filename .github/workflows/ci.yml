@@ -61,17 +61,17 @@ jobs:
         echo New Version "${{steps.git-semver.outputs.new-version}}"
         echo New Version Prefix "${{steps.git-semver.outputs.new-version-prefix}}"
 
-    - name: Check if Dockerfiles exist
-      id: check-dockerfiles
+    - name: Check if Projects Exist
+      id: check-projects
       run: |
-        if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile" ]; then
+        if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/CodeDesignPlus.Net.Microservice.gRpc.csproj" ]; then
           echo "GRPC_EXISTS=true" >> $GITHUB_ENV
           echo "GRPC_EXISTS=true"
         else
           echo "GRPC_EXISTS=false" >> $GITHUB_ENV
           echo "GRPC_EXISTS=false"
         fi
-        if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile" ]; then
+        if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/CodeDesignPlus.Net.Microservice.AsyncWorker.csproj" ]; then
           echo "WORKER_EXISTS=true" >> $GITHUB_ENV
           echo "WORKER_EXISTS=true"
         else
@@ -102,7 +102,7 @@ jobs:
       if: env.WORKER_EXISTS == 'true'
       with:
         context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile"
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile"
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
 
@@ -111,7 +111,7 @@ jobs:
       if: env.GRPC_EXISTS == 'true'
       with:
         context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile"
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile"
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
         
@@ -137,7 +137,7 @@ jobs:
       if: env.WORKER_EXISTS == 'true'
       with:
         context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile"
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile"
         push: true
         tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
     
@@ -146,6 +146,6 @@ jobs:
       if: env.GRPC_EXISTS == 'true'
       with:
         context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile"
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile"
         push: true
         tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
