@@ -1,0 +1,95 @@
+name: Publish Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - rc
+      - dev
+      - feature/*
+
+env:
+  IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
+  IS_RC: ${{ github.ref == 'refs/heads/rc' }}
+  IS_BETA: ${{ github.ref == 'refs/heads/dev' }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+jobs:
+  build:
+    name: Build .Net
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      repository-projects: write
+
+    steps:
+    - name: Checkout
+      id: checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 
+
+    - name: Setup .NET SDK 🚧
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: SemVer 
+      id: git-semver
+      uses: codedesignplus/semver-git-version@v0.1.10
+      with:
+        folder: ${{github.workspace}}
+        release-branch: 'main'
+        release-candidate-branch: 'rc'
+        beta-branch: 'dev'
+        major-identifier: 'breaking'
+        minor-identifier: 'feat' 
+        prefix: 'v'
+        dir-affected: ./
+        previous-version: true
+        new-version: true
+
+    - name: Print Output
+      id: output
+      run: | 
+        echo Previous Tag "${{ steps.git-semver.outputs.previous-tag }}"
+        echo Previous Version "${{ steps.git-semver.outputs.previous-version }}"
+        echo Previous Version Prefix "${{ steps.git-semver.outputs.previous-version-prefix }}"
+        echo New Version "${{steps.git-semver.outputs.new-version}}"
+        echo New Version Prefix "${{steps.git-semver.outputs.new-version-prefix}}"
+
+    - name: Build Packages
+      run: dotnet build --configuration Release
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+
+    - name: Build and push Docker image to Docker Hub
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype:${{ steps.git-semver.outputs.new-version }}
+        
+    - name: Log in to GitHub Packages
+      uses: docker/login-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image to GitHub Packages
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype:${{ steps.git-semver.outputs.new-version }}
