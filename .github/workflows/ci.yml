@@ -96,52 +96,52 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype:${{ steps.git-semver.outputs.new-version-prefix }}
 
-    # - name: Build Worker Docker image
-    #   uses: docker/build-push-action@v2
-    #   if: env.WORKER_EXISTS == 'true'
-    #   with:
-    #     context: .
-    #     file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile"
-    #     push: true
-    #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
+    - name: Build Worker Docker image
+      uses: docker/build-push-action@v2
+      if: env.WORKER_EXISTS == 'true'
+      with:
+        context: .
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile"
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
 
-    # - name: Build gRpc Docker image
-    #   uses: docker/build-push-action@v2
-    #   if: env.GRPC_EXISTS == 'true'
-    #   with:
-    #     context: .
-    #     file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile"
-    #     push: true
-    #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
+    - name: Build gRpc Docker image
+      uses: docker/build-push-action@v2
+      if: env.GRPC_EXISTS == 'true'
+      with:
+        context: .
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile"
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
         
-    # - name: Log in to GitHub Packages
-    #   uses: docker/login-action@v1
-    #   with:
-    #     username: ${{ github.actor }}
-    #     password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Log in to GitHub Packages
+      uses: docker/login-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
-    # - name: Build Rest API Docker image to GitHub Packages
-    #   uses: docker/build-push-action@v2
-    #   with:
-    #     context: .
-    #     file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile"
-    #     push: true
-    #     tags: ghcr.io/${{ github.repository_owner }}/ms-archetype:${{ steps.git-semver.outputs.new-version-prefix }}
+    - name: Build Rest API Docker image to GitHub Packages
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile"
+        push: true
+        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype:${{ steps.git-semver.outputs.new-version-prefix }}
     
-    # - name: Build Worker Docker image to GitHub Packages
-    #   uses: docker/build-push-action@v2
-    #   if: env.WORKER_EXISTS == 'true'
-    #   with:
-    #     context: .
-    #     file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile"
-    #     push: true
-    #     tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
+    - name: Build Worker Docker image to GitHub Packages
+      uses: docker/build-push-action@v2
+      if: env.WORKER_EXISTS == 'true'
+      with:
+        context: .
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile"
+        push: true
+        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
     
-    # - name: Build gRpc Docker image to GitHub Packages
-    #   uses: docker/build-push-action@v2
-    #   if: env.GRPC_EXISTS == 'true'
-    #   with:
-    #     context: .
-    #     file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile"
-    #     push: true
-    #     tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
+    - name: Build gRpc Docker image to GitHub Packages
+      uses: docker/build-push-action@v2
+      if: env.GRPC_EXISTS == 'true'
+      with:
+        context: .
+        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile"
+        push: true
+        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
