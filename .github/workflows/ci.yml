@@ -66,17 +66,18 @@ jobs:
       run: |
         if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Grpc/Dockerfile" ]; then
           echo "GRPC_EXISTS=true" >> $GITHUB_ENV
+          echo "GRPC_EXISTS=true"
         else
           echo "GRPC_EXISTS=false" >> $GITHUB_ENV
+          echo "GRPC_EXISTS=false"
         fi
         if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Worker/Dockerfile" ]; then
           echo "WORKER_EXISTS=true" >> $GITHUB_ENV
+          echo "WORKER_EXISTS=true"
         else
           echo "WORKER_EXISTS=false" >> $GITHUB_ENV
+          \echo "WORKER_EXISTS=false"
         fi
-
-    - name: Build Packages
-      run: dotnet build --configuration Release
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -94,7 +95,7 @@ jobs:
     #     context: .
     #     file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile"
     #     push: true
-    #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype:${{ steps.git-semver.outputs.new-version-prefix }}
+    #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-rest:${{ steps.git-semver.outputs.new-version-prefix }}
 
     - name: Build Worker Docker image
       uses: docker/build-push-action@v6
@@ -123,13 +124,13 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build Rest API Docker image to GitHub Packages
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile"
-        push: true
-        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype:${{ steps.git-semver.outputs.new-version-prefix }}
+    # - name: Build Rest API Docker image to GitHub Packages
+    #   uses: docker/build-push-action@v6
+    #   with:
+    #     context: .
+    #     file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile"
+    #     push: true
+    #     tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-rest:${{ steps.git-semver.outputs.new-version-prefix }}
     
     - name: Build Worker Docker image to GitHub Packages
       uses: docker/build-push-action@v6
