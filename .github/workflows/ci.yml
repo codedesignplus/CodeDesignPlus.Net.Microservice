@@ -20,6 +20,7 @@ jobs:
   build:
     name: Build .Net
     runs-on: ubuntu-latest
+    environment: Dev
     permissions:
       contents: write
       packages: write
