@@ -57,18 +57,6 @@ jobs:
         run: |
             sed -i "s/^appVersion:.*/appVersion: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/ms-archetype/Chart.yaml"
 
-      - name: Checkout destination repository
-        uses: actions/checkout@v4
-        with:
-          repository: codedesignplus/helm-charts
-          ref: dev  # Cambia 'dev' por la rama donde quieres sincronizar
-          path: helm-charts-repo
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh-strict: true
-          ssh-user: git
-          fetch-depth: 10
-          submodules: recursive
-
       - name: Copy charts to destination repository
         run: |
           find charts -maxdepth 1 -type d -name "*" -exec cp -r {} helm-charts-repo/charts/ \;
@@ -81,20 +69,23 @@ jobs:
             const repoUrl = `git@github.com:codedesignplus/helm-charts.git`;
             const branch = 'dev';
 
+            core.info('Setting up SSH environment...');
+            await exec.exec('mkdir', ['-p', `${process.env.HOME}/.ssh`]);
+            await exec.exec('cat >', [`${process.env.HOME}/.ssh/id_rsa`], { input: `${{ secrets.SSH_PRIVATE_KEY }}` });
+            await exec.exec('chmod', ['400', `${process.env.HOME}/.ssh/id_rsa`]);
+            await exec.exec('ssh-keyscan', ['github.com', '>>', `${process.env.HOME}/.ssh/known_hosts`]);
+            await exec.exec('chmod', ['600', `${process.env.HOME}/.ssh/known_hosts`]);
+            await exec.exec('ssh-agent', ['-s']);
+
+            core.info('Cloning destination repository...');
+            await exec.exec('git', ['clone', '-b', branch, repoUrl, 'helm-charts-repo']);
+
             core.info('Changing directory to helm-charts-repo...');
             process.chdir('helm-charts-repo');
 
             core.info('Configuring git...');
             await exec.exec('git', ['config', 'user.name', 'github-actions[bot]']);
             await exec.exec('git', ['config', 'user.email', 'actions@github.com']);
-
-            core.info('Setting up SSH environment...');
-            await exec.exec('mkdir', ['-p', `${process.env.HOME}/.ssh`]);
-            await exec.exec('echo "${{ secrets.SSH_PRIVATE_KEY }}" >', [`${process.env.HOME}/.ssh/id_rsa`]);
-            await exec.exec('chmod', ['400', `${process.env.HOME}/.ssh/id_rsa`]);
-            await exec.exec('ssh-keyscan', ['github.com', '>>', `${process.env.HOME}/.ssh/known_hosts`]);
-            await exec.exec('chmod', ['600', `${process.env.HOME}/.ssh/known_hosts`]);
-            await exec.exec('ssh-agent', ['-s']);
 
             core.info('Changing remote origin to SSH...');
             await exec.exec('git', ['remote', 'set-url', 'origin', repoUrl]);
