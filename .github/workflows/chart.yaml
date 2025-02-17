@@ -37,9 +37,9 @@ jobs:
           release-branch: 'main'
           release-candidate-branch: 'rc'
           beta-branch: 'dev'
-          major-identifier: 'breaking'
-          minor-identifier: 'feat'
-          prefix: 'v'
+          major-identifier: breaking
+          minor-identifier: feat
+          prefix: v
           dir-affected: ./
           previous-version: true
           new-version: true
@@ -57,64 +57,39 @@ jobs:
         run: |
           sed -i "s/^appVersion:.*/appVersion: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/ms-archetype/Chart.yaml"
 
-      - name: Copy charts to destination repository
+      - name: Commit and push changes
         run: |
+          REPO_URL="git@github.com:codedesignplus/helm-charts.git"
+          BRANCH="dev"
+          SSH_DIR="$HOME/.ssh"
+
+          # Configurar el entorno SSH
+          mkdir -p "$SSH_DIR"
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > "$SSH_DIR/id_rsa"
+          chmod 400 "$SSH_DIR/id_rsa"
+          ssh-keyscan github.com >> "$SSH_DIR/known_hosts"
+          chmod 600 "$SSH_DIR/known_hosts"
+
+          # Clonar el repositorio destino
+          git clone -b "$BRANCH" "$REPO_URL" helm-charts-repo
+
+          # Configurar Git
+          cd helm-charts-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+
+          # Copiar charts al repositorio destino
           mkdir -p helm-charts-repo/charts
           find charts -maxdepth 1 -type d -name "*" -exec cp -r {} helm-charts-repo/charts/ \;
 
-      - name: Commit and push changes
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const repoUrl = 'git@github.com:codedesignplus/helm-charts.git';
-            const branch = 'dev';
-            const chartSource = 'charts';
-            const chartDestination = 'helm-charts-repo/charts';
-            const sshDir = `${process.env.HOME}/.ssh`;
-
-            core.info('Setting up SSH environment...');
-            await exec.exec('mkdir', ['-p', sshDir]);
-            fs.writeFileSync(`${sshDir}/id_rsa`, `${{ secrets.SSH_PRIVATE_KEY }}`);
-            await exec.exec('chmod', ['400', `${sshDir}/id_rsa`]);
-            await exec.exec('ssh-keyscan', ['github.com'], {
-              listeners: {
-                stdout: (data) => {
-                  fs.appendFileSync(`${sshDir}/known_hosts`, data.toString());
-                },
-              },
-            });
-            await exec.exec('chmod', ['600', `${sshDir}/known_hosts`]);
-            await exec.exec('ssh-agent', ['-s']);
-
-            core.info('Cloning destination repository...');
-            await exec.exec('git', ['clone', '-b', branch, repoUrl, 'helm-charts-repo']);
-
-            core.info('Changing directory to helm-charts-repo...');
-            process.chdir('helm-charts-repo');
-
-            core.info('Configuring git...');
-            await exec.exec('git', ['config', 'user.name', 'github-actions[bot]']);
-            await exec.exec('git', ['config', 'user.email', 'actions@github.com']);
-
-            core.info('Changing remote origin to SSH...');
-            await exec.exec('git', ['remote', 'set-url', 'origin', repoUrl]);
-
-            core.info('Adding changes...');
-            await exec.exec('git', ['add', '.']);
-
-            core.info('Committing changes...');
-            try {
-              await exec.exec('git', ['commit', '-m', 'Sync charts from source repository']);
-            } catch (error) {
-              core.info('No changes to commit.');
-              return; // Exit the script if there are no changes to commit
-            }
-
-            core.info('Fetching dev branch...');
-            await exec.exec('git', ['fetch', 'origin', `dev:dev`]);
-
-            core.info('Pushing changes...');
-            await exec.exec('git', ['push', 'origin', `dev:refs/heads/dev`]);
+          # Añadir cambios, commitear y pushear
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Sync charts from source repository"
+            git push origin "dev:refs/heads/dev"
+          fi
 
       - name: Push tag
         id: push_tag
@@ -126,8 +101,8 @@ jobs:
 
       - name: Build Changelog
         if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
-        id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v4
+        id: build_changelog
         with:
           configuration: "${{ github.workspace }}/.github/settings/configuration.json"
           fromTag: ${{ steps.git-semver.outputs.previous-version-prefix }}
@@ -144,4 +119,3 @@ jobs:
           name: "CodeDesignPlus.Net.Sdk@${{ steps.git-semver.outputs.new-version-prefix }}"
           body: ${{ steps.build_changelog.outputs.changelog }}
           prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
-    
