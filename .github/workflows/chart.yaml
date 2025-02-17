@@ -67,6 +67,7 @@ jobs:
           ssh-strict: true
           ssh-user: git
           fetch-depth: 10
+          submodules: recursive
 
       - name: Copy charts to destination repository
         run: |
@@ -77,8 +78,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const repoUrl = `git@github.com:codedesignplus/helm-charts.git`; // <- Url correcta.
-            const branch = 'dev'; // Replace with your branch
+            const repoUrl = `git@github.com:codedesignplus/helm-charts.git`;
+            const branch = 'dev';
 
             core.info('Changing directory to helm-charts-repo...');
             process.chdir('helm-charts-repo');
@@ -86,6 +87,14 @@ jobs:
             core.info('Configuring git...');
             await exec.exec('git', ['config', 'user.name', 'github-actions[bot]']);
             await exec.exec('git', ['config', 'user.email', 'actions@github.com']);
+
+            core.info('Setting up SSH environment...');
+            await exec.exec('mkdir', ['-p', `${process.env.HOME}/.ssh`]);
+            await exec.exec('echo "${{ secrets.SSH_PRIVATE_KEY }}" >', [`${process.env.HOME}/.ssh/id_rsa`]);
+            await exec.exec('chmod', ['400', `${process.env.HOME}/.ssh/id_rsa`]);
+            await exec.exec('ssh-keyscan', ['github.com', '>>', `${process.env.HOME}/.ssh/known_hosts`]);
+            await exec.exec('chmod', ['600', `${process.env.HOME}/.ssh/known_hosts`]);
+            await exec.exec('ssh-agent', ['-s']);
 
             core.info('Changing remote origin to SSH...');
             await exec.exec('git', ['remote', 'set-url', 'origin', repoUrl]);
