@@ -1,151 +1,117 @@
-name: Publish Docker Image
+name: Sync Charts
 
 on:
   push:
     branches:
       - main
-      # - rc
-      # - dev
-      # - feature/*
+      - rc
+      - dev
+      - feature/*
 
 env:
   IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
   IS_RC: ${{ github.ref == 'refs/heads/rc' }}
   IS_BETA: ${{ github.ref == 'refs/heads/dev' }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-  DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+permissions:
+  contents: write
+  packages: write
+  repository-projects: write
 
 jobs:
-  build:
-    name: Build .Net
+  sync-charts:
     runs-on: ubuntu-latest
     environment: Dev
-    permissions:
-      contents: write
-      packages: write
-      repository-projects: write
-
     steps:
-    - name: Checkout
-      id: checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup .NET SDK 🚧
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 9.0.x
+      - name: SemVer
+        id: git-semver
+        uses: codedesignplus/semver-git-version@v0.1.10
+        with:
+          folder: ${{ github.workspace }}
+          release-branch: 'main'
+          release-candidate-branch: 'rc'
+          beta-branch: 'dev'
+          major-identifier: breaking
+          minor-identifier: feat
+          prefix: v
+          dir-affected: ./
+          previous-version: true
+          new-version: true
 
-    - name: SemVer 
-      id: git-semver
-      uses: codedesignplus/semver-git-version@v0.1.10
-      with:
-        folder: ${{github.workspace}}
-        release-branch: 'main'
-        release-candidate-branch: 'rc'
-        beta-branch: 'dev'
-        major-identifier: 'breaking'
-        minor-identifier: 'feat' 
-        prefix: 'v'
-        dir-affected: ./
-        previous-version: true
-        new-version: true
+      - name: Print Output
+        id: output
+        run: |
+          echo "Previous Tag ${{ steps.git-semver.outputs.previous-tag }}"
+          echo "Previous Version ${{ steps.git-semver.outputs.previous-version }}"
+          echo "Previous Version Prefix ${{ steps.git-semver.outputs.previous-version-prefix }}"
+          echo "New Version ${{ steps.git-semver.outputs.new-version }}"
+          echo "New Version Prefix ${{ steps.git-semver.outputs.new-version-prefix }}"
 
-    - name: Print Output
-      id: output
-      run: | 
-        echo Previous Tag "${{ steps.git-semver.outputs.previous-tag }}"
-        echo Previous Version "${{ steps.git-semver.outputs.previous-version }}"
-        echo Previous Version Prefix "${{ steps.git-semver.outputs.previous-version-prefix }}"
-        echo New Version "${{steps.git-semver.outputs.new-version}}"
-        echo New Version Prefix "${{steps.git-semver.outputs.new-version-prefix}}"
+      - name: Actualizar Chart.yaml
+        run: |
+          sed -i "s/^appVersion:.*/appVersion: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/ms-archetype/Chart.yaml"
 
-    - name: Check if Projects Exist
-      id: check-projects
-      run: |
-        if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/CodeDesignPlus.Net.Microservice.gRpc.csproj" ]; then
-          echo "GRPC_EXISTS=true" >> $GITHUB_ENV
-          echo "GRPC_EXISTS=true"
-        else
-          echo "GRPC_EXISTS=false" >> $GITHUB_ENV
-          echo "GRPC_EXISTS=false"
-        fi
-        if [ -f "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/CodeDesignPlus.Net.Microservice.AsyncWorker.csproj" ]; then
-          echo "WORKER_EXISTS=true" >> $GITHUB_ENV
-          echo "WORKER_EXISTS=true"
-        else
-          echo "WORKER_EXISTS=false" >> $GITHUB_ENV
-          \echo "WORKER_EXISTS=false"
-        fi
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v1
+      - name: Commit and push changes
+        run: |
+          REPO_URL="git@github.com:codedesignplus/helm-charts.git"
+          BRANCH="dev"
 
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          # Clonar el repositorio destino
+          git clone -b "$BRANCH" "$REPO_URL" helm-charts-repo
 
-    - name: Build & Push | Docker Hub - Rest API 
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile"
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-rest:${{ steps.git-semver.outputs.new-version-prefix }}
+          # Configurar Git
+          cd helm-charts-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          
+          # Copiar charts al repositorio destino
+          cp -R "${{ github.workspace }}/charts/"* helm-charts-repo/charts/
 
-    - name: Build & Push | Docker Hub - Worker
-      uses: docker/build-push-action@v6
-      if: env.WORKER_EXISTS == 'true'
-      with:
-        context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile"
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
+          # Añadir cambios, commitear y pushear
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Sync charts from source repository"
+            git push origin "dev:refs/heads/dev"
+          fi
 
-    - name: Build & Push | Docker Hub - gRpc
-      uses: docker/build-push-action@v6
-      if: env.GRPC_EXISTS == 'true'
-      with:
-        context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile"
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
-        
+      - name: Push tag
+        id: push_tag
+        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true' || env.IS_BETA == 'true'
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          custom_tag: ${{ steps.git-semver.outputs.new-version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build Changelog
+        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
+        uses: mikepenz/release-changelog-builder-action@v4
+        id: build_changelog
+        with:
+          configuration: "${{ github.workspace }}/.github/settings/configuration.json"
+          fromTag: ${{ steps.git-semver.outputs.previous-version-prefix }}
+          toTag: ${{ steps.git-semver.outputs.new-version-prefix }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Log in to GitHub Packages
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Build & Push | GitHub Packages - Rest API
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.Rest/Dockerfile"
-        push: true
-        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-rest:${{ steps.git-semver.outputs.new-version-prefix }}
-    
-    - name: Build & Push | GitHub Packages - Worker
-      uses: docker/build-push-action@v6
-      if: env.WORKER_EXISTS == 'true'
-      with:
-        context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.AsyncWorker/Dockerfile"
-        push: true
-        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-worker:${{ steps.git-semver.outputs.new-version-prefix }}
-    
-    - name: Build & Push | GitHub Packages - gRpc
-      uses: docker/build-push-action@v6
-      if: env.GRPC_EXISTS == 'true'
-      with:
-        context: .
-        file: "${{ github.workspace }}/src/entrypoints/CodeDesignPlus.Net.Microservice.gRpc/Dockerfile"
-        push: true
-        tags: ghcr.io/${{ github.repository_owner }}/ms-archetype-grpc:${{ steps.git-semver.outputs.new-version-prefix }}
+      - name: Create GitHub Release
+        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
+        uses: mikepenz/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ steps.git-semver.outputs.new-version-prefix }}
+          name: "CodeDesignPlus.Net.Sdk@${{ steps.git-semver.outputs.new-version-prefix }}"
+          body: ${{ steps.build_changelog.outputs.changelog }}
+          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
