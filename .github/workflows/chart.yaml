@@ -72,14 +72,35 @@ jobs:
           find charts -maxdepth 1 -type d -name "*" -exec cp -r {} helm-charts-repo/charts/ \;
 
       - name: Commit and push changes
-        run: |
-          cd helm-charts-repo
-          
-          git config user.name "github-actions[bot]"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "Sync charts from source repository"
-          git push
+        uses: actions/github-script@v6
+        with:
+          working-directory: helm-charts-repo
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const repo = context.repo.owner + "/" + context.repo.repo;
+            const repoUrl = `git@github.com:${repo}.git`;
+            const branch = 'dev'; // Replace with your branch
+       
+            core.info('Configuring git...');
+            await exec.exec('git', ['config', 'user.name', 'github-actions[bot]']);
+            await exec.exec('git', ['config', 'user.email', 'github-actions[bot]@users.noreply.github.com']);
+       
+            core.info('Changing remote origin to SSH...');
+            await exec.exec('git', ['remote', 'set-url', 'origin', repoUrl]);
+       
+            core.info('Adding changes...');
+            await exec.exec('git', ['add', '.']);
+       
+            core.info('Committing changes...');
+            try {
+              await exec.exec('git', ['commit', '-m', 'Sync charts from source repository']);
+            } catch (error) {
+              core.info('No changes to commit.');
+              return; // Exit the script if there are no changes to commit
+            }
+       
+            core.info('Pushing changes...');
+            await exec.exec('git', ['push', 'origin', branch]);       
 
       - name: Push tag
         id: push_tag
