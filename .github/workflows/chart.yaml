@@ -64,8 +64,8 @@ jobs:
           ref: dev  # Cambia 'dev' por la rama donde quieres sincronizar
           path: helm-charts-repo
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh-strict: true #opcional, pero buena práctica
-          ssh-user: git #opcional, pero explicita el usuario por defecto
+          ssh-strict: true
+          ssh-user: git
 
       - name: Copy charts to destination repository
         run: |
@@ -74,23 +74,25 @@ jobs:
       - name: Commit and push changes
         uses: actions/github-script@v6
         with:
-          working-directory: helm-charts-repo
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const repo = context.repo.owner + "/" + context.repo.repo;
             const repoUrl = `git@github.com:${repo}.git`;
             const branch = 'dev'; // Replace with your branch
-       
+
+            core.info('Changing directory to helm-charts-repo...');
+            process.chdir('helm-charts-repo');
+
             core.info('Configuring git...');
             await exec.exec('git', ['config', 'user.name', 'github-actions[bot]']);
-            await exec.exec('git', ['config', 'user.email', 'github-actions[bot]@users.noreply.github.com']);
-       
+            await exec.exec('git', ['config', 'user.email', 'actions@github.com']);
+
             core.info('Changing remote origin to SSH...');
             await exec.exec('git', ['remote', 'set-url', 'origin', repoUrl]);
-       
+
             core.info('Adding changes...');
             await exec.exec('git', ['add', '.']);
-       
+
             core.info('Committing changes...');
             try {
               await exec.exec('git', ['commit', '-m', 'Sync charts from source repository']);
@@ -98,9 +100,9 @@ jobs:
               core.info('No changes to commit.');
               return; // Exit the script if there are no changes to commit
             }
-       
+
             core.info('Pushing changes...');
-            await exec.exec('git', ['push', 'origin', branch]);       
+            await exec.exec('git', ['push', 'origin', branch]);
 
       - name: Push tag
         id: push_tag
