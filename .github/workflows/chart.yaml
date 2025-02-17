@@ -23,6 +23,7 @@ permissions:
 jobs:
   sync-charts:
     runs-on: ubuntu-latest
+    environment: Dev
     steps:
       - name: Checkout source repository
         uses: actions/checkout@v4
