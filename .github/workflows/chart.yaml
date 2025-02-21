@@ -1,121 +1,121 @@
-name: Sync Charts
+# name: Sync Charts
 
-on:
-  push:
-    branches:
-      - main
-      - rc
-      - dev
-      - feature/*
+# on:
+#   push:
+#     branches:
+#       - main
+#       - rc
+#       - dev
+#       - feature/*
 
-env:
-  IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
-  IS_RC: ${{ github.ref == 'refs/heads/rc' }}
-  IS_BETA: ${{ github.ref == 'refs/heads/dev' }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+# env:
+#   IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
+#   IS_RC: ${{ github.ref == 'refs/heads/rc' }}
+#   IS_BETA: ${{ github.ref == 'refs/heads/dev' }}
+#   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#   NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
-permissions:
-  contents: write
-  packages: write
-  repository-projects: write
+# permissions:
+#   contents: write
+#   packages: write
+#   repository-projects: write
 
-jobs:
-  sync-charts:
-    runs-on: ubuntu-latest
-    environment: Dev
-    steps:
-      - name: Checkout source repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+# jobs:
+#   sync-charts:
+#     runs-on: ubuntu-latest
+#     environment: Dev
+#     steps:
+#       - name: Checkout source repository
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
 
-      - name: SemVer
-        id: git-semver
-        uses: codedesignplus/semver-git-version@v0.1.10
-        with:
-          folder: ${{ github.workspace }}
-          release-branch: 'main'
-          release-candidate-branch: 'rc'
-          beta-branch: 'dev'
-          major-identifier: breaking
-          minor-identifier: feat
-          prefix: v
-          dir-affected: ./
-          previous-version: true
-          new-version: true
+#       - name: SemVer
+#         id: git-semver
+#         uses: codedesignplus/semver-git-version@v0.1.10
+#         with:
+#           folder: ${{ github.workspace }}
+#           release-branch: 'main'
+#           release-candidate-branch: 'rc'
+#           beta-branch: 'dev'
+#           major-identifier: breaking
+#           minor-identifier: feat
+#           prefix: v
+#           dir-affected: ./
+#           previous-version: true
+#           new-version: true
 
-      - name: Print Output
-        id: output
-        run: |
-          echo "Previous Tag ${{ steps.git-semver.outputs.previous-tag }}"
-          echo "Previous Version ${{ steps.git-semver.outputs.previous-version }}"
-          echo "Previous Version Prefix ${{ steps.git-semver.outputs.previous-version-prefix }}"
-          echo "New Version ${{ steps.git-semver.outputs.new-version }}"
-          echo "New Version Prefix ${{ steps.git-semver.outputs.new-version-prefix }}"
+#       - name: Print Output
+#         id: output
+#         run: |
+#           echo "Previous Tag ${{ steps.git-semver.outputs.previous-tag }}"
+#           echo "Previous Version ${{ steps.git-semver.outputs.previous-version }}"
+#           echo "Previous Version Prefix ${{ steps.git-semver.outputs.previous-version-prefix }}"
+#           echo "New Version ${{ steps.git-semver.outputs.new-version }}"
+#           echo "New Version Prefix ${{ steps.git-semver.outputs.new-version-prefix }}"
 
-      - name: Actualizar Chart.yaml
-        run: |
-          sed -i "s/^appVersion:.*/appVersion: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/ms-archetype/Chart.yaml"
+#       - name: Actualizar Chart.yaml
+#         run: |
+#           sed -i "s/^appVersion:.*/appVersion: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/ms-archetype/Chart.yaml"
 
-      - uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#       - uses: webfactory/ssh-agent@v0.9.0
+#         with:
+#           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Commit and push changes
-        run: |
-          REPO_URL="git@github.com:codedesignplus/helm-charts.git"
-          BRANCH="dev"
+#       - name: Commit and push changes
+#         run: |
+#           REPO_URL="git@github.com:codedesignplus/helm-charts.git"
+#           BRANCH="dev"
 
-          # Clonar el repositorio destino
-          git clone -b "$BRANCH" "$REPO_URL" helm-charts-repo
+#           # Clonar el repositorio destino
+#           git clone -b "$BRANCH" "$REPO_URL" helm-charts-repo
 
-          # Configurar Git
-          cd helm-charts-repo
-          git config user.name "github-actions[bot]"
-          git config user.email "actions@github.com"
+#           # Configurar Git
+#           cd helm-charts-repo
+#           git config user.name "github-actions[bot]"
+#           git config user.email "actions@github.com"
           
-          # Copiar charts al repositorio destino
-          echo "Directorio de trabajo: ${{ github.workspace }}"
-          ls -la "${{ github.workspace }}/charts/"
-          echo "Copiando charts..."
-          ls -la .
-          cp -R "${{ github.workspace }}/charts/"* charts/
+#           # Copiar charts al repositorio destino
+#           echo "Directorio de trabajo: ${{ github.workspace }}"
+#           ls -la "${{ github.workspace }}/charts/"
+#           echo "Copiando charts..."
+#           ls -la .
+#           cp -R "${{ github.workspace }}/charts/"* charts/
 
-          # Añadir cambios, commitear y pushear
-          git add .
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Sync charts from source repository"
-            git push origin "dev:refs/heads/dev"
-          fi
+#           # Añadir cambios, commitear y pushear
+#           git add .
+#           if git diff --cached --quiet; then
+#             echo "No changes to commit"
+#           else
+#             git commit -m "Sync charts from source repository"
+#             git push origin "dev:refs/heads/dev"
+#           fi
 
-      - name: Push tag
-        id: push_tag
-        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true' || env.IS_BETA == 'true'
-        uses: mathieudutour/github-tag-action@v6.1
-        with:
-          custom_tag: ${{ steps.git-semver.outputs.new-version }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Push tag
+#         id: push_tag
+#         if: env.IS_RELEASE == 'true' || env.IS_RC == 'true' || env.IS_BETA == 'true'
+#         uses: mathieudutour/github-tag-action@v6.1
+#         with:
+#           custom_tag: ${{ steps.git-semver.outputs.new-version }}
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Changelog
-        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
-        uses: mikepenz/release-changelog-builder-action@v4
-        id: build_changelog
-        with:
-          configuration: "${{ github.workspace }}/.github/settings/configuration.json"
-          fromTag: ${{ steps.git-semver.outputs.previous-version-prefix }}
-          toTag: ${{ steps.git-semver.outputs.new-version-prefix }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Build Changelog
+#         if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
+#         uses: mikepenz/release-changelog-builder-action@v4
+#         id: build_changelog
+#         with:
+#           configuration: "${{ github.workspace }}/.github/settings/configuration.json"
+#           fromTag: ${{ steps.git-semver.outputs.previous-version-prefix }}
+#           toTag: ${{ steps.git-semver.outputs.new-version-prefix }}
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create GitHub Release
-        if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
-        uses: mikepenz/action-gh-release@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ steps.git-semver.outputs.new-version-prefix }}
-          name: "CodeDesignPlus.Net.Sdk@${{ steps.git-semver.outputs.new-version-prefix }}"
-          body: ${{ steps.build_changelog.outputs.changelog }}
-          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
+#       - name: Create GitHub Release
+#         if: env.IS_RELEASE == 'true' || env.IS_RC == 'true'
+#         uses: mikepenz/action-gh-release@v1
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           tag_name: ${{ steps.git-semver.outputs.new-version-prefix }}
+#           name: "CodeDesignPlus.Net.Sdk@${{ steps.git-semver.outputs.new-version-prefix }}"
+#           body: ${{ steps.build_changelog.outputs.changelog }}
+#           prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'dev') }}
