@@ -7,51 +7,61 @@ using CodeDesignPlus.Net.Vault.Extensions;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 
-var builder = WebApplication.CreateSlimBuilder(args);
+try
+{
 
-Serilog.Debugging.SelfLog.Enable(Console.Error);
+    var builder = WebApplication.CreateSlimBuilder(args);
 
-builder.Host.UseSerilog();
+    Serilog.Debugging.SelfLog.Enable(Console.Error);
 
-builder.Configuration.AddVault();
+    builder.Host.UseSerilog();
 
-builder.Services
-    .AddControllers()
-    .AddJsonOptions(opt => opt.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb));
+    builder.Configuration.AddVault();
 
-
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddVault(builder.Configuration);
-builder.Services.AddRedis(builder.Configuration);
-builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>(builder.Configuration);
-builder.Services.AddObservability(builder.Configuration, builder.Environment);
-builder.Services.AddLogger(builder.Configuration);
-builder.Services.AddRabbitMQ<CodeDesignPlus.Net.Microservice.Domain.Startup>(builder.Configuration);
-builder.Services.AddMapster();
-builder.Services.AddFluentValidation();
-builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
-builder.Services.AddSecurity(builder.Configuration);
-builder.Services.AddCoreSwagger<Program>(builder.Configuration);
-builder.Services.AddCache(builder.Configuration);
+    builder.Services
+        .AddControllers()
+        .AddJsonOptions(opt => opt.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb));
 
 
-var app = builder.Build();
+    builder.Services.AddEndpointsApiExplorer();
 
-// Configure the HTTP request pipeline.
-app.UseCoreSwagger();
+    builder.Services.AddVault(builder.Configuration);
+    builder.Services.AddRedis(builder.Configuration);
+    builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>(builder.Configuration);
+    builder.Services.AddObservability(builder.Configuration, builder.Environment);
+    builder.Services.AddLogger(builder.Configuration);
+    builder.Services.AddRabbitMQ<CodeDesignPlus.Net.Microservice.Domain.Startup>(builder.Configuration);
+    builder.Services.AddMapster();
+    builder.Services.AddFluentValidation();
+    builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
+    builder.Services.AddSecurity(builder.Configuration);
+    builder.Services.AddCoreSwagger<Program>(builder.Configuration);
+    builder.Services.AddCache(builder.Configuration);
 
-app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseHttpsRedirection();
+    var app = builder.Build();
 
-app.UseAuth();
+    // Configure the HTTP request pipeline.
+    app.UseCoreSwagger();
 
-app.MapControllers().RequireAuthorization();
+    app.UseMiddleware<ExceptionMiddleware>();
 
-await app.RunAsync();
+    app.UseHttpsRedirection();
+
+    app.UseAuth();
+
+    app.MapControllers().RequireAuthorization();
+
+    await app.RunAsync();
+}
+
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
 
 public partial class Program
 {
     protected Program() { }
 }
+
