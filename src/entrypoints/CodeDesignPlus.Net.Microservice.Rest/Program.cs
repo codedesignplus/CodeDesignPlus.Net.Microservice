@@ -2,9 +2,16 @@ using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Middlewares;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Swagger;
 using CodeDesignPlus.Net.Microservice.Commons.FluentValidation;
 using CodeDesignPlus.Net.Microservice.Commons.MediatR;
+using CodeDesignPlus.Net.Mongo.Abstractions.Options;
+using CodeDesignPlus.Net.RabbitMQ.Abstractions;
+using CodeDesignPlus.Net.RabbitMQ.Abstractions.Options;
+using CodeDesignPlus.Net.Redis.Abstractions;
 using CodeDesignPlus.Net.Redis.Cache.Extensions;
+using CodeDesignPlus.Net.Redis.Options;
 using CodeDesignPlus.Net.Vault.Extensions;
-using NodaTime;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using MongoDB.Driver;
 using NodaTime.Serialization.SystemTextJson;
 
 
@@ -20,7 +27,6 @@ builder.Services
     .AddControllers()
     .AddJsonOptions(opt => opt.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb));
 
-
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddVault(builder.Configuration);
@@ -35,32 +41,52 @@ builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddCoreSwagger<Program>(builder.Configuration);
 builder.Services.AddCache(builder.Configuration);
+builder.Services.AddHealthChecks()
+    .AddRedis(x =>
+    {
+        var factory = x.GetRequiredService<IRedisFactory>();
+
+        return factory.Create(FactoryConst.RedisCore).Connection;
+    }, name: "Redis", tags: ["ready"])
+    .AddRabbitMQ(x =>
+    {
+        var raabbitConnection = x.GetRequiredService<IRabbitConnection>();
+
+        return raabbitConnection.Connection;
+    }, name: "RabbitMQ", tags: ["ready"])
+    .AddMongoDb(x =>
+    {
+        var mongoClient = x.GetRequiredService<IMongoClient>();
+
+        return mongoClient;
+    }, name: "MongoDB", tags: ["ready"])
+    .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["live"]);
 
 
-try
+var app = builder.Build();
+
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
 {
-    var app = builder.Build();
+    Predicate = healthCheck => healthCheck.Tags.Contains("ready")
+});
 
-    // Configure the HTTP request pipeline.
-    app.UseCoreSwagger();
-
-    app.UseMiddleware<ExceptionMiddleware>();
-
-    app.UseHttpsRedirection();
-
-    app.UseAuth();
-
-    app.MapControllers().RequireAuthorization();
-
-    await app.RunAsync();
-}
-catch (Exception ex)
+app.MapHealthChecks("/health/live", new HealthCheckOptions
 {
-    Console.WriteLine(ex.Message);
-}
+    Predicate = healthCheck => healthCheck.Tags.Contains("live"), // Solo checks con el tag "live"
+});
+app.UseCoreSwagger();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseHttpsRedirection();
+
+app.UseAuth();
+
+app.MapControllers().RequireAuthorization();
+
+await app.RunAsync();
 
 public partial class Program
 {
     protected Program() { }
 }
-
