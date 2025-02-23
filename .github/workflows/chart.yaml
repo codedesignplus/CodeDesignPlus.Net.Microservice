@@ -57,6 +57,7 @@ jobs:
       - name: Actualizar Chart.yaml
         run: |
           sed -i "s/^appVersion:.*/appVersion: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/ms-archetype/Chart.yaml"
+          sed -i "s/^version:.*/version: ${{ steps.git-semver.outputs.new-version-prefix }}/" "${{ github.workspace }}/charts/ms-archetype/Chart.yaml"
 
       - uses: webfactory/ssh-agent@v0.9.0
         with:
