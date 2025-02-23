@@ -8,6 +8,11 @@ on:
       - dev
       - feature/*
 
+permissions:
+  contents: write
+  packages: write
+  repository-projects: write
+  
 jobs:
   ci:
     uses: codedesignplus/workflows/.github/workflows/container-image.yaml@main
