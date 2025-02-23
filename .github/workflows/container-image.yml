@@ -12,10 +12,11 @@ permissions:
   contents: write
   packages: write
   repository-projects: write
-  
+
 jobs:
   ci:
     uses: codedesignplus/workflows/.github/workflows/container-image.yaml@main
     with:
       project-name: CodeDesignPlus.Net.Microservice
       microservice-name: ms-archetype
+    secrets: inherit

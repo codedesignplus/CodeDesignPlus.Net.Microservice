@@ -18,3 +18,4 @@ jobs:
     with:
       project-name: CodeDesignPlus.Net.Microservice
       microservice-name: ms-archetype
+    secrets: inherit
