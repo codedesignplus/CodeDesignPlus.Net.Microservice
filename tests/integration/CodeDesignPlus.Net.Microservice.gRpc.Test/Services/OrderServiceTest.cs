@@ -17,6 +17,7 @@ public class OrderServiceTest : ServerBase<Program>, IClassFixture<Server<Progra
             x.Add("AppName", "my-test");
             x.Add("RabbitMQ:UserName", "guest");
             x.Add("RabbitMQ:Password", "guest");
+            x.Add("Security:ValidAudiences:0", Guid.NewGuid().ToString());
         };
     }
 
