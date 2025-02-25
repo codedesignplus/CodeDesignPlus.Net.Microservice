@@ -1,0 +1,32 @@
+name: Sync Charts
+on:
+  push:
+    branches:
+      - main
+      - rc
+      - dev
+
+permissions:
+  contents: write
+  packages: write
+  repository-projects: write
+
+jobs:
+  rest:
+    uses: codedesignplus/workflows/.github/workflows/helm-chart.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype-rest
+    secrets: inherit
+  grpc:
+    uses: codedesignplus/workflows/.github/workflows/helm-chart.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype-grpc
+    secrets: inherit
+  worker:
+    uses: codedesignplus/workflows/.github/workflows/helm-chart.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype-worker
+    secrets: inherit

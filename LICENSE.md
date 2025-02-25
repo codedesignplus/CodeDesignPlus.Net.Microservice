@@ -18,4 +18,4 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 As an additional permission under GNU LGPL version 3 section 7, you may distribute
 non-source (e.g., minimized or compacted) forms of that code without the copy of the GNU LGPL,
-but you must make the corresponding source code available under the GNU LGPL as provided above.
+but you must make the corresponding source code available under the GNU LGPL as provided above. 

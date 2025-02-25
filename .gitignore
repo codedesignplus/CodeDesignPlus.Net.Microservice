@@ -54,3 +54,4 @@ Thumbs.db
 resources/prom_rw
 resources/shared/vault-config
 resources/shared/vault-data
+**/*.user
