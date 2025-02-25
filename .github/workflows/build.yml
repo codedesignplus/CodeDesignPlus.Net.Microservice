@@ -12,11 +12,7 @@ env:
   IS_RELEASE: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
   IS_RC: ${{ github.ref == 'refs/heads/rc' }}
   IS_BETA: ${{ github.ref == 'refs/heads/dev' }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
-  ORG: 'codedesignplus'
   PROJECT: 'CodeDesignPlus.Net.Microservice'
-  SERVER: 'https://sonarcloud.io'
   
 permissions:
   contents: write
@@ -25,8 +21,9 @@ permissions:
 
 jobs:
  build:
-    name: Build .Net
+    name: Build .Net      
     runs-on: ubuntu-latest
+    environment: Dev
     
     steps:
       - name: Checkout
@@ -48,6 +45,9 @@ jobs:
              
       - name: Version Java
         run: java --version
+
+      - name: Version Docker Compose
+        run: docker-compose --version
 
       - name: Install Sonar Scanner .Net
         run: dotnet tool update -g dotnet-sonarscanner
@@ -85,7 +85,7 @@ jobs:
       - name: Run SonarQube
         run: |
           dotnet test ${{env.PROJECT}}.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-          dotnet sonarscanner begin /o:${{env.ORG}} /k:${{env.PROJECT}} /d:sonar.host.url=${{env.SERVER}} /d:sonar.coverage.exclusions=\"**Tests*.cs\" /d:sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
+          dotnet sonarscanner begin /o:${{env.ORGANIZATION}} /k:${{env.PROJECT}} /d:sonar.host.url=${{env.SERVER}} /d:sonar.coverage.exclusions=\"**Tests*.cs\" /d:sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
           dotnet build ${{env.PROJECT}}.sln"
           dotnet sonarscanner end
         
