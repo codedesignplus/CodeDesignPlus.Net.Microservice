@@ -14,7 +14,7 @@ permissions:
   repository-projects: write
 
 jobs:
-  ci:
+  build:
     uses: codedesignplus/workflows/.github/workflows/container-image.yaml@main
     with:
       project-name: CodeDesignPlus.Net.Microservice
