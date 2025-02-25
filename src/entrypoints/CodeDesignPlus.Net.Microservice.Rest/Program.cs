@@ -1,4 +1,5 @@
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Middlewares;
+using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Resources;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Swagger;
 using CodeDesignPlus.Net.Microservice.Commons.FluentValidation;
 using CodeDesignPlus.Net.Microservice.Commons.HealthChecks;
@@ -34,15 +35,16 @@ builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddCoreSwagger<Program>(builder.Configuration);
 builder.Services.AddCache(builder.Configuration);
-HealthChecksExtensions.AddHealthChecks(builder.Services);
+builder.Services.AddResources<Program>(builder.Configuration);
+builder.Services.AddHealthChecksServices();
 
 var app = builder.Build();
 
+app.UseExceptionMiddleware();
 app.UseHealthChecks();
+app.UseCodeErrors();
 
 app.UseCoreSwagger();
-
-app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
