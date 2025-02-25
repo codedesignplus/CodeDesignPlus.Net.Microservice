@@ -1,10 +1,13 @@
-﻿namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
+﻿using CodeDesignPlus.Net.Microservice.Rest.Test.Helpers;
 
-public class OrderControllerTest : ServerBase<Program>, IClassFixture<Server<Program>>
+namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
+
+[Collection(ServerCollectionFixture<Program> .Collection)]
+public class OrderControllerTest : ServerBase<Program>
 {
-    public OrderControllerTest(Server<Program> server) : base(server)
+    public OrderControllerTest(ServerCollectionFixture<Program> fixture) : base(fixture.Container)
     {        
-        server.InMemoryCollection = (x) =>
+        fixture.Container.InMemoryCollection = (x) =>
         {
             x.Add("Vault:Enable", "false");
             x.Add("Vault:Address", "http://localhost:8200");
