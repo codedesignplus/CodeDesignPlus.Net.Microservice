@@ -8,8 +8,8 @@ $org = "codedesignplus"
 $key = "CodeDesignPlus.Net.Microservice"
 $csproj = "CodeDesignPlus.Net.Microservice.sln"
 $report = "tests/**/coverage.opencover.xml"
-$server = "https://sonarcloud.io"
-$token = "82588378259add8808c44526a291124d47ab2a74"
+$server = "http://localhost:9000"
+$token = "sqa_12f3d20d51de2b4c9639db0035d1c68dc4f2fff1"
 
 cd ../..
 dotnet test $csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
