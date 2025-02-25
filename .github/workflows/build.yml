@@ -46,6 +46,9 @@ jobs:
       - name: Version Java
         run: java --version
 
+      - name: Install Docker Compose
+        uses: ndeloof/install-compose-action@v0.0.1
+        
       - name: Version Docker Compose
         run: docker-compose --version
 
