@@ -80,7 +80,7 @@ jobs:
           echo New Version Prefix "${{steps.git-semver.outputs.new-version-prefix}}"
 
       - name: Install Dependencies
-        run: dotnet restore
+        run: dotnet restore 
 
       - name: Build
         run: dotnet build --configuration Release
