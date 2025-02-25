@@ -91,6 +91,8 @@ jobs:
           dotnet sonarscanner begin /o:${{vars.ORGANIZATION}} /k:${{env.PROJECT}} /d:sonar.host.url=${{vars.SERVER}} /d:sonar.coverage.exclusions=\"**Tests*.cs,**/tests/load/*.js\" /d:sonar.cs.opencover.reportsPaths=tests/**/coverage.opencover.xml
           dotnet build ${{env.PROJECT}}.sln"
           dotnet sonarscanner end
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         
     
       - name: Push tag
