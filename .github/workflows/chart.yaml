@@ -13,9 +13,21 @@ permissions:
   repository-projects: write
 
 jobs:
-  ci:
+  rest:
     uses: codedesignplus/workflows/.github/workflows/helm-chart.yaml@main
     with:
       project-name: CodeDesignPlus.Net.Microservice
-      microservice-name: ms-archetype
+      microservice-name: ms-archetype-rest
+    secrets: inherit
+  grpc:
+    uses: codedesignplus/workflows/.github/workflows/helm-chart.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype-grpc
+    secrets: inherit
+  worker:
+    uses: codedesignplus/workflows/.github/workflows/helm-chart.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype-worker
     secrets: inherit

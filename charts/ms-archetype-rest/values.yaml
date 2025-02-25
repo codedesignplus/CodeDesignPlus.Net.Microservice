@@ -7,8 +7,8 @@ ms-base:
     tag: "v0.1.0-alpha.100"
 
   imagePullSecrets: []
-  fullnameOverride: "ms-archetype"
-  nameOverride: "ms-archetype"
+  fullnameOverride: "ms-archetype-rest"
+  nameOverride: "ms-archetype-rest"
 
   serviceAccount:
     create: true
@@ -105,6 +105,6 @@ ms-base:
         uri: /
       route:
       - destination:
-          host: ms-archetype.default.svc.cluster.local
+          host: ms-archetype-rest.default.svc.cluster.local
           port:
             number: 5000
