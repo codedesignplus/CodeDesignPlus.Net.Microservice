@@ -13,7 +13,7 @@
     <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.6.0-beta.20" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.67.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.69.0">
+    <PackageReference Include="Grpc.Tools" Version="2.70.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
