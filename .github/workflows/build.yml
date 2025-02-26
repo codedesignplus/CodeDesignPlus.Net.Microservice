@@ -85,6 +85,9 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
 
+      - name: Test
+        run: dotnet test --no-build --configuration Release --logger trx --results-directory ./tests/ --collect:"XPlat Code Coverage" --settings ./tests/coverlet.runsettings
+
       - name: Run SonarQube
         run: |
           dotnet test ${{env.PROJECT}}.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
