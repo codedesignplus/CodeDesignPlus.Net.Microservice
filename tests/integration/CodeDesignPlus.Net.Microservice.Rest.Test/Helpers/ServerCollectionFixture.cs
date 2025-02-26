@@ -27,6 +27,6 @@ public sealed class ServerCollectionFixture<TProgram> : IDisposable where TProgr
     /// </summary>
     public void Dispose()
     {
-        this.Container.Dispose();
+        //this.Container.Dispose();
     }
 }
