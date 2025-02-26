@@ -86,7 +86,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test
-        run: dotnet test --no-build --configuration Release --logger trx --results-directory ./tests/ --collect:"XPlat Code Coverage" --settings ./tests/coverlet.runsettings
+        run: dotnet test --no-build --configuration Release
 
       - name: Run SonarQube
         run: |
