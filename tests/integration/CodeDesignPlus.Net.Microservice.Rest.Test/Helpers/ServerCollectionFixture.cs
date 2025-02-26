@@ -7,7 +7,7 @@ public sealed class ServerCollectionFixture<TProgram> : IDisposable where TProgr
     /// <summary>
     /// The name of the collection.
     /// </summary>
-    public const string Collection = "Server Collection";
+    public const string Collection = "Server Collection Rest";
 
     /// <summary>
     /// Gets the MongoDB container instance.
