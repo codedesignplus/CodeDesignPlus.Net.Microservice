@@ -1,12 +1,17 @@
 ﻿using CodeDesignPlus.Net.Microservice.Rest.Test.Helpers;
+using Xunit.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
 
 [Collection(ServerCollectionFixture<Program> .Collection)]
 public class OrderControllerTest : ServerBase<Program>
 {
-    public OrderControllerTest(ServerCollectionFixture<Program> fixture) : base(fixture.Container)
+    private ITestOutputHelper output;
+
+    public OrderControllerTest(ServerCollectionFixture<Program> fixture, ITestOutputHelper output) : base(fixture.Container)
     {        
+        this.output = output;
+
         fixture.Container.InMemoryCollection = (x) =>
         {
             x.Add("Vault:Enable", "false");
@@ -30,7 +35,7 @@ public class OrderControllerTest : ServerBase<Program>
 
         var json = await response.Content.ReadAsStringAsync();
 
-        Assert.Null(json);
+        output.WriteLine(json);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
