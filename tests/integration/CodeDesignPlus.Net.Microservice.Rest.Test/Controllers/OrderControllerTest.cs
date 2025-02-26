@@ -281,60 +281,60 @@ public class OrderControllerTest : ServerBase<Program>
     //     return content;
     // }
 
-    // private async Task<CreateOrderDto> CreateOrderAsync(Guid tenant)
-    // {
-    //     var data = new CreateOrderDto()
-    //     {
-    //         Id = Guid.NewGuid(),
-    //         Client = new ClientDto()
-    //         {
-    //             Name = "CodeDesignPlus",
-    //             Id = Guid.NewGuid(),
-    //             Document = "1234567890",
-    //             TypeDocument = "CC"
-    //         },
-    //         Address = new AddressDto()
-    //         {
-    //             Country = "Colombia",
-    //             State = "Bogota",
-    //             City = "Bogota",
-    //             Address = "Calle 123",
-    //             CodePostal = 123456
-    //         }
-    //     };
+    private async Task<CreateOrderDto> CreateOrderAsync(Guid tenant)
+    {
+        var data = new CreateOrderDto()
+        {
+            Id = Guid.NewGuid(),
+            Client = new ClientDto()
+            {
+                Name = "CodeDesignPlus",
+                Id = Guid.NewGuid(),
+                Document = "1234567890",
+                TypeDocument = "CC"
+            },
+            Address = new AddressDto()
+            {
+                Country = "Colombia",
+                State = "Bogota",
+                City = "Bogota",
+                Address = "Calle 123",
+                CodePostal = 123456
+            }
+        };
 
-    //     var json = JsonSerializer.Serialize(data);
+        var json = System.Text.Json.JsonSerializer.Serialize(data);
 
-    //     var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-    //     await this.RequestAsync("http://localhost/api/Orders", tenant, content, HttpMethod.Post);
+        await this.RequestAsync("http://localhost/api/Orders", tenant, content, HttpMethod.Post);
 
-    //     return data;
-    // }
+        return data;
+    }
 
-    // private async Task<OrderDto> GetRecordAsync(Guid id, Guid tenant)
-    // {
-    //     var response = await this.RequestAsync($"http://localhost/api/Orders/{id}", tenant, null, HttpMethod.Get);
+    private async Task<OrderDto> GetRecordAsync(Guid id, Guid tenant)
+    {
+        var response = await this.RequestAsync($"http://localhost/api/Orders/{id}", tenant, null, HttpMethod.Get);
 
-    //     var json = await response.Content.ReadAsStringAsync();
+        var json = await response.Content.ReadAsStringAsync();
 
-    //     return JsonSerializer.Deserialize<OrderDto>(json)!;
-    // }
+        return System.Text.Json.JsonSerializer.Deserialize<OrderDto>(json)!;
+    }
 
-    // private async Task<HttpResponseMessage> RequestAsync(string uri, Guid tenant, HttpContent? content, HttpMethod method)
-    // {
-    //     var httpRequestMessage = new HttpRequestMessage()
-    //     {
-    //         RequestUri = new Uri(uri),
-    //         Content = content,
-    //         Method = method
-    //     };
-    //     httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("TestAuth");
-    //     httpRequestMessage.Headers.Add("X-Tenant", tenant.ToString());
+    private async Task<HttpResponseMessage> RequestAsync(string uri, Guid tenant, HttpContent? content, HttpMethod method)
+    {
+        var httpRequestMessage = new HttpRequestMessage()
+        {
+            RequestUri = new Uri(uri),
+            Content = content,
+            Method = method
+        };
+        httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("TestAuth");
+        httpRequestMessage.Headers.Add("X-Tenant", tenant.ToString());
 
-    //     var response = await Client.SendAsync(httpRequestMessage);
+        var response = await Client.SendAsync(httpRequestMessage);
 
-    //     return response;
-    // }
+        return response;
+    }
 
 }
