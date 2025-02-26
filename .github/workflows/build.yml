@@ -85,14 +85,14 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
 
-      - name: Test
-        run: dotnet test --no-build --configuration Release
+      # - name: Test
+      #   run: dotnet test --no-build --configuration Release
 
       - name: Run SonarQube
         run: |
           dotnet test ${{env.PROJECT}}.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
           dotnet sonarscanner begin /o:${{vars.ORGANIZATION}} /k:${{env.PROJECT}} /d:sonar.host.url=${{vars.SERVER}} /d:sonar.coverage.exclusions=\"**Tests*.cs,**/tests/load/*.js\" /d:sonar.cs.opencover.reportsPaths=tests/**/coverage.opencover.xml
-          dotnet build ${{env.PROJECT}}.sln"
+          dotnet build ${{env.PROJECT}}.sln
           dotnet sonarscanner end
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
