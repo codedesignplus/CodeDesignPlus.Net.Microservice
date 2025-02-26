@@ -28,10 +28,12 @@ public class OrderControllerTest : ServerBase<Program>
 
         var response = await this.RequestAsync("http://localhost/api/Orders", tenant, null, HttpMethod.Get);
 
+        var json = await response.Content.ReadAsStringAsync();
+
+        Assert.Null(json);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var json = await response.Content.ReadAsStringAsync();
 
         // var orders = JsonSerializer.Deserialize<IEnumerable<OrderDto>>(json);
 
