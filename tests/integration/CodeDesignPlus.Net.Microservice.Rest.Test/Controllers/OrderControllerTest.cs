@@ -8,9 +8,12 @@ public class OrderControllerTest : ServerBase<Program>
 {
     private ITestOutputHelper output;
 
+    private readonly ServerCollectionFixture<Program> fixture;
+
     public OrderControllerTest(ServerCollectionFixture<Program> fixture, ITestOutputHelper output) : base(fixture.Container)
     {        
         this.output = output;
+        this.fixture = fixture;
 
         fixture.Container.InMemoryCollection = (x) =>
         {
@@ -34,6 +37,18 @@ public class OrderControllerTest : ServerBase<Program>
         var response = await this.RequestAsync("http://localhost/api/Orders", tenant, null, HttpMethod.Get);
 
         var json = await response.Content.ReadAsStringAsync();
+
+        output.WriteLine("-- Logs:");
+
+        foreach (var item in fixture.Container.LoggerProvider.Loggers)
+        {
+            output.WriteLine(item.Key);
+
+            foreach (var log in item.Value.Logs)
+            {
+                output.WriteLine(log);
+            }
+        }
 
         output.WriteLine(json);
         Assert.NotNull(response);
