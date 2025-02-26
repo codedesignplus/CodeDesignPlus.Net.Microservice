@@ -305,7 +305,7 @@ public class OrderControllerTest : ServerBase<Program>
             }
         };
 
-        var json = System.Text.Json.JsonSerializer.Serialize(data);
+        var json = JsonSerializer.Serialize(data);
 
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -320,7 +320,7 @@ public class OrderControllerTest : ServerBase<Program>
 
         var json = await response.Content.ReadAsStringAsync();
 
-        return System.Text.Json.JsonSerializer.Deserialize<OrderDto>(json)!;
+        return JsonSerializer.Deserialize<OrderDto>(json)!;
     }
 
     private async Task<HttpResponseMessage> RequestAsync(string uri, Guid tenant, HttpContent? content, HttpMethod method)
