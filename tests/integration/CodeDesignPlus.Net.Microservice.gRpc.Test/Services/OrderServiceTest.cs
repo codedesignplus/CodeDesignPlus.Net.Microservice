@@ -1,14 +1,16 @@
 using CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
+using CodeDesignPlus.Net.Microservice.gRpc.Test.Helpers;
 using NodaTime;
 using NodaTime.Serialization.Protobuf;
 
 namespace CodeDesignPlus.Net.Microservice.gRpc.Test.Services;
 
-public class OrderServiceTest : ServerBase<Program>, IClassFixture<Server<Program>>
+[Collection(ServerCollectionFixture<Program> .Collection)]
+public class OrderServiceTest : ServerBase<Program>
 {
-    public OrderServiceTest(Server<Program> server) : base(server)
+    public OrderServiceTest(ServerCollectionFixture<Program> fixture) : base(fixture.Container)
     {
-        server.InMemoryCollection = (x) =>
+        fixture.Container.InMemoryCollection = (x) =>
         {
             x.Add("Vault:Enable", "false");
             x.Add("Vault:Address", "http://localhost:8200");
@@ -17,6 +19,7 @@ public class OrderServiceTest : ServerBase<Program>, IClassFixture<Server<Progra
             x.Add("AppName", "my-test");
             x.Add("RabbitMQ:UserName", "guest");
             x.Add("RabbitMQ:Password", "guest");
+            x.Add("Security:ValidAudiences:0", Guid.NewGuid().ToString());
         };
     }
 

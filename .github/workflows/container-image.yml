@@ -1,12 +1,13 @@
 name: Build and Push Container Image
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Build .Net"]
+    types:
+      - completed
     branches:
       - main
       - rc
-      - dev
-      - feature/*
 
 permissions:
   contents: write
