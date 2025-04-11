@@ -1,4 +1,5 @@
-﻿using CodeDesignPlus.Net.Microservice.Rest.Test.Helpers;
+﻿using CodeDesignPlus.Net.Core.Abstractions.Models.Pager;
+using CodeDesignPlus.Net.Microservice.Rest.Test.Helpers;
 using Xunit.Abstractions;
 
 namespace CodeDesignPlus.Net.Microservice.Rest.Test.Controllers;
@@ -34,12 +35,12 @@ public class OrderControllerTest : ServerBase<Program>
 
         var json = await response.Content.ReadAsStringAsync();
 
-        var orders = JsonSerializer.Deserialize<IEnumerable<OrderDto>>(json);
+        var orders = JsonSerializer.Deserialize<Pagination<OrderDto>>(json);
 
         Assert.NotNull(json);
         Assert.NotNull(orders);
-        Assert.NotEmpty(orders);
-        Assert.Contains(orders, x => x.Id == order.Id);
+        Assert.NotEmpty(orders.Data);
+        Assert.Contains(orders.Data, x => x.Id == order.Id);
     }
 
     [Fact]

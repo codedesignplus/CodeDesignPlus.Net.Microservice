@@ -5,13 +5,13 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="CodeDesignPlus.Net.Generator" Version="0.6.0-beta.26" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="0.6.0-beta.26" />
-		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="0.6.0-beta.26" />
-		<PackageReference Include="CodeDesignPlus.Net.Cache.Abstractions" Version="0.6.0-beta.26" />
+		<PackageReference Include="CodeDesignPlus.Net.Generator" Version="0.6.0-beta.28" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="0.6.0-beta.28" />
+		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="0.6.0-beta.28" />
+		<PackageReference Include="CodeDesignPlus.Net.Cache.Abstractions" Version="0.6.0-beta.28" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
-		<PackageReference Include="MediatR" Version="12.5.0" />
+		<PackageReference Include="MediatR" Version="12.4.1" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 	</ItemGroup>
 	<ItemGroup>
