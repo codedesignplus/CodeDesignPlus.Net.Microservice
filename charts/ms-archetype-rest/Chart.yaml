@@ -1,6 +1,6 @@
 apiVersion: v2
-name: ms-archetype-rest
-description: This is a Helm chart for the ms-archetype REST service
+name: ms-tenants-rest
+description: This is a Helm chart for the ms-tenants REST service
 type: application
 version: 0.0.1
 appVersion: "0.0.1"

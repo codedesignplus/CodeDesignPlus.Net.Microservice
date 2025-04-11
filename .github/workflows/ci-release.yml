@@ -1,0 +1,46 @@
+name: Release Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - rc
+      - dev
+      - feature/*
+
+permissions:
+  contents: write
+  packages: write
+  repository-projects: write
+
+jobs:
+  build:
+    uses: codedesignplus/workflows/.github/workflows/build-microservice.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype
+      environment: Dev
+    secrets: inherit
+  
+  container:
+    needs: build
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/dev' }}
+    uses: codedesignplus/workflows/.github/workflows/container-image.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype
+      environment: Dev
+    secrets: inherit
+  
+  chart:
+    needs: container
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/dev' }}
+    uses: codedesignplus/workflows/.github/workflows/helm-chart.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype
+      enable-rest: true
+      enable-grpc: false
+      enable-worker: false
+      environment: Dev
+    secrets: inherit
