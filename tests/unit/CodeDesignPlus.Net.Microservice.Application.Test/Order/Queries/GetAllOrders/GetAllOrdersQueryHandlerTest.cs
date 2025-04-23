@@ -1,3 +1,4 @@
+using CodeDesignPlus.Net.Core.Abstractions.Models.Pager;
 using CodeDesignPlus.Net.Microservice.Application.Order.Queries.GetAllOrders;
 
 namespace CodeDesignPlus.Net.Microservice.Application.Test.Order.Queries.GetAllOrders;
@@ -67,18 +68,18 @@ public class GetAllOrdersQueryHandlerTest
 
         var queryHandler = new GetAllOrdersQueryHandler(orderRepositoryMock.Object, mapperMock.Object, userContextMock.Object);
 
-        mapperMock.Setup(x => x.Map<List<OrderDto>>(It.IsAny<List<OrderAggregate>>())).Returns(orders);
+        mapperMock.Setup(x => x.Map<Pagination<OrderDto>>(It.IsAny<List<OrderAggregate>>())).Returns(Pagination<OrderDto>.Create(orders, 0, 0, 0));
 
         // Act
         var result = await queryHandler.Handle(query, CancellationToken.None);
 
         // Assert
-        Assert.NotNull(result);
-        Assert.NotEmpty(result);
-        Assert.Equal(orders.Count, result.Count);
+        Assert.NotNull(result.Data);
+        Assert.NotEmpty(result.Data);
+        Assert.Equal(orders.Count, result.Data.Count());
 
         orderRepositoryMock.Verify(x => x.MatchingAsync<OrderAggregate>(criteria, tenant, It.IsAny<CancellationToken>()), Times.Once);
-        mapperMock.Verify(x => x.Map<List<OrderDto>>(It.IsAny<List<OrderAggregate>>()), Times.Once);
+        mapperMock.Verify(x => x.Map<Pagination<OrderDto>>(It.IsAny<List<OrderAggregate>>()), Times.Once);
     }
 
 }

@@ -1,3 +1,4 @@
+using CodeDesignPlus.Net.Core.Abstractions.Models.Pager;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.AddProductToOrder;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CancelOrder;
 using CodeDesignPlus.Net.Microservice.Application.Order.Commands.CompleteOrder;
@@ -31,7 +32,7 @@ public class OrderControllerTest
 
         this.mediator
             .Setup(x => x.Send(It.IsAny<GetAllOrdersQuery>(), cancellationToken))
-            .ReturnsAsync([]);
+            .ReturnsAsync(Pagination<OrderDto>.Create([], 0, 0, 0));
 
         // Act
         var result = await controller.GetOrders(criteria, cancellationToken);

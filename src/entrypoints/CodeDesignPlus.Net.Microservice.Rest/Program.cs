@@ -9,7 +9,7 @@ using CodeDesignPlus.Net.Vault.Extensions;
 using NodaTime.Serialization.SystemTextJson;
 
 
-var builder = WebApplication.CreateSlimBuilder(args);
+    var builder = WebApplication.CreateSlimBuilder(args);
 
 Serilog.Debugging.SelfLog.Enable(Console.Error);
 
@@ -22,7 +22,7 @@ builder.Services
     .AddJsonOptions(opt => opt.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb));
 
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddCors();
 builder.Services.AddVault(builder.Configuration);
 builder.Services.AddRedis(builder.Configuration);
 builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup>(builder.Configuration);
@@ -40,6 +40,11 @@ builder.Services.AddHealthChecksServices();
 
 var app = builder.Build();
 
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+);
 app.UseExceptionMiddleware();
 app.UseHealthChecks();
 app.UseCodeErrors();
