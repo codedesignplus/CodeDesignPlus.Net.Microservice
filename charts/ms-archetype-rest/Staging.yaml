@@ -1,14 +1,15 @@
 ms-base:
+  environment: Staging
   replicaCount: 1
 
   image:
-    repository: codedesignplus/ms-archetype-grpc
+    repository: codedesignplus/ms-archetype-rest
     pullPolicy: IfNotPresent
     tag: "v0.1.0-alpha.100"
 
   imagePullSecrets: []
-  fullnameOverride: "ms-archetype-grpc"
-  nameOverride: "ms-archetype-grpc"
+  fullnameOverride: "ms-archetype-rest"
+  nameOverride: "ms-archetype-rest"
 
   serviceAccount:
     create: true
@@ -91,4 +92,20 @@ ms-base:
   affinity: {}
 
   virtualService: 
-    create: false
+    create: true
+    hosts:
+      - services.codedesignplus.com
+    gateways:
+      - istio-ingress/services-gateway
+    http:
+    - name: ms-archetype
+      match:
+      - uri:
+          prefix: /ms-archetype/
+      rewrite:
+        uri: /
+      route:
+      - destination:
+          host: ms-archetype-rest.default.svc.cluster.local
+          port:
+            number: 5000
