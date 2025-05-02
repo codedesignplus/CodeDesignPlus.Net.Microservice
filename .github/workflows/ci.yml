@@ -1,18 +1,39 @@
-name: dotnet package
+name: CI
 
-on: [push]
+on: 
+  pull_request:
+    branches:
+      - main
+      - rc
+      - dev
+      - feature/*
+  push:
+    branches:
+      - main
+      - rc
+      - dev
+      - feature/*  
+ 
+permissions:
+  contents: write
+  packages: write
+  repository-projects: write
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: [ '9.0.x' ]
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup dotnet ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+    uses: codedesignplus/workflows/.github/workflows/build-microservice.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype
+      environment: Development
+    secrets: inherit
+  
+  sonarqube:
+    needs: build
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/dev' }}
+    uses: codedesignplus/workflows/.github/workflows/sonarqube.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype
+      environment: Development
+    secrets: inherit
