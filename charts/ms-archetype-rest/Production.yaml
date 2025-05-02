@@ -1,4 +1,5 @@
 ms-base:
+  environment: Production
   replicaCount: 1
 
   image:
@@ -95,7 +96,7 @@ ms-base:
     hosts:
       - services.codedesignplus.com
     gateways:
-      - services-gateway
+      - istio-ingress/services-gateway
     http:
     - name: ms-archetype
       match:

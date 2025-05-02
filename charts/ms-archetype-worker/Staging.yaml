@@ -1,4 +1,5 @@
 ms-base:
+  environment: Staging
   replicaCount: 1
 
   image:

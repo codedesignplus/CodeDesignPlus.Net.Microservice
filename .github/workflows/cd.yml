@@ -40,7 +40,7 @@ jobs:
   deploy:
     needs: container
     if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/dev' }}
-    uses: codedesignplus/workflows/.github/workflows/deploy.yaml@main
+    uses: codedesignplus/workflows/.github/workflows/deploy-self-host.yaml@main
     with:
       project-name: CodeDesignPlus.Net.Microservice
       microservice-name: ms-archetype
