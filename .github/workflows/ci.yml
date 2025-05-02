@@ -1,6 +1,12 @@
 name: Continuous Integration
 
 on: 
+  pull_request:
+    branches:
+      - main
+      - rc
+      - dev
+      - feature/*
   push:
     branches:
       - main
