@@ -27,7 +27,6 @@ public static class MapsterConfigOrder
             .Map(dest => dest.UpdatedBy, src => src.UpdatedBy)
             .Map(dest => dest.ReasonForCancellation, src => src.ReasonForCancellation);
 
-        
         TypeAdapterConfig<CodeDesignPlus.Microservice.Api.Dtos.AddProductToOrderDto, AddProductToOrderCommand>.NewConfig().TwoWays();
         TypeAdapterConfig<CodeDesignPlus.Microservice.Api.Dtos.CancelOrderDto, CancelOrderCommand>.NewConfig().TwoWays();
         TypeAdapterConfig<CodeDesignPlus.Microservice.Api.Dtos.CreateOrderDto, CreateOrderCommand>.NewConfig().TwoWays();
