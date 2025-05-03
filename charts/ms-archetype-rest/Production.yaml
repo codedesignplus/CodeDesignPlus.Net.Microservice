@@ -106,6 +106,6 @@ ms-base:
         uri: /
       route:
       - destination:
-          host: ms-archetype-rest.default.svc.cluster.local
+          host: ms-archetype-rest.urbancore.svc.cluster.local
           port:
             number: 5000

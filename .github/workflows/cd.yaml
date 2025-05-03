@@ -45,7 +45,7 @@ jobs:
       project-name: CodeDesignPlus.Net.Microservice
       microservice-name: ms-archetype
       enable-rest: true
-      enable-grpc: true
-      enable-worker: true
+      enable-grpc: false
+      enable-worker: false
       environment: ${{ github.event.inputs.environment }}
     secrets: inherit
