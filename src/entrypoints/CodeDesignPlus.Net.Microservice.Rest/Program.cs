@@ -1,3 +1,4 @@
+using CodeDesignPlus.Net.Microservice.Commons.Application;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Middlewares;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Resources;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Swagger;
@@ -48,6 +49,8 @@ app.UseCors(builder => builder
 
 if(app.Environment.IsStaging())
     app.UsePathBase("/ms-archetype");
+
+app.UsePath();
 
 app.UseExceptionMiddleware();
 app.UseHealthChecks();
