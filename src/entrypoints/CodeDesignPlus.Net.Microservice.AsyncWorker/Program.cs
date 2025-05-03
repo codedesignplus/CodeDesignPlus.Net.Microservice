@@ -29,6 +29,9 @@ builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>
 
 var app = builder.Build();
 
+if(app.Environment.IsStaging())
+    app.UsePathBase("/ms-archetype");
+    
 var home = app.MapGroup("/");
 
 home.MapGet("/", () => "Ready");
