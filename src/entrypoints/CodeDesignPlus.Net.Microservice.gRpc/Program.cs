@@ -1,6 +1,7 @@
 using CodeDesignPlus.Net.Logger.Extensions;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.gRpc.Interceptors;
 using CodeDesignPlus.Net.Microservice.Commons.FluentValidation;
+using CodeDesignPlus.Net.Microservice.Commons.HealthChecks;
 using CodeDesignPlus.Net.Microservice.Commons.MediatR;
 using CodeDesignPlus.Net.Microservice.gRpc.Services;
 using CodeDesignPlus.Net.Mongo.Extensions;
@@ -37,11 +38,11 @@ builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration, builder.Environment);
 builder.Services.AddLogger(builder.Configuration);
 builder.Services.AddCache(builder.Configuration);
+builder.Services.AddHealthChecksServices();
 
 var app = builder.Build();
 
-// if(app.Environment.IsStaging())
-//     app.UsePathBase("/ms-archetype");
+app.UseHealthChecks();
     
 app.UseAuth();
 
