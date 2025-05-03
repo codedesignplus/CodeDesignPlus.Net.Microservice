@@ -40,8 +40,8 @@ builder.Services.AddCache(builder.Configuration);
 
 var app = builder.Build();
 
-if(app.Environment.IsStaging())
-    app.UsePathBase("/ms-archetype");
+// if(app.Environment.IsStaging())
+//     app.UsePathBase("/ms-archetype");
     
 app.UseAuth();
 
