@@ -1,5 +1,6 @@
 using CodeDesignPlus.Net.Logger.Extensions;
 using CodeDesignPlus.Net.Microservice.Commons.FluentValidation;
+using CodeDesignPlus.Net.Microservice.Commons.HealthChecks;
 using CodeDesignPlus.Net.Microservice.Commons.MediatR;
 using CodeDesignPlus.Net.Mongo.Extensions;
 using CodeDesignPlus.Net.RabbitMQ.Extensions;
@@ -26,11 +27,11 @@ builder.Services.AddCache(builder.Configuration);
 builder.Services.AddMapster();
 builder.Services.AddFluentValidation();
 builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
+builder.Services.AddHealthChecksServices();
 
 var app = builder.Build();
 
-// if(app.Environment.IsStaging())
-//     app.UsePathBase("/ms-archetype");
+app.UseHealthChecks();
     
 var home = app.MapGroup("/");
 
