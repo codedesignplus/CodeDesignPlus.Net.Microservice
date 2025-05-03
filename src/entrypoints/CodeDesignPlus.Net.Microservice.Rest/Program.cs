@@ -45,6 +45,10 @@ app.UseCors(builder => builder
     .AllowAnyMethod()
     .AllowAnyHeader()
 );
+
+if(app.Environment.IsStaging())
+    app.UsePathBase("/ms-archetype");
+
 app.UseExceptionMiddleware();
 app.UseHealthChecks();
 app.UseCodeErrors();
