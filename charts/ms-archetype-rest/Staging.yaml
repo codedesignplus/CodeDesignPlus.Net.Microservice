@@ -96,7 +96,7 @@ ms-base:
     hosts:
       - services.codedesignplus.com
     gateways:
-      - istio-ingress/services-gateway
+      - istio-ingress/istio-gateway
     http:
     - name: ms-archetype
       match:
