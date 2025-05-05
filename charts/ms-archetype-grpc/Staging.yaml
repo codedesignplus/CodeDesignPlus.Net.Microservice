@@ -32,7 +32,15 @@ ms-base:
 
   service:
     type: ClusterIP
-    port: 5000
+    ports:
+      - name: http
+        port: 5000
+        targetPort: http
+        protocol: TCP
+      - name: grpc
+        port: 5001
+        targetPort: grpc
+        protocol: TCP
 
   ingress:
     enabled: false
