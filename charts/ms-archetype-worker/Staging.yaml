@@ -32,7 +32,11 @@ ms-base:
 
   service:
     type: ClusterIP
-    port: 5000
+    ports:
+      - name: http
+        port: 5000
+        targetPort: http
+        protocol: TCP
 
   ingress:
     enabled: false
