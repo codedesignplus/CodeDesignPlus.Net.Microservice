@@ -11,17 +11,17 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NodaTime.Serialization.SystemTextJson" Version="1.3.0" />
-    <PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.7.0-beta.28" />
-    <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.7.0-beta.28" />
+    <PackageReference Include="CodeDesignPlus.Net.Microservice.Commons" Version="0.7.0-beta.29" />
+    <PackageReference Include="CodeDesignPlus.Net.Vault" Version="0.7.0-beta.29" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.1" />
-    <PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.7.0-beta.28" />
-    <PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.7.0-beta.28" />
-    <PackageReference Include="CodeDesignPlus.Net.Security" Version="0.7.0-beta.28" />
-    <PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.7.0-beta.28" />
-    <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.7.0-beta.28" />
-    <PackageReference Include="CodeDesignPlus.Net.Redis.Cache" Version="0.7.0-beta.28" />
+    <PackageReference Include="CodeDesignPlus.Net.Logger" Version="0.7.0-beta.29" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis" Version="0.7.0-beta.29" />
+    <PackageReference Include="CodeDesignPlus.Net.Security" Version="0.7.0-beta.29" />
+    <PackageReference Include="CodeDesignPlus.Net.Observability" Version="0.7.0-beta.29" />
+    <PackageReference Include="CodeDesignPlus.Net.RabbitMQ" Version="0.7.0-beta.29" />
+    <PackageReference Include="CodeDesignPlus.Net.Redis.Cache" Version="0.7.0-beta.29" />
 
     <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="9.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="9.0.0" />

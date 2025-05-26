@@ -17,7 +17,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.7.0-beta.28" />
+    <PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.7.0-beta.29" />
     <PackageReference Include="Grpc.Core.Testing" Version="2.46.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
