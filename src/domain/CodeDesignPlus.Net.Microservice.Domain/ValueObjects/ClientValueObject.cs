@@ -1,19 +1,22 @@
+using Newtonsoft.Json;
+
 namespace CodeDesignPlus.Net.Microservice.Domain.ValueObjects;
 
-    public sealed partial class ClientValueObject
+public sealed partial class ClientValueObject
 {
-    public ClientValueObject(Guid id, string name, string document, string typeDocument)
+    public Guid Id { get; private set; }
+    public string Name { get; private set; }
+    public string Document { get; private set; }
+    public string TypeDocument { get; private set; }
+
+    [JsonConstructor]
+    private ClientValueObject(Guid id, string name, string document, string typeDocument)
     {
         this.Id = id;
         this.Name = name;
         this.Document = document;
         this.TypeDocument = typeDocument;
     }
-
-    public Guid Id { get; private set; }
-    public string Name { get; private set; }
-    public string Document { get; private set; }
-    public string TypeDocument { get; private set; }
 
     public static ClientValueObject Create(Guid id, string name, string document, string typeDocument)
     {

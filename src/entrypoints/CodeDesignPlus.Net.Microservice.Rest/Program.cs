@@ -7,8 +7,7 @@ using CodeDesignPlus.Net.Microservice.Commons.HealthChecks;
 using CodeDesignPlus.Net.Microservice.Commons.MediatR;
 using CodeDesignPlus.Net.Redis.Cache.Extensions;
 using CodeDesignPlus.Net.Vault.Extensions;
-using NodaTime.Serialization.SystemTextJson;
-
+using NodaTime.Serialization.JsonNet;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -20,7 +19,11 @@ builder.Configuration.AddVault();
 
 builder.Services
     .AddControllers()
-    .AddJsonOptions(opt => opt.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb));
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Error;
+        options.SerializerSettings.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
