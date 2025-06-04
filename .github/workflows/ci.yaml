@@ -1,0 +1,33 @@
+name: Continuous IntegrationAdd commentMore actions
+
+on: 
+  push:
+    branches:
+      - main
+      - rc
+      - dev
+      - feature/*  
+ 
+permissions:
+  contents: write
+  packages: write
+  repository-projects: write
+
+jobs:
+  build:
+    uses: codedesignplus/workflows/.github/workflows/build-microservice.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype
+      environment: Development
+    secrets: inherit
+  
+  sonarqube:
+    needs: build
+    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/dev' }}
+    uses: codedesignplus/workflows/.github/workflows/sonarqube.yaml@main
+    with:
+      project-name: CodeDesignPlus.Net.Microservice
+      microservice-name: ms-archetype
+      environment: Development
+    secrets: inherit
