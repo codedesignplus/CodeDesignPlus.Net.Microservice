@@ -6,7 +6,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CodeDesignPlus.Net.Serializers" Version="0.7.0-beta.33" />
+    <PackageReference Include="CodeDesignPlus.Net.Serializers" Version="0.7.0-beta.79" />
     <PackageReference Include="coverlet.msbuild" Version="6.0.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -24,7 +24,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.7.0-beta.33" />
+    <PackageReference Include="CodeDesignPlus.Net.xUnit.Microservice" Version="0.7.0-beta.79" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\domain\CodeDesignPlus.Net.Microservice.Infrastructure\CodeDesignPlus.Net.Microservice.Infrastructure.csproj" />
