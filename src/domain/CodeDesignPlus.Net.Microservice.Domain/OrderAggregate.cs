@@ -64,7 +64,7 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
 
         var product = Products.SingleOrDefault(x => x.Id == productId);
 
-        DomainGuard.IsNull(product, Errors.ProductNotFound);
+        DomainGuard.IsNull(product!, Errors.ProductNotFound);
 
         this.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
         this.UpdatedBy = updateBy;
@@ -81,7 +81,7 @@ public class OrderAggregate(Guid id) : AggregateRoot(id)
 
         var product = Products.SingleOrDefault(p => p.Id == productId);
 
-        DomainGuard.IsNull(product, Errors.ProductNotFound);
+        DomainGuard.IsNull(product!, Errors.ProductNotFound);
 
         this.UpdatedAt = SystemClock.Instance.GetCurrentInstant();
         this.UpdatedBy = updateBy;
