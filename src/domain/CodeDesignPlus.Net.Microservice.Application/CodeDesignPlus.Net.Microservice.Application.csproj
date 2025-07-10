@@ -6,14 +6,14 @@
 		<NoWarn>CS8669</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="CodeDesignPlus.Net.Generator" Version="0.7.0-beta.83" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="0.7.0-beta.83" />
-		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="0.7.0-beta.83" />
-		<PackageReference Include="CodeDesignPlus.Net.Cache.Abstractions" Version="0.7.0-beta.83" />
+		<PackageReference Include="CodeDesignPlus.Net.Generator" Version="0.8.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="0.8.0" />
+		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="0.8.0" />
+		<PackageReference Include="CodeDesignPlus.Net.Cache.Abstractions" Version="0.8.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
-		<PackageReference Include="MediatR" Version="12.5.0" />
-		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+		<PackageReference Include="MediatR" Version="13.0.0" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj" />
