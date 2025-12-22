@@ -51,7 +51,6 @@ app.UseCors(builder => builder
 );
 
 app.UsePath();
-
 app.UseExceptionMiddleware();
 app.UseHealthChecks();
 app.UseCodeErrors();
