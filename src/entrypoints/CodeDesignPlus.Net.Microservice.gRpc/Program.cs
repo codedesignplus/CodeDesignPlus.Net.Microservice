@@ -1,3 +1,4 @@
+using CodeDesignPlus.Net.Observability.Interceptors;
 using CodeDesignPlus.Net.Logger.Extensions;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.gRpc.Interceptors;
 using CodeDesignPlus.Net.Microservice.Commons.FluentValidation;
@@ -23,6 +24,7 @@ builder.Configuration.AddVault();
 builder.Services.AddGrpc(options =>
 {
     options.Interceptors.Add<ErrorInterceptor>();
+    options.Interceptors.Add<TraceContextInterceptor>();
 });
 builder.Services.AddGrpcReflection();
 
