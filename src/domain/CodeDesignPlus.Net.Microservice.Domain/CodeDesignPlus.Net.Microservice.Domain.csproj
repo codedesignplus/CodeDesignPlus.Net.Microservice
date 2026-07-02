@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="1.0.3" />
-    <PackageReference Include="CodeDesignPlus.Net.Mongo" Version="1.0.3" /> 
+    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="1.0.0-beta.12905" />
+    <PackageReference Include="CodeDesignPlus.Net.Mongo" Version="1.0.0-beta.12905" /> 
   </ItemGroup>
 </Project>

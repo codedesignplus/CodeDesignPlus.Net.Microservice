@@ -46,17 +46,12 @@ builder.Services.AddHealthChecksServices();
 var app = builder.Build();
 
 app.UseCors(builder => builder
-app.UseCors(builder => builder
-    .AllowAnyOrigin()
     .AllowAnyOrigin()
     .AllowAnyMethod()
-    .AllowAnyMethod()
-    .AllowAnyHeader()
     .AllowAnyHeader()
 );
 
 app.UseTraceContext();
-napp.UseTraceContext();
 
 app.UsePath();
 app.UseExceptionMiddleware();
