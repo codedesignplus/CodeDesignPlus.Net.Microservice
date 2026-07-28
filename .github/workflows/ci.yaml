@@ -1,12 +1,15 @@
 name: Continuous IntegrationAdd commentMore actions
 
-on: 
-  push:
-    branches:
-      - main
-      - rc
-      - dev
-      - feature/*  
+# CI deshabilitado temporalmente:
+# descomentar el bloque push para reactivar el disparo automatico.
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  #     - rc
+  #     - dev
+  #     - feature/*
  
 permissions:
   contents: write
@@ -30,4 +33,10 @@ jobs:
       project-name: CodeDesignPlus.Net.Microservice
       microservice-name: ms-archetype
       environment: Development
+    secrets: inherit
+
+  money-guardrails:
+    uses: codedesignplus/workflows/.github/workflows/money-guardrails.yaml@main
+    with:
+      runner: ubuntu-latest
     secrets: inherit
