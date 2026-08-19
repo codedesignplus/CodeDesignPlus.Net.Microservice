@@ -1,4 +1,4 @@
-name: Continuous IntegrationAdd commentMore actions
+name: Continuous Integration
 
 # CI deshabilitado temporalmente:
 # descomentar el bloque push para reactivar el disparo automatico.

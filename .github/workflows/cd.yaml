@@ -1,4 +1,4 @@
-name: Continuous DeploymentAdd commentMore actions
+name: Continuous Deployment
 
 on: 
   workflow_dispatch:
@@ -6,8 +6,9 @@ on:
       environment:
         type: choice
         description: Select the environment to deploy to
-        default: Staging
-        options: 
+        default: Development
+        options:
+        - Development
         - Staging
         - Production
  
