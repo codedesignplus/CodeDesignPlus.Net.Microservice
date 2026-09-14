@@ -1,15 +1,13 @@
 name: Continuous Integration
 
-# CI deshabilitado temporalmente:
-# descomentar el bloque push para reactivar el disparo automatico.
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
-  #     - rc
-  #     - dev
-  #     - feature/*
+  push:
+    branches:
+      - main
+      - rc
+      - dev
+      - feature/*
  
 permissions:
   contents: write
@@ -25,15 +23,17 @@ jobs:
       environment: Development
     secrets: inherit
   
-  sonarqube:
-    needs: build
-    if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/dev' }}
-    uses: codedesignplus/workflows/.github/workflows/sonarqube.yaml@main
-    with:
-      project-name: CodeDesignPlus.Net.Microservice
-      microservice-name: ms-archetype
-      environment: Development
-    secrets: inherit
+  # SonarQube queda fuera por ahora: el CI se enciende primero con build y los guardrails, y este job
+  # vuelve cuando los 35 repositorios esten en verde. Se comenta y no se borra para no reescribirlo.
+  # sonarqube:
+  #   needs: build
+  #   if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/rc' || github.ref == 'refs/heads/dev' }}
+  #   uses: codedesignplus/workflows/.github/workflows/sonarqube.yaml@main
+  #   with:
+  #     project-name: CodeDesignPlus.Net.Microservice
+  #     microservice-name: ms-archetype
+  #     environment: Development
+  #   secrets: inherit
 
   money-guardrails:
     uses: codedesignplus/workflows/.github/workflows/money-guardrails.yaml@main
