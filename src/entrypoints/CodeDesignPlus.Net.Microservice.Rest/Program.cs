@@ -1,4 +1,4 @@
-using CodeDesignPlus.Net.Observability.Extensions;
+﻿using CodeDesignPlus.Net.Observability.Extensions;
 using CodeDesignPlus.Net.Microservice.Commons.Application;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Middlewares;
 using CodeDesignPlus.Net.Microservice.Commons.EntryPoints.Rest.Resources;
@@ -34,6 +34,7 @@ builder.Services.AddMongo<CodeDesignPlus.Net.Microservice.Infrastructure.Startup
 builder.Services.AddObservability(builder.Configuration, builder.Environment);
 builder.Services.AddLogger(builder.Configuration);
 builder.Services.AddRabbitMQ<CodeDesignPlus.Net.Microservice.Domain.Startup>(builder.Configuration);
+builder.Services.AddServiceBus<CodeDesignPlus.Net.Microservice.Domain.Startup>(builder.Configuration);
 builder.Services.AddMapster();
 builder.Services.AddFluentValidation();
 builder.Services.AddMediatR<CodeDesignPlus.Net.Microservice.Application.Startup>();
