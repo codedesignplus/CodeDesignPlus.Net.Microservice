@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="1.0.0-beta.13239" />
-    <PackageReference Include="CodeDesignPlus.Net.Mongo" Version="1.0.0-beta.13239" /> 
+    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="1.0.0-beta.13265" />
+    <PackageReference Include="CodeDesignPlus.Net.Mongo" Version="1.0.0-beta.13265" /> 
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\errors.*.json" LogicalName="%(Filename)%(Extension)" WithCulture="false" />
