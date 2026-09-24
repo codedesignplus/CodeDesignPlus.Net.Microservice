@@ -1,8 +1,8 @@
 {
   "language": "es",
   "errors": {
-    "200": "",
-    "201": "",
-    "300": ""
+    "200": "Ese pedido no existe.",
+    "201": "Ese pedido ya existe.",
+    "300": "El cliente es obligatorio."
   }
 }

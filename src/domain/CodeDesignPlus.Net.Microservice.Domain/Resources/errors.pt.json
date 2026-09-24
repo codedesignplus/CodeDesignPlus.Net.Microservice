@@ -1,0 +1,25 @@
+{
+  "language": "pt",
+  "errors": {
+    "100": "O identificador não é válido.",
+    "101": "O condomínio não é válido.",
+    "102": "O cliente é obrigatório.",
+    "103": "O identificador do cliente não é válido.",
+    "104": "O nome do cliente não é válido.",
+    "105": "O produto é obrigatório.",
+    "106": "O identificador do produto não é válido.",
+    "107": "O nome do produto não é válido.",
+    "108": "O preço do produto não é válido.",
+    "109": "A quantidade do produto não é válida.",
+    "110": "Esse produto não está no pedido.",
+    "111": "O pedido já está concluído.",
+    "112": "O pedido já está cancelado.",
+    "113": "O documento é obrigatório.",
+    "114": "O tipo de documento é obrigatório.",
+    "115": "O país é obrigatório.",
+    "116": "O estado é obrigatório.",
+    "117": "A cidade é obrigatória.",
+    "118": "O endereço é obrigatório.",
+    "119": "O código postal não é válido."
+  }
+}

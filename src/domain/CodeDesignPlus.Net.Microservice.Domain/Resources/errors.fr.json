@@ -1,0 +1,25 @@
+{
+  "language": "fr",
+  "errors": {
+    "100": "L'identifiant n'est pas valide.",
+    "101": "La copropriété n'est pas valide.",
+    "102": "Le client est obligatoire.",
+    "103": "L'identifiant du client n'est pas valide.",
+    "104": "Le nom du client n'est pas valide.",
+    "105": "Le produit est obligatoire.",
+    "106": "L'identifiant du produit n'est pas valide.",
+    "107": "Le nom du produit n'est pas valide.",
+    "108": "Le prix du produit n'est pas valide.",
+    "109": "La quantité du produit n'est pas valide.",
+    "110": "Ce produit ne figure pas dans la commande.",
+    "111": "La commande est déjà terminée.",
+    "112": "La commande est déjà annulée.",
+    "113": "Le document est obligatoire.",
+    "114": "Le type de document est obligatoire.",
+    "115": "Le pays est obligatoire.",
+    "116": "La région est obligatoire.",
+    "117": "La ville est obligatoire.",
+    "118": "L'adresse est obligatoire.",
+    "119": "Le code postal n'est pas valide."
+  }
+}

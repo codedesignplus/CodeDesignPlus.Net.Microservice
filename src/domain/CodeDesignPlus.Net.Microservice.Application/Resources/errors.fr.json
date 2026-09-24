@@ -1,0 +1,8 @@
+{
+  "language": "fr",
+  "errors": {
+    "200": "Cette commande n'existe pas.",
+    "201": "Cette commande existe déjà.",
+    "300": "Le client est obligatoire."
+  }
+}
