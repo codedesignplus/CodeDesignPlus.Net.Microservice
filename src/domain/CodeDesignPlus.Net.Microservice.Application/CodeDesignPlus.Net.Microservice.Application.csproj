@@ -7,9 +7,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CodeDesignPlus.Net.Generator" Version="1.0.0-beta.13054" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="1.0.0-beta.13054" />
-		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="1.0.0-beta.13054" />
-		<PackageReference Include="CodeDesignPlus.Net.Cache.Abstractions" Version="1.0.0-beta.13054" />
+		<PackageReference Include="CodeDesignPlus.Net.Redis.Abstractions" Version="1.0.0-beta.13239" />
+		<PackageReference Include="CodeDesignPlus.Net.PubSub.Abstractions" Version="1.0.0-beta.13239" />
+		<PackageReference Include="CodeDesignPlus.Net.Cache.Abstractions" Version="1.0.0-beta.13239" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
 		<PackageReference Include="MediatR" Version="13.0.0" />
@@ -18,4 +18,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Domain\CodeDesignPlus.Net.Microservice.Domain.csproj" />
 	</ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\errors.*.json" LogicalName="%(Filename)%(Extension)" WithCulture="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="1.0.0-beta.13239" />
+  </ItemGroup>
 </Project>

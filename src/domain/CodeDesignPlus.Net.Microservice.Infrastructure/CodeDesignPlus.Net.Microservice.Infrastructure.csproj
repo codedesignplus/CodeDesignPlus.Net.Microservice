@@ -10,4 +10,10 @@
   <ItemGroup>
     <ProjectReference Include="..\CodeDesignPlus.Net.Microservice.Application\CodeDesignPlus.Net.Microservice.Application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\errors.*.json" LogicalName="%(Filename)%(Extension)" WithCulture="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CodeDesignPlus.Net.Exceptions" Version="1.0.0-beta.13239" />
+  </ItemGroup>
 </Project>

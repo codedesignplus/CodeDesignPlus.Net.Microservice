@@ -1,28 +1,30 @@
-﻿namespace CodeDesignPlus.Net.Microservice.Domain;
+﻿using CodeDesignPlus.Net.Exceptions;
+
+namespace CodeDesignPlus.Net.Microservice.Domain;
 
 public class Errors: IErrorCodes
 {
-    public const string IdOrderIsInvalid = "100 : Id is invalid.";
-    public const string TenantIsInvalid = "101 : Tenant is invalid.";
+    public static readonly Error IdOrderIsInvalid = new("100", "Id is invalid.");
+    public static readonly Error TenantIsInvalid = new("101", "Tenant is invalid.");
 
-    public const string ClientIsNull = "102 : Client is null.";
-    public const string IdClientIsInvalid = "103 : Id client is invalid.";
-    public const string NameClientIsInvalid = "104 : Name client is invalid.";
+    public static readonly Error ClientIsNull = new("102", "Client is null.");
+    public static readonly Error IdClientIsInvalid = new("103", "Id client is invalid.");
+    public static readonly Error NameClientIsInvalid = new("104", "Name client is invalid.");
 
-    public const string ProductIsNull = "105 : Product is null.";
-    public const string IdProductIsInvalid = "106 : Id product is invalid.";
-    public const string NameProductIsInvalid = "107 : Name product is invalid.";
-    public const string PriceProductIsInvalid = "108 : Price product is invalid.";
-    public const string QuantityProductIsInvalid = "109 : Quantity product is invalid.";
+    public static readonly Error ProductIsNull = new("105", "Product is null.");
+    public static readonly Error IdProductIsInvalid = new("106", "Id product is invalid.");
+    public static readonly Error NameProductIsInvalid = new("107", "Name product is invalid.");
+    public static readonly Error PriceProductIsInvalid = new("108", "Price product is invalid.");
+    public static readonly Error QuantityProductIsInvalid = new("109", "Quantity product is invalid.");
 
-    public const string ProductNotFound = "110 : Product not found in the order.";
-    public const string OrderAlreadyCompleted = "111 : Order already completed.";
-    public const string OrderAlreadyCancelled = "112 : Order already cancelled.";
-    public const string DocumentIsNull = "113 : Document is null.";
-    public const string TypeDocumentIsNull = "114 : Type document is null.";
-    public const string CountryIsNull = "115 : Country is null.";
-    public const string StateIsNull = "116 : State is null.";
-    public const string CityIsNull = "117 : City is null.";
-    public const string AddressIsNull = "118 : Address is null.";
-    public const string CodePostalIsInvalid = "119 : Code postal is invalid.";
+    public static readonly Error ProductNotFound = new("110", "Product not found in the order.");
+    public static readonly Error OrderAlreadyCompleted = new("111", "Order already completed.");
+    public static readonly Error OrderAlreadyCancelled = new("112", "Order already cancelled.");
+    public static readonly Error DocumentIsNull = new("113", "Document is null.");
+    public static readonly Error TypeDocumentIsNull = new("114", "Type document is null.");
+    public static readonly Error CountryIsNull = new("115", "Country is null.");
+    public static readonly Error StateIsNull = new("116", "State is null.");
+    public static readonly Error CityIsNull = new("117", "City is null.");
+    public static readonly Error AddressIsNull = new("118", "Address is null.");
+    public static readonly Error CodePostalIsInvalid = new("119", "Code postal is invalid.");
 }
